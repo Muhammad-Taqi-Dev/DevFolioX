@@ -76,6 +76,9 @@ const Navbar = () => {
                 scrollToSection('#home');
               }}
             >
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent animate-gradient-x">
+                Muhammad Taqi
+              </span>
               <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300 rounded-full"></span>
             </a>
           </motion.div>
