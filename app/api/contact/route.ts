@@ -20,6 +20,14 @@ export async function POST(request: NextRequest) {
       process.env.BREVO_API_KEY || ''
     );
 
+    if (!process.env.BREVO_API_KEY) {
+      console.error("❌ BREVO_API_KEY is missing");
+      return Response.json(
+        { error: "Server misconfiguration" },
+        { status: 500 }
+      );
+    }
+
     // Send email
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.subject = `Portfolio Contact: ${subject}`;
