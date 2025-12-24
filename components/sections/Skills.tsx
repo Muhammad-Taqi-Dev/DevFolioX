@@ -118,7 +118,7 @@ const Skills = () => {
               {/* Category Header */}
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                 <div className={`p-2 md:p-3 bg-gradient-to-br ${getColorClass(category.color)} rounded-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all duration-300`}>
-                  <category.icon className="text-white text-lg md:text-xl" />
+                  <category.icon className="text-white text-xl md:text-2xl" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-white">{category.title}</h3>
               </div>
@@ -135,8 +135,8 @@ const Skills = () => {
                     whileHover={{ scale: 1.05, y: -2 }}
                     className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 transition-all duration-300 cursor-default group hover:shadow-lg hover:shadow-cyan-500/30"
                   >
-                    {skill.icon && <skill.icon className="text-cyan-400 text-base md:text-lg group-hover:scale-110 transition-transform" />}
-                    <span className="text-gray-300 font-medium text-sm md:text-base">{skill.name}</span>
+                    {skill.icon && <skill.icon className="text-cyan-400 text-lg md:text-xl group-hover:scale-110 transition-transform" />}
+                    <span className="text-gray-300 font-semibold text-base md:text-lg">{skill.name}</span>
                   </motion.div>
                 ))}
               </div>

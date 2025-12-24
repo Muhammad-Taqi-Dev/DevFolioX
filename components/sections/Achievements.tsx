@@ -108,8 +108,8 @@ const Achievements = () => {
                   </div>
                   <div className="flex-1">
                     <h4 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 md:mb-3">{comp.title}</h4>
-                    <p className="text-cyan-400 font-bold mb-3 md:mb-4 text-base md:text-lg">{comp.achievement}</p>
-                    <p className="text-gray-400 text-sm md:text-base leading-relaxed">{comp.description}</p>
+                    <p className="text-cyan-400 font-bold mb-3 md:mb-4 text-lg md:text-xl">{comp.achievement}</p>
+                    <p className="text-gray-400 text-base md:text-lg leading-relaxed">{comp.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -155,7 +155,7 @@ const Achievements = () => {
                 <div className="grid grid-cols-2 gap-4 md:gap-5">
                   {platform.stats.map((stat, i) => (
                     <div key={i} className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 md:p-5 border-2 border-gray-700 group-hover:border-cyan-400/50 transition-all duration-300">
-                      <p className="text-gray-400 text-sm md:text-base mb-2 font-medium">{stat.label}</p>
+                      <p className="text-gray-400 text-base md:text-lg mb-2 font-semibold">{stat.label}</p>
                       <p className="text-cyan-400 font-bold text-xl md:text-2xl lg:text-3xl">{stat.value}</p>
                     </div>
                   ))}

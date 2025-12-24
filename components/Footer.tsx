@@ -20,7 +20,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-bold text-cyan-400 mb-4">Muhammad Taqi Haider</h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed">
               Associate Software Engineer specializing in backend development with NestJS, .NET, and modern web technologies.
             </p>
           </div>
@@ -33,7 +33,7 @@ const Footer = () => {
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
-                  className="block text-gray-400 hover:text-cyan-400 transition-colors text-sm"
+                  className="block text-gray-400 hover:text-cyan-400 transition-colors text-base md:text-lg font-medium"
                 >
                   {link}
                 </a>

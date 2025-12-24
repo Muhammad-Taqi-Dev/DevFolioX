@@ -58,10 +58,10 @@ const About = () => {
             className="space-y-4 md:space-y-6"
           >
             <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4 md:mb-5">
-              Hi, I'm Taqi 👋
-            </h3>
+            Hi, I'm Taqi 👋
+          </h3>
             
-            <div className="space-y-3 text-gray-300 leading-relaxed text-sm md:text-base">
+            <div className="space-y-3 md:space-y-4 text-gray-300 leading-relaxed text-base md:text-lg">
               <p>
                 <span className="text-cyan-400 font-semibold">Final-year CS student</span> at NED University with <span className="text-cyan-400 font-semibold">1 year</span> as Associate Software Engineer, specializing in <span className="text-cyan-400">NestJS</span>, <span className="text-cyan-400">.NET</span>, and <span className="text-cyan-400">microservices</span>.
               </p>
@@ -74,7 +74,7 @@ const About = () => {
                 💪 Solved <span className="text-cyan-400 font-semibold">240+ LeetCode</span> problems. Passionate about <span className="text-cyan-400">clean code</span>, <span className="text-cyan-400">scalable systems</span>, and <span className="text-cyan-400">products that matter</span>.
               </p>
               
-              <p className="text-cyan-400 font-semibold text-base md:text-lg pt-2">
+              <p className="text-cyan-400 font-bold text-lg md:text-xl pt-2">
                 🎯 Goal: Full Stack Engineer + Product Development + AI Integration
               </p>
             </div>
@@ -86,7 +86,7 @@ const About = () => {
                   <FiBookOpen className="text-cyan-400 text-xl md:text-2xl flex-shrink-0" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-base md:text-lg mb-2 flex items-center gap-2">
+                  <h4 className="text-white font-bold text-lg md:text-xl mb-2 flex items-center gap-2">
                     <span className="w-1.5 h-5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></span>
                     Education
                   </h4>
@@ -111,7 +111,7 @@ const About = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="text-center bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 md:p-5 border-2 border-gray-700 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/20 group">
                   <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">{stat.value}</div>
-                  <div className="text-gray-400 text-xs md:text-sm font-medium">{stat.label}</div>
+                  <div className="text-gray-400 text-sm md:text-base font-semibold">{stat.label}</div>
                 </motion.div>
               ))}
             </div>

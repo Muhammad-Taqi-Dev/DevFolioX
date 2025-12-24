@@ -86,7 +86,7 @@ const Experience = () => {
                 </div>
 
                 {/* Period & Location */}
-                <div className="flex flex-wrap gap-3 md:gap-5 mb-4 md:mb-5 text-gray-400 text-sm md:text-base font-medium">
+                <div className="flex flex-wrap gap-3 md:gap-5 mb-4 md:mb-5 text-gray-400 text-base md:text-lg font-medium">
                   <div className="flex items-center gap-2">
                     <FiCalendar className="text-base md:text-lg" />
                     <span>{exp.period}</span>
@@ -103,7 +103,7 @@ const Experience = () => {
                   </h4>
                   <ul className="space-y-2.5 md:space-y-3">
                     {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="text-gray-300 text-sm md:text-base flex items-start leading-relaxed">
+                      <li key={i} className="text-gray-300 text-base md:text-lg flex items-start leading-relaxed">
                         <span className="text-cyan-400 text-lg font-bold mr-2 md:mr-2.5 mt-0.5">▹</span>
                         <span>{achievement}</span>
                       </li>
@@ -116,7 +116,7 @@ const Experience = () => {
                   {exp.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1.5 md:py-2 bg-gradient-to-r from-gray-800 to-gray-900 text-cyan-400 text-xs md:text-sm font-medium rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 cursor-default"
+                      className="px-3 py-2 md:py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 text-cyan-400 text-sm md:text-base font-semibold rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 cursor-default"
                     >
                       {tech}
                     </span>

@@ -30,7 +30,9 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
             className="mb-4 md:mb-6"
           >
-            <span className="text-cyan-400 text-base md:text-lg font-medium">Hello, I'm</span>
+          <span className="text-cyan-400 text-lg md:text-2xl font-medium tracking-wide">
+            Hello, I'm
+          </span>
           </motion.div>
 
           {/* Name */}
@@ -69,7 +71,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-12 px-4"
+            className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-12 px-4 leading-relaxed"
           >
             Building scalable backend systems with NestJS & .NET. Focused on clean architecture and solving complex problems.
           </motion.p>
@@ -83,13 +85,13 @@ const Hero = () => {
           >
             <button
               onClick={() => scrollToSection('#projects')}
-              className="px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/70 text-sm md:text-base"
+              className="px-6 md:px-8 py-3.5 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/70 text-base md:text-lg"
             >
               View Projects
             </button>
             <button
               onClick={() => scrollToSection('#contact')}
-              className="px-6 md:px-8 py-2.5 md:py-3 bg-transparent border-2 border-cyan-500 text-cyan-400 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white hover:border-transparent font-medium rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 text-sm md:text-base"
+              className="px-6 md:px-8 py-3.5 md:py-4 bg-transparent border-2 border-cyan-500 text-cyan-400 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white hover:border-transparent font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
             >
               Contact Me
             </button>

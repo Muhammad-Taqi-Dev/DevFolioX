@@ -169,7 +169,7 @@ const Projects = () => {
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{project.title}</h3>
                   {project.featured && (
-                    <span className="px-3 py-1 md:py-1.5 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 text-xs md:text-sm font-semibold rounded-full border-2 border-cyan-400/60 whitespace-nowrap animate-pulse shadow-lg shadow-cyan-500/50">
+                    <span className="px-3 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 text-sm md:text-base font-bold rounded-full border-2 border-cyan-400/60 whitespace-nowrap animate-pulse shadow-lg shadow-cyan-500/50">
                       ⭐ Featured
                     </span>
                   )}
@@ -178,17 +178,17 @@ const Projects = () => {
 
               {/* Project Body */}
               <div className="p-5 md:p-7 flex-grow flex flex-col">
-                <p className="text-gray-300 text-sm md:text-base mb-4 md:mb-5 leading-relaxed">{project.description}</p>
+                <p className="text-gray-300 text-base md:text-lg mb-4 md:mb-5 leading-relaxed">{project.description}</p>
 
                 {/* Features */}
                 <div className="mb-4 md:mb-5">
-                  <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2">
+                  <h4 className="text-white font-bold text-base md:text-lg mb-3 flex items-center gap-2">
                     <span className="w-1.5 h-5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></span>
                     Key Features
                   </h4>
                   <ul className="space-y-2">
                     {project.features.slice(0, 2).map((feature, i) => (
-                      <li key={i} className="text-gray-400 text-xs md:text-sm flex items-start gap-2 leading-relaxed">
+                      <li key={i} className="text-gray-400 text-sm md:text-base flex items-start gap-2 leading-relaxed">
                         <span className="text-cyan-400 text-lg font-bold mt-0.5">▹</span>
                         <span>{feature}</span>
                       </li>
@@ -202,7 +202,7 @@ const Projects = () => {
                     {project.technologies.slice(0, 5).map((tech, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1.5 md:py-2 bg-gradient-to-r from-gray-900 to-gray-800 text-cyan-400 text-xs md:text-sm font-medium rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 cursor-default"
+                        className="px-3 py-2 md:py-2.5 bg-gradient-to-r from-gray-900 to-gray-800 text-cyan-400 text-sm md:text-base font-semibold rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 cursor-default"
                       >
                         {tech}
                       </span>
@@ -217,9 +217,9 @@ const Projects = () => {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 md:gap-2.5 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-sm md:text-base font-medium hover:scale-110 hover:gap-3 group"
+                      className="flex items-center gap-2 md:gap-2.5 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-base md:text-lg font-semibold hover:scale-110 hover:gap-3 group"
                     >
-                      <FiGithub className="text-lg md:text-xl group-hover:rotate-12 transition-transform" /> Code
+                      <FiGithub className="text-xl md:text-2xl group-hover:rotate-12 transition-transform" /> Code
                     </a>
                   )}
                   {project.live && (
@@ -227,9 +227,9 @@ const Projects = () => {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 md:gap-2.5 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-sm md:text-base font-medium hover:scale-110 hover:gap-3 group"
+                      className="flex items-center gap-2 md:gap-2.5 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-base md:text-lg font-semibold hover:scale-110 hover:gap-3 group"
                     >
-                      <FiExternalLink className="text-lg md:text-xl group-hover:rotate-12 transition-transform" /> {project.isCompanyProject ? 'View Platform' : 'Live Demo'}
+                      <FiExternalLink className="text-xl md:text-2xl group-hover:rotate-12 transition-transform" /> {project.isCompanyProject ? 'View Platform' : 'Live Demo'}
                     </a>
                   )}
                 </div>
@@ -250,7 +250,7 @@ const Projects = () => {
             href="https://github.com/Muhammad-Taqi-Dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 text-base md:text-lg bg-gradient-to-r from-gray-800 to-gray-900 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 border-2 border-gray-700 hover:border-transparent shadow-xl hover:shadow-2xl hover:shadow-cyan-500/50 group"
+            className="inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 text-lg md:text-xl bg-gradient-to-r from-gray-800 to-gray-900 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 border-2 border-gray-700 hover:border-transparent shadow-xl hover:shadow-2xl hover:shadow-cyan-500/50 group"
           >
             <FiGithub size={24} className="md:w-7 md:h-7 group-hover:rotate-12 transition-transform" />
             View More on GitHub
