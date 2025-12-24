@@ -22,12 +22,28 @@ const Contact = () => {
     e.preventDefault();
     setStatus('sending');
 
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 3000);
-    }, 1500);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   const contactInfo = [
@@ -254,6 +270,16 @@ const Contact = () => {
                   className="mt-5 text-green-400 text-center text-base font-semibold"
                 >
                   Thank you! I'll get back to you soon.
+                </motion.p>
+              )}
+
+              {status === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-5 text-red-400 text-center text-base font-semibold"
+                >
+                  Oops! Something went wrong. Please try again.
                 </motion.p>
               )}
             </form>
