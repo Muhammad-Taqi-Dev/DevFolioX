@@ -89,6 +89,15 @@ const Hero = () => {
             >
               View Projects
             </button>
+            <a
+              href="/Software_Engineer_Taqi_Haider_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3.5 md:py-4 bg-transparent border-2 border-blue-500 text-blue-400 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/50 text-base md:text-lg"
+            >
+              <FiDownload className="text-xl" />
+              <span>Download Resume</span>
+            </a>
             <button
               onClick={() => scrollToSection('#contact')}
               className="px-6 md:px-8 py-3.5 md:py-4 bg-transparent border-2 border-cyan-500 text-cyan-400 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white hover:border-transparent font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 text-base md:text-lg"
