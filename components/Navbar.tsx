@@ -177,7 +177,7 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navItems.map((item, index) => {
               const isActive = activeSection === item.href.substring(1);
               return (
@@ -229,33 +229,34 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <motion.div 
-            className="lg:hidden"
-            whileTap={{ scale: 0.85, rotate: 90 }}
-          >
-            <motion.button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="relative p-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 rounded-lg hover:bg-cyan-400/10 border-2 border-transparent hover:border-cyan-400/50 overflow-hidden"
-              whileHover={{ 
-                boxShadow: "0 0 20px rgba(34,211,238,0.4)",
-                borderColor: "rgba(34,211,238,0.5)"
-              }}
+          <div className="lg:hidden flex items-center gap-3">
+            <motion.div 
+              whileTap={{ scale: 0.85, rotate: 90 }}
             >
-              <motion.div
-                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
+              <motion.button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="relative p-3 text-gray-300 hover:text-cyan-400 transition-all duration-300 rounded-lg hover:bg-cyan-400/10 border-2 border-transparent hover:border-cyan-400/50 overflow-hidden"
+                whileHover={{ 
+                  boxShadow: "0 0 20px rgba(34,211,238,0.4)",
+                  borderColor: "rgba(34,211,238,0.5)"
+                }}
               >
-                {isMobileMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-              </motion.div>
-              {/* Animated background */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-500/20"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
-              />
-            </motion.button>
-          </motion.div>
+                <motion.div
+                  animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isMobileMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+                </motion.div>
+                {/* Animated background */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-500/20"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "100%" }}
+                  transition={{ duration: 0.5 }}
+                />
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
       </div>
 
