@@ -67,7 +67,7 @@ const About = () => {
               </p>
               
               <p>
-                Building <span className="text-cyan-400 font-semibold"><a href="https://track-wise2.vercel.app/home" target="_blank" rel="noopener noreferrer">TrackWise</a></span> – AI-powered finance platform (FYP). Exploring <span className="text-cyan-400">Agentic AI</span> and transitioning to <span className="text-cyan-400 font-semibold">Full Stack</span> with React.
+                Building <span className="text-cyan-400 font-semibold"><a href="https://track-wise2.vercel.app/home" target="_blank" rel="noopener noreferrer">TrackWise</a></span> – AI-powered finance platform (FYP). Exploring <span className="text-cyan-400">Agentic AI</span> and transitioning to <span className="text-cyan-400 font-semibold">Full Stack</span> with Next.JS.
               </p>
               
               <p>
@@ -90,11 +90,11 @@ const About = () => {
                     <span className="w-1.5 h-5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></span>
                     Education
                   </h4>
-                  <p className="text-gray-300 font-semibold text-sm md:text-base mb-1">
+                  <p className="text-gray-300 font-semibold text-sm md:text-xl mb-1">
                     BS Computer Science & IT
                   </p>
-                  <p className="text-gray-400 text-xs md:text-sm">
-                    NED University of Engineering & Technology • CGPA: 3.31/4.00
+                  <p className="text-gray-400 text-xs md:text-base">
+                    NED University of Engineering & Technology • CGPA: 3.32/4.00
                   </p>
                 </div>
               </div>

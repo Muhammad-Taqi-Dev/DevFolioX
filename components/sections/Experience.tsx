@@ -7,17 +7,30 @@ import SectionWrapper from '../SectionWrapper';
 const Experience = () => {
   const experiences = [
     {
+      company: 'QBS Co.',
+      position: 'Trainee Software Engineer',
+      period: 'Nov 2025 – Present',
+      location: 'Karachi, Pakistan',
+      achievements: [
+        'Working as a Full Stack Developer using .NET, NestJS, and Next.js to build enterprise-scale applications',
+        'Implemented RBAC and User Management modules in Next.js for Project VersEye, ensuring secure and maintainable access control',
+        'Developed backend services in NestJS for the Ajeeks platform, including a production-ready WhatsApp Service for automated workflows',
+      ],
+      technologies: ['.NET Core', 'NestJS', 'Next.js', 'RBAC'],
+      color: 'cyan',
+    },
+    {
       company: 'KoderLabs',
       position: 'Associate Software Engineer',
       period: 'Mar 2025 – Oct 2025',
       location: 'Karachi, Pakistan',
       achievements: [
-        'Developed backend services using NestJS and .NET, improving code structure and scalability',
-        'Implemented multitenant architecture and optimized database design with PostgreSQL and PostGIS',
-        'Built real-time/cloud features with AWS S3, SignalR, and Azure Functions',
+        'Developed backend APIs using NestJS and .NET, focusing on scalability and clean architecture',
+        'Worked on multi-tenant systems, optimized database schemas, and integrated Google Maps API with PostGIS',
+        'Implemented cloud and real-time features using AWS S3, Azure Functions, and SignalR',
       ],
-      technologies: ['NestJS', '.NET Core', 'PostgreSQL', 'AWS S3', 'SignalR', 'PostGIS'],
-      color: 'cyan',
+      technologies: ['NestJS', '.NET Core', 'PostGIS', 'AWS S3', 'Azure Functions', 'SignalR', 'Google Maps API'],
+      color: 'blue',
     },
     {
       company: 'QBS Co.',
@@ -25,12 +38,12 @@ const Experience = () => {
       period: 'Dec 2024 – Mar 2025',
       location: 'Karachi, Pakistan',
       achievements: [
-        'Built backend modules for Ajeeks with .NET, enhancing business workflows',
-        'Developed Docker-based microservices with gRPC for efficient communication',
-        'Applied CQRS architecture and Neo4j for improved scalability',
+        'Built backend modules for Ajeeks, enhancing usability and business workflows',
+        'Developed Docker-based microservices, integrated gRPC, and implemented Neo4j features',
+        'Applied CQRS principles to improve system modularity and scalability',
       ],
       technologies: ['.NET Core', 'Docker', 'gRPC', 'Neo4j', 'CQRS', 'Microservices'],
-      color: 'blue',
+      color: 'cyan',
     },
   ];
 
