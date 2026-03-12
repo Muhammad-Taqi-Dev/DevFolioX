@@ -8,8 +8,21 @@ const Experience = () => {
   const experiences = [
     {
       company: 'QBS Co.',
+      position: 'Associate Software Engineer',
+      period: 'Feb 2026 – Present',
+      location: 'Karachi, Pakistan',
+      achievements: [
+        'Developing platform modules for VersEye, including IAM Console, Analytics Dashboard (9 KPIs), and Model Management',
+        'Building frontend systems with Next.js in a Monorepo and integrating APIs from backend services',
+        'Collaborating across teams to deliver enterprise-grade full-stack features',
+      ],
+      technologies: ['Next.js', 'Monorepo', 'TypeScript', 'API Integration'],
+      color: 'cyan',
+    },
+    {
+      company: 'QBS Co.',
       position: 'Trainee Software Engineer',
-      period: 'Nov 2025 – Present',
+      period: 'Nov 2025 – Feb 2026',
       location: 'Karachi, Pakistan',
       achievements: [
         'Working as a Full Stack Developer using .NET, NestJS, and Next.js to build enterprise-scale applications',
