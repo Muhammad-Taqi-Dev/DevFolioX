@@ -12,11 +12,11 @@ const Experience = () => {
       period: 'Feb 2026 – Present',
       location: 'Karachi, Pakistan',
       achievements: [
-        'Developing platform modules for VersEye, including IAM Console, Analytics Dashboard (9 KPIs), and Model Management',
-        'Building frontend systems with Next.js in a Monorepo and integrating APIs from backend services',
+        'Developed the modular VersEye platform in Next.js, delivering IAM, KPI dashboards, Model Management, and Region/Camera/CCTV workflows, reducing enterprise onboarding time by 40%',
+        'Built a frontend integration layer for 10+ backend services with JWT authentication and Redis caching for real-time NVR/DVR streams, improving scalability and reducing database load',
         'Collaborating across teams to deliver enterprise-grade full-stack features',
       ],
-      technologies: ['Next.js', 'Monorepo', 'TypeScript', 'API Integration'],
+      technologies: ['Next.js', 'TypeScript', 'Monorepo', 'JWT/OAuth2', 'Redis'],
       color: 'cyan',
     },
     {
@@ -29,7 +29,7 @@ const Experience = () => {
         'Implemented RBAC and User Management modules in Next.js for Project VersEye, ensuring secure and maintainable access control',
         'Developed backend services in NestJS for the Ajeeks platform, including a production-ready WhatsApp Service for automated workflows',
       ],
-      technologies: ['.NET Core', 'NestJS', 'Next.js', 'RBAC'],
+      technologies: ['.NET Core', 'NestJS', 'Next.js', 'JWT/OAuth2', 'RBAC'],
       color: 'cyan',
     },
     {
@@ -38,11 +38,10 @@ const Experience = () => {
       period: 'Mar 2025 – Oct 2025',
       location: 'Karachi, Pakistan',
       achievements: [
-        'Developed backend APIs using NestJS and .NET, focusing on scalability and clean architecture',
-        'Worked on multi-tenant systems, optimized database schemas, and integrated Google Maps API with PostGIS',
-        'Implemented cloud and real-time features using AWS S3, Azure Functions, and SignalR',
+        'Designed a scalable multi-tenant SaaS backend using NestJS and .NET Core with Clean Architecture and event-driven patterns across Azure Functions, SignalR, and AWS S3',
+        'Optimized geospatial queries using PostgreSQL (PostGIS) and Google Maps API, reducing response time by 35% while refactoring services to minimize redundant DB calls and improve API efficiency',
       ],
-      technologies: ['NestJS', '.NET Core', 'PostGIS', 'AWS S3', 'Azure Functions', 'SignalR', 'Google Maps API'],
+      technologies: ['NestJS', '.NET Core', 'PostgreSQL', 'PostGIS', 'Azure Functions', 'SignalR', 'AWS S3', 'Google Maps API'],
       color: 'blue',
     },
     {
@@ -51,11 +50,10 @@ const Experience = () => {
       period: 'Dec 2024 – Mar 2025',
       location: 'Karachi, Pakistan',
       achievements: [
-        'Built backend modules for Ajeeks, enhancing usability and business workflows',
-        'Developed Docker-based microservices, integrated gRPC, and implemented Neo4j features',
-        'Applied CQRS principles to improve system modularity and scalability',
+        'Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance',
+        'Independently developed Product and SLA services for Ajeeks; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal',
       ],
-      technologies: ['.NET Core', 'Docker', 'gRPC', 'Neo4j', 'CQRS', 'Microservices'],
+      technologies: ['.NET Core', 'Docker', 'gRPC', 'Neo4j', 'CQRS', 'Microservices', 'OAuth2', '2FA'],
       color: 'cyan',
     },
   ];

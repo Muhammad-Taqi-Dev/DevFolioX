@@ -7,6 +7,22 @@ import SectionWrapper from '../SectionWrapper';
 const Projects = () => {
   const projects = [
     {
+      title: 'VersEye',
+      subtitle: 'Enterprise AI-Powered Workforce Intelligence Platform',
+      period: 'Feb 2026 – Present',
+      description:
+        'Built an enterprise AI-powered workforce intelligence platform to streamline identity, monitoring, and video management workflows.',
+      features: [
+        'Reduced enterprise onboarding time by 40% by delivering IAM Console with RBAC, Employee KPI Dashboard with 9 real-time metrics, and a Model Management review panel.',
+        'Built a Next.js monorepo frontend integrating 10+ RESTful API endpoints across distributed microservices with JWT authentication and role-based authorization.',
+        'Implemented Redis caching for NVR/DVR device and stream metadata, reducing repeated database calls and improving real-time monitoring response time.',
+      ],
+      technologies: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'Docker', 'REST APIs', 'RBAC', 'JWT', 'Redis'],
+      live: 'http://163.61.91.33:32406/login',
+      featured: true,
+      isCompanyProject: true,
+    },
+    {
       title: 'Ajeek-KSA',
       subtitle: 'Service Technology Platform',
       period: 'Aug 2024 – Present',
@@ -26,12 +42,12 @@ const Projects = () => {
       subtitle: 'Smart Personal Finance Management System',
       period: 'May 2025 – Present',
       description:
-        'Problem: Manual expense tracking wastes time and lacks insights. Built AI-powered platform delivering real-time financial intelligence.',
+        'Built an AI-powered personal finance platform to automate expense tracking and budgeting.',
       features: [
-        'Challenge: Manual categorization errors. Solution: Implemented HuggingFace AI model achieving 92% accuracy in expense classification',
-        'Challenge: Scalability needs. Solution: Architected NestJS backend with PostgreSQL handling 10K+ transactions efficiently',
+        'Designed a scalable backend using NestJS and PostgreSQL with REST APIs for real-time transaction processing and finance tracking.',
+        'Integrated Flask-based ML microservices with Sentence-BERT and anomaly detection, achieving 90% categorization accuracy on mixed English/Roman-Urdu inputs and enabling real-time overspending alerts via email.',
       ],
-      technologies: ['NestJS', 'Angular 19', 'PostgreSQL', 'JWT', 'AI/ML', 'Azure', 'Vercel', 'Render'],
+      technologies: ['NestJS', 'PostgreSQL', 'Flask', 'Sentence-BERT', 'NLP', 'Angular 19', 'JWT', 'Azure', 'Vercel', 'Render'],
       github: 'https://github.com/Muhammad-Taqi-Dev/TrackWise',
       live: 'https://track-wise2.vercel.app/home',
       featured: true,
