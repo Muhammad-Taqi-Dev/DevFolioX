@@ -1,153 +1,196 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiCalendar } from 'react-icons/fi';
-import SectionWrapper from '../SectionWrapper';
+import { motion } from "framer-motion";
+import { FiGithub, FiExternalLink, FiCalendar } from "react-icons/fi";
+import SectionWrapper from "../SectionWrapper";
 
 const Projects = () => {
   const projects = [
     {
-      title: 'VersEye',
-      subtitle: 'Enterprise AI-Powered Workforce Intelligence Platform',
-      period: 'Feb 2026 – Present',
+      title: "VersEye",
+      subtitle: "Enterprise AI-Powered Workforce Intelligence Platform",
+      period: "Feb 2026 – Present",
       description:
-        'Built an enterprise AI-powered workforce intelligence platform to streamline identity, monitoring, and video management workflows.',
+        "Built an enterprise AI-powered workforce intelligence platform to streamline identity, monitoring, and video management workflows.",
       features: [
-        'Reduced enterprise onboarding time by 40% by delivering IAM Console with RBAC, Employee KPI Dashboard with 9 real-time metrics, and a Model Management review panel.',
-        'Built a Next.js monorepo frontend integrating 10+ RESTful API endpoints across distributed microservices with JWT authentication and role-based authorization.',
-        'Implemented Redis caching for NVR/DVR device and stream metadata, reducing repeated database calls and improving real-time monitoring response time.',
+        "Reduced enterprise onboarding time by 40% by delivering IAM Console with RBAC, Employee KPI Dashboard with 9 real-time metrics, and a Model Management review panel.",
+        "Built a Next.js monorepo frontend integrating 10+ RESTful API endpoints across distributed microservices with JWT authentication and role-based authorization.",
+        "Implemented Redis caching for NVR/DVR device and stream metadata, reducing repeated database calls and improving real-time monitoring response time.",
       ],
-      technologies: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'Docker', 'REST APIs', 'RBAC', 'JWT', 'Redis'],
-      live: 'http://163.61.91.33:32406/login',
+      technologies: [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "PostgreSQL",
+        "Docker",
+        "REST APIs",
+        "RBAC",
+        "JWT",
+        "Redis",
+      ],
+      live: "http://163.61.91.33:32406/login",
       featured: true,
       isCompanyProject: true,
     },
     {
-      title: 'Ajeek-KSA',
-      subtitle: 'Service Technology Platform',
-      period: 'Aug 2024 – Present',
+      title: "Ajeek-KSA",
+      subtitle: "Service Technology Platform",
+      period: "Aug 2024 – Present",
       description:
-        'Problem: Manual service operations causing inefficiencies. Built microservices architecture to streamline marketplace and SLA management.',
+        "Problem: Manual service operations causing inefficiencies. Built microservices architecture to streamline marketplace and SLA management.",
       features: [
-        'Challenge: Complex business workflows. Solution: Developed Product microservice with .NET for scalable marketplace operations',
-        'Challenge: Service tracking inefficiency. Solution: Built SLA management system with automated compliance monitoring',
+        "Challenge: Complex business workflows. Solution: Developed Product microservice with .NET for scalable marketplace operations",
+        "Challenge: Service tracking inefficiency. Solution: Built SLA management system with automated compliance monitoring",
       ],
-      technologies: ['.NET Core', 'Microservices', 'C#', 'SQL Server', 'REST APIs'],
-      live: 'http://ajeek.qbscocloud.net:31180/crm/login',
+      technologies: [
+        ".NET Core",
+        "Microservices",
+        "C#",
+        "SQL Server",
+        "REST APIs",
+      ],
+      live: "http://ajeek.qbscocloud.net:31180/crm/login",
       featured: true,
       isCompanyProject: true,
     },
     {
-      title: 'TrackWise',
-      subtitle: 'Smart Personal Finance Management System',
-      period: 'May 2025 – Present',
+      title: "TrackWise",
+      subtitle: "Smart Personal Finance Management System",
+      period: "May 2025 – Present",
       description:
-        'Built an AI-powered personal finance platform to automate expense tracking and budgeting.',
+        "Built an AI-powered personal finance platform to automate expense tracking and budgeting.",
       features: [
-        'Designed a scalable backend using NestJS and PostgreSQL with REST APIs for real-time transaction processing and finance tracking.',
-        'Integrated Flask-based ML microservices with Sentence-BERT and anomaly detection, achieving 90% categorization accuracy on mixed English/Roman-Urdu inputs and enabling real-time overspending alerts via email.',
+        "Designed a scalable backend using NestJS and PostgreSQL with REST APIs for real-time transaction processing and finance tracking.",
+        "Integrated Flask-based ML microservices with Sentence-BERT and anomaly detection, achieving 90% categorization accuracy on mixed English/Roman-Urdu inputs and enabling real-time overspending alerts via email.",
       ],
-      technologies: ['NestJS', 'PostgreSQL', 'Flask', 'Sentence-BERT', 'NLP', 'Angular 19', 'JWT', 'Azure', 'Vercel', 'Render'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/TrackWise',
-      live: 'https://track-wise2.vercel.app/home',
+      technologies: [
+        "NestJS",
+        "PostgreSQL",
+        "Flask",
+        "Sentence-BERT",
+        "NLP",
+        "Angular 19",
+        "JWT",
+        "Azure",
+        "Vercel",
+        "Render",
+      ],
+      github: "https://github.com/Muhammad-Taqi-Dev/TrackWise",
+      live: "https://track-wise2.vercel.app/home",
       featured: true,
     },
     {
-      title: 'CourseFlow',
-      subtitle: 'Smart Course Scheduler',
-      period: 'Dec 2024 – Jan 2025',
+      title: "CourseFlow",
+      subtitle: "University Course Scheduler",
+      period: "Dec 2024 – Jan 2025",
       description:
-        'Problem: Manual timetabling creates conflicts and wastes hours. Built algorithmic scheduler eliminating 95% of scheduling conflicts.',
+        "Web-based University Course Scheduling System built with Flask and SQLite. Implements Greedy and Backtracking algorithms to automate timetabling, detect and resolve conflicts, and provide an admin interface for schedule management and algorithm performance comparison.",
       features: [
-        'Challenge: NP-complete scheduling problem. Solution: Applied Greedy + Backtracking algorithms achieving optimal allocation',
-        'Challenge: Real-time conflict detection. Solution: Developed admin dashboard with instant validation and automated resolution',
+        "Conflict-free scheduling using Greedy & Backtracking algorithms with performance comparison.",
+        "Real-time conflict detection and resolution for teacher and room conflicts with an admin validation dashboard.",
+        "Interactive UI to add/view/edit courses, select up to six courses, and visualize weekly schedules.",
+        "Detailed algorithm comparison (Greedy vs Backtracking) with conflict reports and resolution recommendations.",
+        "Persistence via SQLite and a lightweight Flask deployable demo.",
       ],
-      technologies: ['Flask', 'Python', 'Algorithms', 'SQLite'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/CourseFlow',
+      technologies: ["Flask", "Python", "Algorithms", "SQLite", "Jinja"],
+      github: "https://github.com/Muhammad-Taqi-Dev/CourseFlow",
       featured: true,
     },
     {
-      title: 'Stock Management System',
-      subtitle: 'Inventory Management Platform',
-      period: 'June 2024 – July 2024',
+      title: "Stock Management System",
+      subtitle: "Inventory Management Platform",
+      period: "June 2024 – July 2024",
       description:
-        'Problem: Manual inventory tracking causes stockouts and overstocking. Built automated system reducing inventory errors by 80%.',
+        "Problem: Manual inventory tracking causes stockouts and overstocking. Built automated system reducing inventory errors by 80%.",
       features: [
-        'Challenge: Real-time tracking needs. Solution: Developed Flask backend with WebSocket integration for instant stock updates',
-        'Challenge: Proactive management. Solution: Implemented smart alerts reducing stockouts by 65% through predictive thresholds',
+        "Challenge: Real-time tracking needs. Solution: Developed Flask backend with WebSocket integration for instant stock updates",
+        "Challenge: Proactive management. Solution: Implemented smart alerts reducing stockouts by 65% through predictive thresholds",
       ],
-      technologies: ['Flask', 'Python', 'SQLAlchemy', 'MySQL', 'Bootstrap'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/Stock-Management-System-Website',
+      technologies: ["Flask", "Python", "SQLAlchemy", "MySQL", "Bootstrap"],
+      github:
+        "https://github.com/Muhammad-Taqi-Dev/Stock-Management-System-Website",
       featured: true,
     },
     {
-      title: 'Chatbot Interface',
-      subtitle: 'AI-Powered Conversational Bot',
-      period: 'Sep 2024 – Oct 2024',
+      title: "Chatbot Interface",
+      subtitle: "AI-Powered Conversational Bot",
+      period: "Sep 2024 – Oct 2024",
       description:
-        'Problem: Language barriers in customer support (English/Urdu). Built bilingual chatbot serving 500+ users with 85% satisfaction.',
+        "Problem: Language barriers in customer support (English/Urdu). Built bilingual chatbot serving 500+ users with 85% satisfaction.",
       features: [
-        'Challenge: Multilingual NLP processing. Solution: Implemented nltk pattern matching supporting English and Roman Urdu seamlessly',
-        'Challenge: Mobile accessibility. Solution: Designed responsive Flask UI achieving 100% mobile compatibility',
+        "Challenge: Multilingual NLP processing. Solution: Implemented nltk pattern matching supporting English and Roman Urdu seamlessly",
+        "Challenge: Mobile accessibility. Solution: Designed responsive Flask UI achieving 100% mobile compatibility",
       ],
-      technologies: ['Flask', 'Python', 'nltk', 'JavaScript', 'HTML/CSS'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/CHATBOT',
+      technologies: ["Flask", "Python", "nltk", "JavaScript", "HTML/CSS"],
+      github: "https://github.com/Muhammad-Taqi-Dev/CHATBOT",
       featured: false,
     },
     {
-      title: 'LUDO Board Game',
-      subtitle: 'Classic Board Game with DSAA',
-      period: 'Mar 2024 – May 2024',
+      title: "LUDO Board Game",
+      subtitle: "Classic Board Game with DSAA",
+      period: "Mar 2024 – May 2024",
       description:
-        'Problem: Complex game logic with circular board movement. Applied circular linked lists achieving O(1) piece traversal efficiency.',
+        "Problem: Complex game logic with circular board movement. Applied circular linked lists achieving O(1) piece traversal efficiency.",
       features: [
-        'Challenge: Board state management. Solution: Implemented singly circular linked lists with fork handling for optimized tracking',
-        'Challenge: AI opponents. Solution: Developed intelligent move selection algorithm with capture prioritization logic',
+        "Challenge: Board state management. Solution: Implemented singly circular linked lists with fork handling for optimized tracking",
+        "Challenge: AI opponents. Solution: Developed intelligent move selection algorithm with capture prioritization logic",
       ],
-      technologies: ['C++', 'Data Structures', 'Algorithms', 'OOP', 'Windows.h'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/DSA-Semproj',
+      technologies: [
+        "C++",
+        "Data Structures",
+        "Algorithms",
+        "OOP",
+        "Windows.h",
+      ],
+      github: "https://github.com/Muhammad-Taqi-Dev/DSA-Semproj",
       featured: false,
     },
     {
-      title: 'Flappy Bird Console Game',
-      subtitle: 'OOP-Based Console Game',
-      period: 'Jan 2024 – Feb 2024',
+      title: "Flappy Bird Console Game",
+      subtitle: "OOP-Based Console Game",
+      period: "Jan 2024 – Feb 2024",
       description:
-        'Problem: Console limitations for game development. Leveraged OOP principles creating smooth gameplay with 60 FPS performance.',
+        "Problem: Console limitations for game development. Leveraged OOP principles creating smooth gameplay with 60 FPS performance.",
       features: [
-        'Challenge: Collision detection accuracy. Solution: Implemented pixel-perfect hitbox system with 99.8% precision',
-        'Challenge: Game state persistence. Solution: Designed file I/O system for high score tracking across sessions',
+        "Challenge: Collision detection accuracy. Solution: Implemented pixel-perfect hitbox system with 99.8% precision",
+        "Challenge: Game state persistence. Solution: Designed file I/O system for high score tracking across sessions",
       ],
-      technologies: ['C++', 'OOP', 'olcConsoleGameEngine', 'Game Dev'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/Flappy-Bird-Game-Using-OOP',
+      technologies: ["C++", "OOP", "olcConsoleGameEngine", "Game Dev"],
+      github: "https://github.com/Muhammad-Taqi-Dev/Flappy-Bird-Game-Using-OOP",
       featured: false,
     },
     {
-      title: 'NLP Sentiment Analysis',
-      subtitle: 'Amazon Product Review Analysis',
-      period: 'Nov 2023 – Dec 2023',
+      title: "NLP Sentiment Analysis",
+      subtitle: "Amazon Product Review Analysis",
+      period: "Nov 2023 – Dec 2023",
       description:
-        'Problem: Manual review analysis overwhelms businesses. Built ML models achieving 91% accuracy in sentiment classification.',
+        "Problem: Manual review analysis overwhelms businesses. Built ML models achieving 91% accuracy in sentiment classification.",
       features: [
-        'Challenge: Class imbalance in dataset. Solution: Applied SMOTE technique improving minority class F1-score by 34%',
-        'Challenge: Model deployment. Solution: Created Streamlit app with pre-trained models enabling instant predictions',
+        "Challenge: Class imbalance in dataset. Solution: Applied SMOTE technique improving minority class F1-score by 34%",
+        "Challenge: Model deployment. Solution: Created Streamlit app with pre-trained models enabling instant predictions",
       ],
-      technologies: ['Python', 'NLP', 'Scikit-learn', 'Streamlit', 'ML', 'SVM'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/NLP-CCP',
+      technologies: ["Python", "NLP", "Scikit-learn", "Streamlit", "ML", "SVM"],
+      github: "https://github.com/Muhammad-Taqi-Dev/NLP-CCP",
       featured: false,
     },
     {
-      title: 'DSA Practice Repository',
-      subtitle: 'LeetCode Problem Solutions',
-      period: 'Ongoing',
+      title: "DSA Practice Repository",
+      subtitle: "LeetCode Problem Solutions",
+      period: "Ongoing",
       description:
-        'Problem: Interview preparation needs structured practice. Built comprehensive repository mastering 25+ algorithm patterns.',
+        "Problem: Interview preparation needs structured practice. Built comprehensive repository mastering 25+ algorithm patterns.",
       features: [
-        'Challenge: Code quality consistency. Solution: Maintained clean implementations across 200+ problems in C++ and Python3',
-        'Challenge: Pattern recognition. Solution: Organized by 25+ topics (DP, Graphs, Trees) enabling systematic learning',
+        "Challenge: Code quality consistency. Solution: Maintained clean implementations across 200+ problems in C++ and Python3",
+        "Challenge: Pattern recognition. Solution: Organized by 25+ topics (DP, Graphs, Trees) enabling systematic learning",
       ],
-      technologies: ['C++', 'Python', 'Algorithms', 'Data Structures', 'LeetCode'],
-      github: 'https://github.com/Muhammad-Taqi-Dev/DSA---LeetCode',
+      technologies: [
+        "C++",
+        "Python",
+        "Algorithms",
+        "Data Structures",
+        "LeetCode",
+      ],
+      github: "https://github.com/Muhammad-Taqi-Dev/DSA---LeetCode",
       featured: false,
     },
   ];
@@ -158,7 +201,10 @@ const Projects = () => {
         {/* Section Title */}
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Featured <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Projects</span>
+            Featured{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+              Projects
+            </span>
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 mx-auto rounded-full"></div>
         </div>
@@ -171,19 +217,21 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ 
+              transition={{
                 duration: 0.3,
-                ease: "easeOut"
+                ease: "easeOut",
               }}
               className="bg-gradient-to-br from-gray-800 via-gray-850 to-gray-900 rounded-2xl border-2 border-gray-700 hover:border-cyan-400 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/40 hover:-translate-y-2 flex flex-col group h-full relative overflow-hidden w-full max-w-full"
             >
               {/* Animated gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-cyan-500/5 group-hover:via-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500 pointer-events-none"></div>
-              
+
               {/* Project Header */}
               <div className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-b-2 border-gray-700 group-hover:border-cyan-400/50 transition-all duration-500 relative z-10 backdrop-blur-sm">
                 <div className="flex flex-wrap items-start gap-2 mb-2">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-cyan-100 to-white bg-clip-text text-transparent flex-1 min-w-0 group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-purple-400 transition-all duration-500">{project.title}</h3>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-cyan-100 to-white bg-clip-text text-transparent flex-1 min-w-0 group-hover:from-cyan-400 group-hover:via-blue-400 group-hover:to-purple-400 transition-all duration-500">
+                    {project.title}
+                  </h3>
                   {project.featured && (
                     <span className="px-2.5 py-1 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 text-xs font-bold rounded-full border-2 border-cyan-400/60 whitespace-nowrap animate-pulse shadow-lg shadow-cyan-500/50 backdrop-blur-sm">
                       ⭐ Featured
@@ -194,7 +242,9 @@ const Projects = () => {
 
               {/* Project Body */}
               <div className="p-4 sm:p-5 md:p-6 flex-grow flex flex-col relative z-10">
-                <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 leading-relaxed">
+                  {project.description}
+                </p>
 
                 {/* Features */}
                 <div className="mb-4">
@@ -204,8 +254,13 @@ const Projects = () => {
                   </h4>
                   <ul className="space-y-2">
                     {project.features.slice(0, 2).map((feature, i) => (
-                      <li key={i} className="text-gray-400 text-xs sm:text-sm md:text-base flex items-start gap-2 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                        <span className="text-cyan-400 text-base sm:text-lg font-bold mt-0.5 flex-shrink-0 group-hover:text-cyan-300 transition-colors">▹</span>
+                      <li
+                        key={i}
+                        className="text-gray-400 text-xs sm:text-sm md:text-base flex items-start gap-2 leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
+                      >
+                        <span className="text-cyan-400 text-base sm:text-lg font-bold mt-0.5 flex-shrink-0 group-hover:text-cyan-300 transition-colors">
+                          ▹
+                        </span>
                         <span className="break-words">{feature}</span>
                       </li>
                     ))}
@@ -235,7 +290,8 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-sm sm:text-base md:text-lg font-semibold hover:gap-3"
                     >
-                      <FiGithub className="text-lg sm:text-xl md:text-2xl" /> Code
+                      <FiGithub className="text-lg sm:text-xl md:text-2xl" />{" "}
+                      Code
                     </a>
                   )}
                   {project.live && (
@@ -245,7 +301,8 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-all duration-300 text-sm sm:text-base md:text-lg font-semibold hover:gap-3"
                     >
-                      <FiExternalLink className="text-lg sm:text-xl md:text-2xl" /> {project.isCompanyProject ? 'View Platform' : 'Live Demo'}
+                      <FiExternalLink className="text-lg sm:text-xl md:text-2xl" />{" "}
+                      {project.isCompanyProject ? "View Platform" : "Live Demo"}
                     </a>
                   )}
                 </div>
