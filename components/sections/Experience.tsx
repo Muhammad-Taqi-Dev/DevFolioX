@@ -1,62 +1,94 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { FiBriefcase, FiCalendar } from 'react-icons/fi';
-import SectionWrapper from '../SectionWrapper';
+import { motion } from "framer-motion";
+import { FiBriefcase, FiCalendar } from "react-icons/fi";
+import SectionWrapper from "../SectionWrapper";
 
 const Experience = () => {
   const experiences = [
     {
-      company: 'QBS Co.',
-      position: 'Associate Software Engineer',
-      period: 'Feb 2026 – Present',
-      location: 'Karachi, Pakistan',
+      company: "QBS Co.",
+      position: "Associate Software Engineer",
+      period: "Feb 2026 – Present",
+      location: "Karachi, Pakistan",
       achievements: [
-        'Cut API response latency from 1.6s to under 600ms by implementing Redis caching for third-party responses, eliminating redundant external calls on high-traffic monitoring screens. Improved user experience for 500+ daily active users on real-time dashboards.',
-        'Built production-grade SSR dashboards in Next.js/TypeScript surfacing real-time KPIs, employee activity feeds, and live camera monitoring across interactive graph and tabular views with sub-100ms interactive response times.',
-        'Architected end-to-end JWT-based authentication for backend services covering token issuance, refresh token rotation, session lifecycle management, and protected route enforcement across 15+ microservices.',
+        "Cut API response latency from 1.6s to under 600ms by introducing Redis caching for third-party responses, eliminating redundant external calls on high-traffic monitoring screens.",
+        "Built SSR dashboards in Next.js/TypeScript surfacing 10 real-time KPIs across employee activity and live monitoring feeds, deployed as part of a production SaaS platform.",
+        "Designed and enforced authentication architecture across 5+ microservices covering JWT issuance, refresh rotation, and session invalidation with zero reported auth breaches in production.",
       ],
-      technologies: ['Next.js', 'TypeScript', 'Redis', 'JWT/OAuth2', 'SSR', 'Microservices', 'Monorepo'],
-      color: 'cyan',
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Redis",
+        "JWT",
+        "SSR",
+        "gRPC",
+        "Microservices",
+      ],
+      color: "cyan",
     },
     {
-      company: 'QBS Co.',
-      position: 'Trainee Software Engineer',
-      period: 'Nov 2025 – Jan 2026',
-      location: 'Karachi, Pakistan',
+      company: "QBS Co.",
+      position: "Trainee Software Engineer",
+      period: "Nov 2025 – Jan 2026",
+      location: "Karachi, Pakistan",
       achievements: [
-        'Replaced manual admin workflows by engineering an RBAC/IAM interface in Next.js managing 160+ granular permissions across workspace-level feature gates with bulk assignment support, reducing admin overhead by 80% and enabling 10x faster permission updates.',
-        'Delivered two production-ready backend services: a feature-rich inventory management API (10K+ SKUs) and an SLA workflow orchestration service using gRPC and Docker for distributed inter-service communication with <50ms latency SLAs.',
-        'Implemented OAuth2 and 2FA security across distributed microservices with secure token/refresh handling and role-based access control; seamlessly integrated WhatsApp Business API for automated real-time ticket delivery to 200+ concurrent support agents.',
+        "Replaced a manual admin workflow by building an RBAC/IAM interface in Next.js managing 160+ permissions across workspace-level feature gates with bulk assignment support.",
+        "Delivered two production backend services: an inventory management API and an SLA workflow orchestration service using gRPC and Docker for distributed inter-service communication.",
+        "Implemented OAuth2 and 2FA across distributed microservices with token/refresh handling and RBAC; integrated WhatsApp Business API for automated live ticket delivery.",
       ],
-      technologies: ['.NET Core', 'NestJS', 'Next.js', 'gRPC', 'Docker', 'OAuth2', '2FA', 'WhatsApp API', 'RBAC'],
-      color: 'cyan',
+      technologies: [
+        "Next.js",
+        "gRPC",
+        "Docker",
+        "OAuth2",
+        "2FA",
+        "RBAC",
+        "WhatsApp API",
+      ],
+      color: "cyan",
     },
     {
-      company: 'KoderLabs',
-      position: 'Associate Software Engineer',
-      period: 'Mar 2025 – Oct 2025',
-      location: 'Karachi, Pakistan',
+      company: "KoderLabs",
+      position: "Associate Software Engineer",
+      period: "Mar 2025 – Oct 2025",
+      location: "Karachi, Pakistan",
       achievements: [
-        'Slashed per-request database hits from 6–8 queries down to 2–3 by strategically refactoring service-layer logic to consolidate redundant database calls across 25+ endpoints, reducing query latency by 65% while maintaining 100% backward API compatibility.',
-        'Architected and deployed an async PDF document generation pipeline using Azure Queue Storage and SignalR, cutting average processing time from ∼1.6s to 400–500ms per document and enabling 10x higher concurrent throughput for 5K+ monthly document requests.',
-        'Boosted geospatial query performance by 25% through strategic PostGIS spatial extensions, advanced spatial indexing on 2M+ location records, and Google Maps API integration across a multi-tenant SaaS platform serving enterprise clients.',
-        'Engineered scalable backend modules and event-driven microservice integrations on NestJS/.NET Core platforms, leveraging Azure Functions for asynchronous order processing, payment reconciliation, and batch analytics at 10K+ requests/day.',
+        "Reduced per-request DB hits from 6--8 queries down to 2--3 by refactoring service-layer logic to consolidate redundant calls across multiple endpoints, preserving full API backward compatibility.",
+        "Eliminated a document generation bottleneck by building an async PDF pipeline with Azure Queue Storage and SignalR cutting processing time from ~1.6s to 400--500ms per document.",
+        "Improved geospatial query performance by 25% via PostGIS spatial extensions, optimised spatial indexing, and Google Maps API integration on a multi-tenant SaaS platform.",
       ],
-      technologies: ['NestJS', '.NET Core', 'PostgreSQL', 'PostGIS', 'Azure Functions', 'Azure Queue Storage', 'SignalR', 'Google Maps API'],
-      color: 'blue',
+      technologies: [
+        "NestJS",
+        ".NET Core",
+        "PostgreSQL",
+        "PostGIS",
+        "Azure Queue Storage",
+        "SignalR",
+        "Google Maps API",
+      ],
+      color: "blue",
     },
     {
-      company: 'QBS Co.',
-      position: '.NET Intern',
-      period: 'Dec 2024 – Mar 2025',
-      location: 'Karachi, Pakistan',
+      company: "QBS Co.",
+      position: ".NET Intern",
+      period: "Dec 2024 – Mar 2025",
+      location: "Karachi, Pakistan",
       achievements: [
-        'Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance',
-        'Independently developed Product and SLA services for Ajeeks; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal',
+        "Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance",
+        "Independently developed Product and SLA services for Ajeeks; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal",
       ],
-      technologies: ['.NET Core', 'Docker', 'gRPC', 'Neo4j', 'CQRS', 'Microservices', 'OAuth2', '2FA'],
-      color: 'cyan',
+      technologies: [
+        ".NET Core",
+        "Docker",
+        "gRPC",
+        "Neo4j",
+        "CQRS",
+        "Microservices",
+        "OAuth2",
+        "2FA",
+      ],
+      color: "cyan",
     },
   ];
 
@@ -72,7 +104,10 @@ const Experience = () => {
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Work <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Experience</span>
+            Work{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Experience
+            </span>
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
         </motion.div>
@@ -90,7 +125,7 @@ const Experience = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className={`relative mb-8 md:mb-12 md:w-1/2 ${
-                index % 2 === 0 ? 'md:pr-8' : 'md:pl-8 md:ml-auto'
+                index % 2 === 0 ? "md:pr-8" : "md:pl-8 md:ml-auto"
               }`}
             >
               {/* Timeline Dot */}
@@ -99,12 +134,14 @@ const Experience = () => {
               {/* Content Card */}
               <div
                 className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 md:p-8 border-l-[6px] ${
-                  exp.color === 'cyan' ? 'border-cyan-400' : 'border-blue-400'
+                  exp.color === "cyan" ? "border-cyan-400" : "border-blue-400"
                 } hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] group border-2 border-gray-700 hover:border-cyan-400/50`}
               >
                 {/* Company & Position */}
                 <div className="mb-4 md:mb-5">
-                  <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">{exp.position}</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
+                    {exp.position}
+                  </h3>
                   <div className="flex items-center gap-2.5 text-cyan-400 font-bold text-base md:text-lg">
                     <FiBriefcase className="text-lg md:text-xl" />
                     <span>{exp.company}</span>
@@ -129,8 +166,13 @@ const Experience = () => {
                   </h4>
                   <ul className="space-y-2.5 md:space-y-3">
                     {exp.achievements.map((achievement, i) => (
-                      <li key={i} className="text-gray-300 text-base md:text-lg flex items-start leading-relaxed">
-                        <span className="text-cyan-400 text-lg font-bold mr-2 md:mr-2.5 mt-0.5">▹</span>
+                      <li
+                        key={i}
+                        className="text-gray-300 text-base md:text-lg flex items-start leading-relaxed"
+                      >
+                        <span className="text-cyan-400 text-lg font-bold mr-2 md:mr-2.5 mt-0.5">
+                          ▹
+                        </span>
                         <span>{achievement}</span>
                       </li>
                     ))}
