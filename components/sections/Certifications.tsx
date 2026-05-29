@@ -9,6 +9,15 @@ import Image from "next/image";
 const Certifications = () => {
   const certifications = [
     {
+      title: "Software Design Patterns: Best Practices for Software Developers",
+      issuer: "Educative",
+      icon: FiAward,
+      file: "/Software_Design_Patterns_Best_Practices_Certificate.pdf",
+      category: "Software Architecture",
+      color: "purple",
+      date: "Feb 2026",
+    },
+    {
       title: ".NET Full Stack Foundation",
       issuer: "Coursera, Board Infinity",
       icon: SiCoursera,
