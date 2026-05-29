@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiBriefcase, FiCalendar } from "react-icons/fi";
+import { FiBriefcase, FiMapPin } from "react-icons/fi";
 import SectionWrapper from "../SectionWrapper";
 
 const Experience = () => {
@@ -25,7 +25,6 @@ const Experience = () => {
         "gRPC",
         "Microservices",
       ],
-      color: "cyan",
     },
     {
       company: "QBS Co.",
@@ -46,7 +45,6 @@ const Experience = () => {
         "RBAC",
         "WhatsApp API",
       ],
-      color: "cyan",
     },
     {
       company: "KoderLabs",
@@ -54,8 +52,8 @@ const Experience = () => {
       period: "Mar 2025 – Oct 2025",
       location: "Karachi, Pakistan",
       achievements: [
-        "Reduced per-request DB hits from 6--8 queries down to 2--3 by refactoring service-layer logic to consolidate redundant calls across multiple endpoints, preserving full API backward compatibility.",
-        "Eliminated a document generation bottleneck by building an async PDF pipeline with Azure Queue Storage and SignalR cutting processing time from ~1.6s to 400--500ms per document.",
+        "Reduced per-request DB hits from 6–8 queries down to 2–3 by refactoring service-layer logic to consolidate redundant calls across multiple endpoints, preserving full API backward compatibility.",
+        "Eliminated a document generation bottleneck by building an async PDF pipeline with Azure Queue Storage and SignalR, cutting processing time from ~1.6s to 400–500ms per document.",
         "Improved geospatial query performance by 25% via PostGIS spatial extensions, optimised spatial indexing, and Google Maps API integration on a multi-tenant SaaS platform.",
       ],
       technologies: [
@@ -67,7 +65,6 @@ const Experience = () => {
         "SignalR",
         "Google Maps API",
       ],
-      color: "blue",
     },
     {
       company: "QBS Co.",
@@ -75,8 +72,8 @@ const Experience = () => {
       period: "Dec 2024 – Mar 2025",
       location: "Karachi, Pakistan",
       achievements: [
-        "Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance",
-        "Independently developed Product and SLA services for Ajeeks; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal",
+        "Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance.",
+        "Independently developed Product and SLA services; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal.",
       ],
       technologies: [
         ".NET Core",
@@ -88,103 +85,131 @@ const Experience = () => {
         "OAuth2",
         "2FA",
       ],
-      color: "cyan",
     },
   ];
 
   return (
-    <SectionWrapper id="experience" className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
+    <SectionWrapper
+      id="experience"
+      className="bg-[#080d18] relative overflow-hidden"
+    >
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(6,182,212,1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Ambient glow orbs — boosted */}
+      <div className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-cyan-500/12 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Centered heading spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-64 bg-indigo-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section heading — matches About pattern */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Work{" "}
+          <p className="text-cyan-500 font-mono text-sm tracking-[0.35em] uppercase mb-3">
+            // work.experience
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
+            <span className="text-white">Where I've</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Experience
+              shipped.
             </span>
           </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+          <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
+            Production systems, distributed backends, and measurable outcomes
+            across 1.5 years.
+          </p>
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-500/60" />
+          </div>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical Line */}
-          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-cyan-400 via-blue-500 to-cyan-400 rounded-full opacity-30"></div>
+          {/* Vertical centre line */}
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 h-full w-px bg-gradient-to-b from-cyan-500/40 via-indigo-500/20 to-transparent" />
 
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative mb-8 md:mb-12 md:w-1/2 ${
-                index % 2 === 0 ? "md:pr-8" : "md:pl-8 md:ml-auto"
+              transition={{ duration: 0.5, delay: index * 0.12 }}
+              className={`relative mb-8 md:mb-10 md:w-1/2 ${
+                index % 2 === 0 ? "md:pr-10" : "md:pl-10 md:ml-auto"
               }`}
             >
-              {/* Timeline Dot */}
-              <div className="hidden md:block absolute top-8 left-1/2 md:left-auto ${index % 2 === 0 ? 'md:-right-3' : 'md:-left-3'} transform md:transform-none w-6 h-6 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full border-4 border-gray-800 z-10 shadow-lg shadow-cyan-500/50 animate-pulse"></div>
-
-              {/* Content Card */}
+              {/* Timeline dot — fixed: was inside a plain string, now a proper JSX className */}
               <div
-                className={`bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 md:p-8 border-l-[6px] ${
-                  exp.color === "cyan" ? "border-cyan-400" : "border-blue-400"
-                } hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.02] group border-2 border-gray-700 hover:border-cyan-400/50`}
-              >
-                {/* Company & Position */}
-                <div className="mb-4 md:mb-5">
-                  <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
-                    {exp.position}
-                  </h3>
-                  <div className="flex items-center gap-2.5 text-cyan-400 font-bold text-base md:text-lg">
-                    <FiBriefcase className="text-lg md:text-xl" />
-                    <span>{exp.company}</span>
-                  </div>
-                </div>
+                className={`hidden md:block absolute top-8 w-4 h-4 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 border-[3px] border-[#080d18] z-10 shadow-md shadow-cyan-500/40 ${
+                  index % 2 === 0 ? "right-[-9px]" : "left-[-9px]"
+                }`}
+              />
 
-                {/* Period & Location */}
-                <div className="flex flex-wrap gap-3 md:gap-5 mb-4 md:mb-5 text-gray-400 text-base md:text-lg font-medium">
-                  <div className="flex items-center gap-2">
-                    <FiCalendar className="text-base md:text-lg" />
-                    <span>{exp.period}</span>
+              {/* Glassmorphism card */}
+              <div
+                className={`rounded-2xl border backdrop-blur-sm transition-all duration-300 p-6 group hover:shadow-lg ${
+                  index === 0
+                    ? "border-cyan-500/30 bg-cyan-500/[0.04] border-l-2 border-l-cyan-500/60 hover:border-cyan-500/50 hover:bg-cyan-500/[0.07] hover:shadow-cyan-500/15"
+                    : "border-white/[0.12] bg-white/[0.05] hover:border-cyan-500/30 hover:bg-white/[0.08] hover:shadow-cyan-500/10"
+                }`}
+              >
+                {/* Header */}
+                <div className="mb-4">
+                  <div className="flex items-start justify-between gap-2 flex-wrap mb-1">
+                    <h3 className="text-base font-bold font-display text-white tracking-[-0.01em]">
+                      {exp.position}
+                    </h3>
+                    <span className="text-sm text-gray-400 border border-white/8 rounded-full px-2.5 py-0.5 whitespace-nowrap font-mono">
+                      {exp.period}
+                    </span>
                   </div>
-                  <span className="hidden sm:inline text-cyan-400">•</span>
-                  <span>{exp.location}</span>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                    <span className="flex items-center gap-1.5 text-cyan-400 font-semibold">
+                      <FiBriefcase className="text-sm" />
+                      {exp.company}
+                    </span>
+                    <span className="flex items-center gap-1.5 text-gray-400 text-sm">
+                      <FiMapPin className="text-sm" />
+                      {exp.location}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Achievements */}
-                <div className="mb-4 md:mb-5">
-                  <h4 className="text-white font-bold text-sm md:text-base mb-3 flex items-center gap-2">
-                    <span className="w-1.5 h-5 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-full"></span>
-                    Key Achievements
-                  </h4>
-                  <ul className="space-y-2.5 md:space-y-3">
-                    {exp.achievements.map((achievement, i) => (
-                      <li
-                        key={i}
-                        className="text-gray-300 text-base md:text-lg flex items-start leading-relaxed"
-                      >
-                        <span className="text-cyan-400 text-lg font-bold mr-2 md:mr-2.5 mt-0.5">
-                          ▹
-                        </span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-2 mb-4">
+                  {exp.achievements.map((achievement, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2 text-sm text-gray-400 leading-relaxed"
+                    >
+                      <span className="text-cyan-500 mt-1 flex-shrink-0 text-sm">
+                        ▸
+                      </span>
+                      <span>{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 md:gap-2.5">
+                {/* Tech pills */}
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
                   {exp.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="px-3 py-2 md:py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 text-cyan-400 text-sm md:text-base font-semibold rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 cursor-default"
+                      className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-lg text-sm font-mono hover:bg-cyan-500/20 hover:border-cyan-400/40 transition-all duration-200 cursor-default"
                     >
                       {tech}
                     </span>

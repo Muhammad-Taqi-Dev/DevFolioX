@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, Fira_Code } from "next/font/google";
+// @ts-ignore: Allow side-effect CSS import without type declarations
 import "./globals.css";
 
 // Display / heading font — premium, modern, strong personality

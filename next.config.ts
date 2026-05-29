@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // leave empty for now
+  transpilePackages: ["framer-motion"],
 };
 
 export default nextConfig;

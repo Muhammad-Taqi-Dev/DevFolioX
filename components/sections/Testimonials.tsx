@@ -1,127 +1,141 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { testimonials, type Testimonial } from "@/lib/testimonials";
-import { Quote, Linkedin, Award, CheckCircle, Calendar } from "lucide-react";
-import Image from "next/image";
+import {
+  FiLinkedin,
+  FiAward,
+  FiCheckCircle,
+  FiChevronDown,
+  FiChevronUp,
+} from "react-icons/fi";
+import SectionWrapper from "../SectionWrapper";
 
 type FilterType = "All" | "Mentor" | "Colleague";
 
-// Component for individual testimonial card with read more/less and animations
-function TestimonialCard({ 
-  testimonial, 
-  index 
-}: { 
-  testimonial: typeof testimonials[0];
-  index: number;
+/* ── Initials avatar ─────────────────────────────────────────────────── */
+function Avatar({
+  name,
+  size = "md",
+}: {
+  name: string;
+  size?: "sm" | "md" | "lg";
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  const CHARACTER_LIMIT = 200;
-  const shouldTruncate = testimonial.text.length > CHARACTER_LIMIT;
-  const displayText = isExpanded || !shouldTruncate 
-    ? testimonial.text 
-    : testimonial.text.slice(0, CHARACTER_LIMIT) + "...";
+  const initials = name
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
 
-  // Generate avatar URL using ui-avatars.com
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&size=80&background=3b82f6&color=fff&bold=true`;
-
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 100);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, [index]);
-
-  // Check if testimonial is recent (within 2 months)
-  const isRecent = () => {
-    const testimonialDate = new Date(testimonial.date);
-    const twoMonthsAgo = new Date();
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    return testimonialDate >= twoMonthsAgo;
-  };
+  const sizeClass = {
+    sm: "w-9 h-9 text-sm",
+    md: "w-11 h-11 text-base",
+    lg: "w-16 h-16 text-lg",
+  }[size];
 
   return (
     <div
-      ref={cardRef}
-      className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-500 flex flex-col ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
+      className={`${sizeClass} rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white flex-shrink-0`}
     >
-      {/* Trust Indicators */}
+      {initials}
+    </div>
+  );
+}
+
+/* ── Testimonial card ─────────────────────────────────────────────────── */
+function TestimonialCard({
+  testimonial,
+  index,
+}: {
+  testimonial: Testimonial;
+  index: number;
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const CHARACTER_LIMIT = 220;
+  const shouldTruncate = testimonial.text.length > CHARACTER_LIMIT;
+  const displayText =
+    isExpanded || !shouldTruncate
+      ? testimonial.text
+      : testimonial.text.slice(0, CHARACTER_LIMIT) + "…";
+
+  const isRecent = () => {
+    const d = new Date(testimonial.date);
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    return d >= twoMonthsAgo;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      className="group flex flex-col rounded-2xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-sm hover:border-cyan-500/35 hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 p-5 relative overflow-hidden"
+    >
+      {/* Subtle top glow on hover */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      {/* Trust badges */}
       <div className="flex items-center gap-2 mb-3">
-        <div className="flex items-center gap-1 text-green-600 dark:text-green-400">
-          <CheckCircle className="w-4 h-4" />
-          <span className="text-xs font-medium">Verified</span>
-        </div>
+        <span className="flex items-center gap-1 text-emerald-400 text-sm font-medium">
+          <FiCheckCircle className="text-sm" /> Verified
+        </span>
         {isRecent() && (
-          <div className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
-            <Calendar className="w-4 h-4" />
-            <span className="text-xs font-medium">Recent</span>
-          </div>
+          <span className="text-sm text-cyan-400 font-medium border border-cyan-500/25 rounded-full px-2 py-0.5">
+            Recent
+          </span>
         )}
       </div>
 
-      {/* Header with Avatar, Company Logo and Quote Icon */}
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <img
-            src={avatarUrl}
-            alt={testimonial.name}
-            className="w-12 h-12 rounded-full"
-          />
-          {testimonial.companyLogo && (
-            <Image
-              src={testimonial.companyLogo}
-              alt={testimonial.company}
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          )}
+      {/* Header */}
+      <div className="flex items-start justify-between mb-4 gap-2">
+        <div className="flex items-center gap-2.5">
+          <Avatar name={testimonial.name} size="sm" />
+          <div>
+            <p className="text-white font-semibold text-sm leading-tight">
+              {testimonial.name}
+            </p>
+            <p className="text-gray-400 text-sm">{testimonial.title}</p>
+          </div>
         </div>
-        <Quote className="w-8 h-8 text-blue-600 dark:text-blue-400 opacity-50" />
+        {/* Large quote mark */}
+        <span className="text-4xl leading-none text-cyan-500/20 font-serif select-none flex-shrink-0">
+          "
+        </span>
       </div>
 
-      {/* Testimonial Text */}
-      <p className="text-gray-700 dark:text-gray-300 mb-4 flex-grow leading-relaxed">
-        &quot;{displayText}&quot;
+      {/* Quote text */}
+      <p className="text-gray-400 text-sm leading-relaxed flex-grow mb-3">
+        {displayText}
       </p>
 
-      {/* Read More/Less Button */}
       {shouldTruncate && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium mb-4 text-left"
+          className="flex items-center gap-1 text-cyan-500 hover:text-cyan-400 text-sm font-medium mb-3 transition-colors"
         >
-          {isExpanded ? "Read less" : "Read more"}
+          {isExpanded ? (
+            <>
+              <FiChevronUp /> Read less
+            </>
+          ) : (
+            <>
+              <FiChevronDown /> Read more
+            </>
+          )}
         </button>
       )}
 
-      {/* Skills Tags */}
+      {/* Skills */}
       {testimonial.skills && testimonial.skills.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {testimonial.skills.map((skill: string, idx: number) => (
             <span
               key={idx}
-              className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full"
+              className="px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-md text-sm font-mono"
             >
               {skill}
             </span>
@@ -129,223 +143,263 @@ function TestimonialCard({
         </div>
       )}
 
-      {/* Author Info */}
-      <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-        <div className="flex items-start justify-between">
-          <div className="flex-grow">
-            <h4 className="font-semibold text-gray-900 dark:text-white">
-              {testimonial.name}
-            </h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {testimonial.title}
-            </p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {testimonial.company}
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-              {testimonial.relationship} • {testimonial.date}
-            </p>
-          </div>
-
-          {/* LinkedIn Link */}
-          {testimonial.linkedinUrl && (
-            <a
-              href={testimonial.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors ml-2"
-              aria-label={`View ${testimonial.name}'s LinkedIn profile`}
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-          )}
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-3 border-t border-white/5 mt-auto">
+        <div>
+          <p className="text-gray-400 text-sm">{testimonial.company}</p>
+          <p className="text-gray-400 text-sm font-mono mt-0.5">
+            {testimonial.relationship} · {testimonial.date}
+          </p>
         </div>
+        {testimonial.linkedinUrl && (
+          <a
+            href={testimonial.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${testimonial.name} on LinkedIn`}
+            className="p-2 rounded-lg border border-white/8 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-200"
+          >
+            <FiLinkedin className="text-sm" />
+          </a>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-// Featured Testimonial Component
-function FeaturedTestimonial({ testimonial }: { testimonial: typeof testimonials[0] }) {
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&size=120&background=3b82f6&color=fff&bold=true`;
-
+/* ── Featured testimonial ─────────────────────────────────────────────── */
+function FeaturedTestimonial({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl shadow-xl p-8 mb-12 border-2 border-blue-200 dark:border-blue-800">
-      <div className="flex items-center gap-2 mb-4">
-        <Award className="w-6 h-6 text-yellow-500" />
-        <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="mb-12 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-blue-600/5 backdrop-blur-sm p-7 md:p-8 relative overflow-hidden"
+    >
+      {/* Background glow */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="flex items-center gap-2 mb-5">
+        <FiAward className="text-yellow-400 text-sm" />
+        <span className="text-sm font-bold text-cyan-400 uppercase tracking-widest font-mono">
           Featured Recommendation
         </span>
       </div>
-      
-      <div className="flex flex-col md:flex-row gap-6 items-start">
-        <img
-          src={avatarUrl}
-          alt={testimonial.name}
-          className="w-20 h-20 rounded-full shadow-lg"
-        />
-        
+
+      <div className="flex flex-col md:flex-row gap-6 items-start relative">
+        <Avatar name={testimonial.name} size="lg" />
+
         <div className="flex-grow">
-          <Quote className="w-10 h-10 text-blue-600 dark:text-blue-400 opacity-30 mb-3" />
-          <p className="text-lg text-gray-800 dark:text-gray-200 mb-6 leading-relaxed italic">
-            &quot;{testimonial.text}&quot;
+          <span className="text-6xl leading-none text-cyan-500/15 font-serif select-none">
+            "
+          </span>
+          <p className="text-gray-300 text-base md:text-lg leading-relaxed italic mb-5 -mt-3">
+            {testimonial.text}
           </p>
-          
-          {/* Skills Tags */}
+
           {testimonial.skills && testimonial.skills.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-5">
               {testimonial.skills.map((skill: string, idx: number) => (
                 <span
                   key={idx}
-                  className="px-4 py-2 text-sm font-medium bg-blue-600 dark:bg-blue-700 text-white rounded-full"
+                  className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-lg text-sm font-mono"
                 >
                   {skill}
                 </span>
               ))}
             </div>
           )}
-          
+
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h4 className="font-bold text-xl text-gray-900 dark:text-white">
+              <h4 className="text-white font-bold text-base">
                 {testimonial.name}
               </h4>
-              <p className="text-gray-700 dark:text-gray-300">
-                {testimonial.title}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-gray-400 text-sm">{testimonial.title}</p>
+              <p className="text-gray-400 text-sm mt-0.5">
                 {testimonial.company}
               </p>
             </div>
-            
             {testimonial.linkedinUrl && (
               <a
                 href={testimonial.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-500/50 text-cyan-400 text-sm font-semibold rounded-xl transition-all duration-300"
               >
-                <Linkedin className="w-5 h-5" />
+                <FiLinkedin />
                 View Profile
               </a>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
+/* ── Main section ─────────────────────────────────────────────────────── */
 export default function Testimonials() {
   const [filter, setFilter] = useState<FilterType>("All");
-  const [animate, setAnimate] = useState(false);
 
-  const mentorCount = testimonials.filter((t: Testimonial) => t.relationship === "Mentor").length;
-  const colleagueCount = testimonials.filter((t: Testimonial) => t.relationship === "Colleague").length;
-  
+  const mentorCount = testimonials.filter(
+    (t: Testimonial) => t.relationship === "Mentor",
+  ).length;
+  const colleagueCount = testimonials.filter(
+    (t: Testimonial) => t.relationship === "Colleague",
+  ).length;
+
   const featuredTestimonial = testimonials.find((t: Testimonial) => t.featured);
-  const regularTestimonials = testimonials.filter((t: Testimonial) => !t.featured);
+  const regularTestimonials = testimonials.filter(
+    (t: Testimonial) => !t.featured,
+  );
+  const filteredTestimonials = regularTestimonials.filter((t: Testimonial) =>
+    filter === "All" ? true : t.relationship === filter,
+  );
 
-  const filteredTestimonials = regularTestimonials.filter((testimonial: Testimonial) => {
-    if (filter === "All") return true;
-    return testimonial.relationship === filter;
-  });
-
-  useEffect(() => {
-    setAnimate(true);
-  }, []);
+  const filters: { key: FilterType; label: string; count: number }[] = [
+    { key: "All", label: "All", count: testimonials.length },
+    { key: "Mentor", label: "Mentors", count: mentorCount },
+    { key: "Colleague", label: "Colleagues", count: colleagueCount },
+  ];
 
   return (
-    <section id="testimonials" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with Stats Badge */}
-        <div className="text-center mb-12">
-          <div className={`inline-flex items-center gap-2 px-6 py-3 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full mb-6 transition-all duration-700 ${animate ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
-            <Award className="w-5 h-5" />
-            <span className="font-bold text-lg">{testimonials.length}+ LinkedIn Recommendations</span>
-            <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-          </div>
-          
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl mb-4">
-            Testimonials
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            What colleagues and mentors say about working with me
+    <SectionWrapper
+      id="testimonials"
+      className="bg-[#0a0f1a] relative overflow-hidden"
+    >
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(6,182,212,1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Ambient glow orbs — boosted */}
+      <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-indigo-500/12 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-[500px] h-[500px] bg-cyan-500/12 rounded-full blur-3xl pointer-events-none" />
+      {/* Centered heading spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-64 bg-indigo-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <p className="text-cyan-500 font-mono text-sm tracking-[0.35em] uppercase mb-3">
+            // testimonials
           </p>
-        </div>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
+            <span className="text-white">What they</span>{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              say.
+            </span>
+          </h2>
+          <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
+            Colleagues and mentors on what it's like working with me.
+          </p>
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-500/60" />
+          </div>
+        </motion.div>
 
-        {/* Featured Testimonial */}
+        {/* Count badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-10"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/25 bg-cyan-500/8 text-cyan-400 text-sm font-medium">
+            <FiCheckCircle className="text-emerald-400" />
+            {testimonials.length}+ verified LinkedIn recommendations
+          </div>
+        </motion.div>
+
+        {/* Featured */}
         {featuredTestimonial && (
           <FeaturedTestimonial testimonial={featuredTestimonial} />
         )}
 
-        {/* Filter Tabs */}
-        <div className="flex justify-center gap-4 mb-8 flex-wrap">
-          <button
-            onClick={() => setFilter("All")}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              filter === "All"
-                ? "bg-blue-600 text-white shadow-lg scale-105"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            All ({testimonials.length})
-          </button>
-          <button
-            onClick={() => setFilter("Mentor")}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              filter === "Mentor"
-                ? "bg-blue-600 text-white shadow-lg scale-105"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            Mentors ({mentorCount})
-          </button>
-          <button
-            onClick={() => setFilter("Colleague")}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              filter === "Colleague"
-                ? "bg-blue-600 text-white shadow-lg scale-105"
-                : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
-            }`}
-          >
-            Colleagues ({colleagueCount})
-          </button>
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTestimonials.map((testimonial: Testimonial, idx: number) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} index={idx} />
+        {/* Filter tabs */}
+        <div className="flex justify-center gap-2 mb-10 flex-wrap">
+          {filters.map(({ key, label, count }) => (
+            <button
+              key={key}
+              onClick={() => setFilter(key)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                filter === key
+                  ? "bg-cyan-500/20 border border-cyan-500/50 text-cyan-400"
+                  : "border border-white/8 text-gray-400 hover:border-white/20 hover:text-gray-300"
+              }`}
+            >
+              {label} ({count})
+            </button>
           ))}
         </div>
 
-        {/* LinkedIn CTAs */}
-        <div className="mt-12 text-center space-y-4">
-          <p className="text-gray-600 dark:text-gray-400">
-            Want to see more recommendations?
+        {/* Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={filter}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          >
+            {filteredTestimonials.map(
+              (testimonial: Testimonial, idx: number) => (
+                <TestimonialCard
+                  key={testimonial.id}
+                  testimonial={testimonial}
+                  index={idx}
+                />
+              ),
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* LinkedIn CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mt-14 text-center space-y-4"
+        >
+          <p className="text-gray-400 text-sm font-mono">
+            // want to see more?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="https://www.linkedin.com/in/taqih1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30"
             >
-              <Linkedin className="w-5 h-5" />
-              View my LinkedIn Profile
+              <FiLinkedin />
+              View LinkedIn Profile
             </a>
             <a
               href="https://www.linkedin.com/in/taqih1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold rounded-lg transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 bg-white/3 hover:bg-white/8 hover:border-white/20 text-gray-300 hover:text-white font-semibold text-sm rounded-xl transition-all duration-300 backdrop-blur-sm"
             >
               Connect on LinkedIn
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

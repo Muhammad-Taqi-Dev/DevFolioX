@@ -51,6 +51,11 @@ const LABEL_STYLES: Record<
     text: "text-emerald-400",
     border: "border-emerald-500/40",
   },
+  Learnings: {
+    bg: "bg-cyan-500/15",
+    text: "text-cyan-300",
+    border: "border-cyan-500/40",
+  },
 };
 
 // ─── Single project card ───────────────────────────────────────────────────────
@@ -74,22 +79,26 @@ const ProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
-      className="group relative flex flex-col rounded-2xl border border-gray-700/80 bg-gradient-to-br from-gray-800/90 via-gray-850 to-gray-900/90 backdrop-blur-sm hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+      className={`group relative flex flex-col rounded-2xl border backdrop-blur-sm hover:-translate-y-1 transition-all duration-500 overflow-hidden ${
+        project.featured
+          ? "border-white/[0.14] bg-gradient-to-br from-cyan-500/[0.04] via-white/[0.05] to-transparent hover:border-cyan-500/40 hover:from-cyan-500/[0.07] hover:shadow-xl hover:shadow-cyan-500/15"
+          : "border-white/[0.10] bg-white/[0.03] hover:border-white/[0.20] hover:bg-white/[0.06] hover:shadow-lg hover:shadow-white/5"
+      }`}
     >
       {/* Subtle top glow line */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* ── HEADER ─────────────────────────────────────────────────────────── */}
-      <div className="p-5 pb-4 border-b border-gray-700/60 group-hover:border-cyan-500/20 transition-colors duration-500">
+      <div className="p-5 pb-4 border-b border-white/6 group-hover:border-cyan-500/15 transition-colors duration-500">
         {/* Badges row */}
         <div className="flex flex-wrap gap-1.5 mb-3">
           {project.featured && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/35">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/35">
               ⭐ Featured
             </span>
           )}
           {project.isCompanyProject && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-yellow-500/15 text-yellow-400 border border-yellow-500/35">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-bold bg-yellow-500/15 text-yellow-400 border border-yellow-500/35">
               🏢 Employee Project
             </span>
           )}
@@ -102,7 +111,7 @@ const ProjectCard = ({
 
         {/* Subtitle */}
         {project.subtitle && (
-          <p className="text-md font-medium text-cyan-400/80 mb-2 break-words">
+          <p className="text-sm font-medium text-cyan-400/80 mb-2 break-words">
             {project.subtitle}
           </p>
         )}
@@ -110,12 +119,12 @@ const ProjectCard = ({
         {/* Role + Period */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           {project.role && (
-            <span className="text-xs text-gray-300 font-medium">
+            <span className="text-sm text-gray-300 font-medium">
               {project.role}
             </span>
           )}
           {project.period && (
-            <span className="flex items-center gap-1 text-xs text-gray-500">
+            <span className="flex items-center gap-1 text-sm text-gray-400">
               <FiCalendar className="flex-shrink-0 text-[14px]" />
               {project.period}
             </span>
@@ -129,7 +138,7 @@ const ProjectCard = ({
         <div className="space-y-2">
           {project.isCompanyProject && project.role && (
             <div className="flex items-center gap-2">
-              <span className="flex-shrink-0 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide border bg-purple-500/15 text-purple-400 border-purple-500/40">
+              <span className="flex-shrink-0 px-2 py-0.5 rounded text-sm font-bold uppercase tracking-wide border bg-purple-500/15 text-purple-400 border-purple-500/40">
                 Role
               </span>
               <span className="text-sm text-purple-300/90 font-medium">
@@ -160,12 +169,12 @@ const ProjectCard = ({
               return (
                 <li
                   key={i}
-                  className="flex items-start gap-2 text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
+                  className="grid grid-cols-[116px_minmax(0,1fr)] sm:grid-cols-[128px_minmax(0,1fr)] items-start gap-x-2 text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
                 >
                   {style && rawLabel ? (
                     <>
                       <span
-                        className={`flex-shrink-0 mt-0.5 min-w-[76px] text-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide border ${style.bg} ${style.text} ${style.border}`}
+                        className={`mt-0.5 w-full whitespace-nowrap text-center px-1.5 py-0.5 rounded text-[11px] sm:text-sm font-bold uppercase tracking-normal leading-tight border ${style.bg} ${style.text} ${style.border}`}
                       >
                         {rawLabel}
                       </span>
@@ -173,9 +182,7 @@ const ProjectCard = ({
                     </>
                   ) : (
                     <>
-                      <span className="flex-shrink-0 text-cyan-400 font-bold mt-0.5">
-                        ▹
-                      </span>
+                      <span aria-hidden className="block" />
                       <span className="break-words">{feature}</span>
                     </>
                   )}
@@ -200,7 +207,7 @@ const ProjectCard = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.15 }}
-                  className="px-2.5 py-1 rounded-md text-xs sm:text-sm font-semibold bg-gray-900/80 text-cyan-400 border border-gray-700 hover:border-cyan-500/60 hover:shadow-sm hover:shadow-cyan-500/20 transition-all duration-200 hover:scale-105"
+                  className="px-2.5 py-1 rounded-md text-sm font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20 hover:border-cyan-400/40 transition-all duration-200"
                 >
                   {tech}
                 </motion.span>
@@ -209,15 +216,15 @@ const ProjectCard = ({
             {showMore && (
               <button
                 onClick={() => setExpanded(!expanded)}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs sm:text-sm font-semibold text-gray-500 hover:text-cyan-400 border border-dashed border-gray-700 hover:border-cyan-500/50 transition-all duration-200"
+                className="flex items-center gap-1 px-2.5 py-1 rounded-md text-sm font-semibold text-gray-400 hover:text-cyan-400 border border-dashed border-gray-700 hover:border-cyan-500/50 transition-all duration-200"
               >
                 {expanded ? (
                   <>
-                    <FiChevronUp className="text-[10px]" /> Less
+                    <FiChevronUp className="text-sm" /> Less
                   </>
                 ) : (
                   <>
-                    <FiChevronDown className="text-[10px]" /> +
+                    <FiChevronDown className="text-sm" /> +
                     {project.technologies.length - MAX_TECHS} more
                   </>
                 )}
@@ -228,7 +235,7 @@ const ProjectCard = ({
 
         {/* ── LINKS ──────────────────────────────────────────────────────── */}
         {(project.github || project.live) && (
-          <div className="flex flex-wrap gap-4 pt-3 border-t border-gray-700/60 group-hover:border-cyan-500/20 transition-colors duration-500 mt-auto">
+          <div className="flex flex-wrap gap-4 pt-3 border-t border-white/5 group-hover:border-cyan-500/10 transition-colors duration-500 mt-auto">
             {project.github && (
               <a
                 href={project.github}
@@ -373,11 +380,11 @@ const Projects = () => {
       description:
         "Final Year Project — full-stack AI-powered personal finance platform with a modular NestJS/PostgreSQL backend (56 endpoints) and a self-built Flask ML microservice hosted on Hugging Face Spaces, delivering real-time transaction categorisation, next-month expense forecasting, and anomaly detection.",
       features: [
-        "Problem: Manual expense tracking and noisy transaction data reduced categorisation accuracy and delayed anomaly alerts.",
-        "Challenges: Build and deploy three production ML models with low-latency inference, mitigate Hugging Face cold-start delays, and surface results inline within API responses.",
-        "Actions: Built a Flask ML microservice (SBERT + Logistic Regression classifier, Facebook Prophet forecaster, anomaly detector) deployed on Hugging Face Spaces; integrated inference directly into NestJS API responses with response caching and rate limiting; implemented async event-driven email workflows for auth flows.",
-        "Result: Real-time transaction categorisation (~88% accuracy) and anomaly detection (AUC-ROC: 0.87) surfaced inline; next-month forecasting available after 3+ months of user history; cold-start latency mitigated via caching.",
-        "Learnings: End-to-end ML productionisation — model training, microservice deployment, inference pipeline design, and resilient API integration patterns.",
+        "Problem: Manual expense tracking and noisy transaction data hurt categorisation accuracy and delayed anomaly alerts.",
+        "Challenges: Deploy three production ML models with low-latency inference, avoid Hugging Face cold starts, and return results inline.",
+        "Actions: Built a Flask ML microservice (SBERT + Logistic Regression, Prophet, anomaly detector) on Hugging Face Spaces; wired inference into NestJS with caching and rate limiting; added event-driven email auth flows.",
+        "Result: Delivered inline categorisation (~88% accuracy) and anomaly detection (AUC-ROC: 0.87); enabled next-month forecasting after 3+ months of history; reduced cold-start impact with caching.",
+        "Learnings: Gained end-to-end ML production experience across training, deployment, inference design, and resilient API integration.",
       ],
       technologies: [
         "NestJS",
@@ -560,18 +567,51 @@ const Projects = () => {
   ];
 
   return (
-    <SectionWrapper id="projects" className="bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionWrapper
+      id="projects"
+      className="bg-[#0a0f1a] relative overflow-hidden"
+    >
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(6,182,212,1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Ambient glow orbs — boosted */}
+      <div className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-cyan-500/12 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Centered heading spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-64 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* ── Section Heading ──────────────────────────────────────────────── */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Featured{" "}
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Projects
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <p className="text-cyan-500 font-mono text-sm tracking-[0.35em] uppercase mb-3">
+            // featured.projects
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
+            <span className="text-white">Things I've</span>{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              built.
             </span>
           </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 mx-auto rounded-full" />
-        </div>
+          <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
+            Production systems, personal projects, and everything in between.
+          </p>
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-500/60" />
+          </div>
+        </motion.div>
 
         {/* ── Grid ─────────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">

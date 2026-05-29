@@ -23,6 +23,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-size: 18px;
 }
 
 body {
@@ -33,8 +34,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.7;
   letter-spacing: -0.01em;
 }
 
@@ -85,9 +86,7 @@ img {
   height: auto;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4;
-}
+
 
 /* Selection */
 ::selection {
@@ -100,10 +99,9 @@ img {
   color: #0a0a0a;
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* Note: global * transition removed — it conflicted with Framer Motion
+   and added 300ms lag to all scroll-triggered animations.
+   Use component-level transition-* utilities instead. */
 
 /* Remove outline on focus for mouse users */
 *:focus:not(:focus-visible) {

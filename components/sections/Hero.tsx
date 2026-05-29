@@ -2,11 +2,21 @@
 
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { FiGithub, FiLinkedin, FiMail, FiDownload, FiArrowRight } from "react-icons/fi";
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiDownload,
+  FiArrowRight,
+} from "react-icons/fi";
 
 const metrics = [
   { value: "63%", label: "Faster APIs", color: "from-cyan-400 to-blue-500" },
-  { value: "70%", label: "Pipeline Speed↑", color: "from-purple-400 to-pink-500" },
+  {
+    value: "70%",
+    label: "Pipeline Speed↑",
+    color: "from-purple-400 to-pink-500",
+  },
   { value: "88%", label: "ML Accuracy", color: "from-emerald-400 to-cyan-500" },
 ];
 
@@ -50,7 +60,6 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
         <div className="text-center">
-
           {/* Status badge */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -73,14 +82,10 @@ const Hero = () => {
             className="font-display mb-5 px-4"
             style={{ letterSpacing: "-0.04em", lineHeight: 1.05 }}
           >
-            <span
-              className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-br from-white via-gray-100 to-gray-400 bg-clip-text text-transparent"
-            >
+            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-br from-white via-gray-100 to-gray-400 bg-clip-text text-transparent">
               Muhammad Taqi
             </span>
-            <span
-              className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 bg-clip-text text-transparent"
-            >
+            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 bg-clip-text text-transparent">
               Haider
             </span>
           </motion.h1>
@@ -92,7 +97,9 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mb-7 min-h-[2.25rem] flex items-center justify-center gap-2.5"
           >
-            <span className="font-mono text-gray-600 text-lg select-none">// </span>
+            <span className="font-mono text-gray-600 text-lg select-none">
+              //{" "}
+            </span>
             <TypeAnimation
               sequence={[
                 "Backend-Focused Full Stack Engineer",
@@ -139,11 +146,17 @@ const Hero = () => {
                 transition={{ duration: 0.4, delay: 0.7 + i * 0.1 }}
                 className="group relative px-5 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-cyan-500/40 hover:bg-white/8 transition-all duration-300 cursor-default"
               >
-                <div className={`text-2xl font-bold font-display bg-gradient-to-r ${m.color} bg-clip-text text-transparent`}>
+                <div
+                  className={`text-2xl font-bold font-display bg-gradient-to-r ${m.color} bg-clip-text text-transparent`}
+                >
                   {m.value}
                 </div>
-                <div className="text-xs text-gray-500 font-medium mt-0.5">{m.label}</div>
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${m.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                <div className="text-sm text-gray-500 font-medium mt-0.5">
+                  {m.label}
+                </div>
+                <div
+                  className={`absolute inset-0 rounded-xl bg-gradient-to-r ${m.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -192,9 +205,21 @@ const Hero = () => {
             className="flex justify-center gap-3 pb-20 md:pb-24"
           >
             {[
-              { icon: FiGithub, href: "https://github.com/Muhammad-Taqi-Dev", label: "GitHub" },
-              { icon: FiLinkedin, href: "https://linkedin.com/in/taqih1", label: "LinkedIn" },
-              { icon: FiMail, href: "mailto:taqihaider591@gmail.com", label: "Email" },
+              {
+                icon: FiGithub,
+                href: "https://github.com/Muhammad-Taqi-Dev",
+                label: "GitHub",
+              },
+              {
+                icon: FiLinkedin,
+                href: "https://linkedin.com/in/taqih1",
+                label: "LinkedIn",
+              },
+              {
+                icon: FiMail,
+                href: "mailto:taqihaider591@gmail.com",
+                label: "Email",
+              },
             ].map((social, index) => (
               <motion.a
                 key={social.label}
@@ -225,7 +250,9 @@ const Hero = () => {
         className="hidden md:flex flex-col items-center gap-1 absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer group z-20"
         onClick={() => scrollToSection("#about")}
       >
-        <span className="text-xs text-gray-600 group-hover:text-gray-400 transition-colors font-mono tracking-widest uppercase">scroll</span>
+        <span className="text-sm text-gray-600 group-hover:text-gray-400 transition-colors font-mono tracking-widest uppercase">
+          scroll
+        </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}

@@ -29,8 +29,9 @@ export const testimonials: Testimonial[] = [
   {
     id: 2,
     name: "Usaid Bin Rehan",
-    title: "Engineering Lead",
-    company: ".NET / K8s Microservices",
+    title: "Associate Software Engineer",
+    company: "QBSCo",
+    companyLogo: "/QBSCo.png",
     relationship: "Mentor",
     date: "December 2025",
     text: "I had the pleasure of mentoring Taqi as one of my first three mentees on project Ajeek-KSA, and I was genuinely impressed by their clever logic in building business process flows and their passion for learning system design. Their independent work consistently demonstrated fast delivery without compromising quality, showing both skill and dedication. I highly recommend Taqi for any team looking for a talented .NET developer with strong analytical thinking, rapid learning ability, and a commitment to delivering high-quality work.",

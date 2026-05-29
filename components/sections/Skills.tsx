@@ -20,189 +20,195 @@ import {
   SiSwagger,
   SiJest,
 } from "react-icons/si";
-import { FiServer, FiDatabase, FiTool, FiCode, FiCloud } from "react-icons/fi";
+import {
+  FiServer,
+  FiDatabase,
+  FiTool,
+  FiCode,
+  FiCloud,
+  FiShield,
+} from "react-icons/fi";
 import SectionWrapper from "../SectionWrapper";
 
+const skillCategories = [
+  {
+    title: "Languages",
+    icon: FiCode,
+    color: "blue",
+    skills: ["TypeScript", "JavaScript", "Python", "C#"],
+  },
+  {
+    title: "Frameworks",
+    icon: FiTool,
+    color: "cyan",
+    skills: [
+      "NestJS",
+      "Angular 19",
+      ".NET Core / ASP.NET",
+      "Flask",
+      "FastAPI",
+      "Next.js / React",
+    ],
+  },
+  {
+    title: "Databases & Caching",
+    icon: FiDatabase,
+    color: "green",
+    skills: ["PostgreSQL", "PostGIS", "MySQL", "Redis"],
+  },
+  {
+    title: "Architecture",
+    icon: FiServer,
+    color: "purple",
+    skills: [
+      "REST APIs",
+      "gRPC",
+      "Microservices",
+      "CQRS",
+      "Clean Architecture",
+      "Event-Driven Architecture",
+      "Modular Architecture",
+    ],
+  },
+  {
+    title: "Cloud & DevOps",
+    icon: FiCloud,
+    color: "cyan",
+    skills: [
+      "AWS S3",
+      "Azure Functions",
+      "Azure Queue Storage",
+      "SignalR",
+      "Docker",
+      "CI/CD",
+      "Git",
+      "Render",
+      "Vercel",
+    ],
+  },
+  {
+    title: "Security & Testing",
+    icon: FiShield,
+    color: "yellow",
+    skills: [
+      "JWT",
+      "OAuth2",
+      "RBAC",
+      "2FA",
+      "Jest",
+      "Swagger / OpenAPI",
+      "Postman",
+    ],
+  },
+  {
+    title: "Integrations & Observability",
+    icon: FiCloud,
+    color: "purple",
+    skills: [
+      "Hugging Face Inference API",
+      "Sentence-BERT",
+      "Facebook Prophet",
+      "scikit-learn",
+      "Stripe (Payments)",
+      "Entity Framework / EF Core",
+      "Serilog",
+      "Application Insights",
+      "FluentValidation",
+      "MailKit / SendGrid",
+      "NSwag / OpenAPI",
+    ],
+  },
+];
+
+const accentMap: Record<string, string> = {
+  cyan: "text-cyan-400",
+  blue: "text-blue-400",
+  purple: "text-purple-400",
+  green: "text-emerald-400",
+  yellow: "text-yellow-400",
+};
+
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Languages",
-      icon: FiCode,
-      color: "blue",
-      skills: [
-        { name: "TypeScript", icon: SiTypescript },
-        { name: "JavaScript", icon: SiJavascript },
-        { name: "Python", icon: SiPython },
-        { name: "C#", icon: SiSharp },
-      ],
-    },
-    {
-      title: "Integrations & Observability",
-      icon: FiCloud,
-      color: "purple",
-      skills: [
-        { name: "Hugging Face Inference API", icon: FiCloud },
-        { name: "Sentence-BERT", icon: FiCloud },
-        { name: "Facebook Prophet", icon: FiCloud },
-        { name: "scikit-learn", icon: FiCloud },
-        { name: "Anomaly Detection", icon: FiCloud },
-        { name: "Stripe (Payments)", icon: FiTool },
-        { name: "Entity Framework / EF Core", icon: SiDotnet },
-        { name: "Serilog", icon: FiTool },
-        { name: "Application Insights", icon: FiCloud },
-        { name: "FluentValidation", icon: FiTool },
-        { name: "MailKit / SendGrid", icon: FiTool },
-        { name: "Email Workflows", icon: FiCloud },
-        { name: "NSwag / OpenAPI", icon: SiSwagger },
-      ],
-    },
-    {
-      title: "Frameworks",
-      icon: FiTool,
-      color: "cyan",
-      skills: [
-        { name: "NestJS", icon: SiNestjs },
-        { name: "Angular 19", icon: FiTool },
-        { name: ".NET Core / ASP.NET", icon: SiDotnet },
-        { name: "Flask", icon: SiFlask },
-        { name: "FastAPI", icon: FiTool },
-        { name: "Next.js / React", icon: SiNextdotjs },
-      ],
-    },
-    {
-      title: "Architecture",
-      icon: FiServer,
-      color: "purple",
-      skills: [
-        { name: "REST APIs", icon: FiServer },
-        { name: "API Integrations", icon: FiServer },
-        { name: "Modular Architecture", icon: FiServer },
-        { name: "gRPC", icon: FiServer },
-        { name: "Microservices", icon: FiServer },
-        { name: "CQRS", icon: FiServer },
-        { name: "Clean Architecture", icon: FiServer },
-        { name: "Event-Driven Architecture", icon: FiServer },
-      ],
-    },
-    {
-      title: "Databases & Caching",
-      icon: FiDatabase,
-      color: "green",
-      skills: [
-        { name: "PostgreSQL", icon: SiPostgresql },
-        { name: "PostGIS", icon: FiDatabase },
-        { name: "MySQL", icon: SiMysql },
-        { name: "Redis", icon: SiRedis },
-      ],
-    },
-    {
-      title: "Cloud & DevOps",
-      icon: FiCloud,
-      color: "cyan",
-      skills: [
-        { name: "AWS S3", icon: SiAmazon },
-        { name: "Azure Functions", icon: FiCloud },
-        { name: "Azure Queue Storage", icon: FiCloud },
-        { name: "SignalR", icon: FiCloud },
-        { name: "Docker", icon: SiDocker },
-        { name: "CI/CD", icon: FiCloud },
-        { name: "Git", icon: SiGit },
-        { name: "Render", icon: FiCloud },
-        { name: "Vercel", icon: FiCloud },
-        { name: "Azure", icon: FiCloud },
-      ],
-    },
-    {
-      title: "Security & Testing",
-      icon: FiTool,
-      color: "yellow",
-      skills: [
-        { name: "JWT", icon: FiTool },
-        { name: "OAuth2", icon: FiTool },
-        { name: "RBAC", icon: FiTool },
-        { name: "2FA", icon: FiTool },
-        { name: "Jest", icon: SiJest },
-        { name: "Swagger / OpenAPI", icon: SiSwagger },
-        { name: "Postman", icon: SiPostman },
-      ],
-    },
-  ];
-
-  const getColorClass = (color: string) => {
-    const colors: { [key: string]: string } = {
-      cyan: "from-cyan-500 to-cyan-400",
-      blue: "from-blue-500 to-blue-400",
-      purple: "from-purple-500 to-purple-400",
-      green: "from-green-500 to-green-400",
-    };
-    return colors[color] || "from-cyan-500 to-cyan-400";
-  };
-
   return (
-    <SectionWrapper id="skills" className="bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
+    <SectionWrapper
+      id="skills"
+      className="bg-[#0a0f1a] relative overflow-hidden"
+    >
+      {/* Grid overlay — matches Hero */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(6,182,212,1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Ambient glow orbs — boosted to Hero-level */}
+      <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-indigo-500/12 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-[500px] h-[500px] bg-cyan-500/12 rounded-full blur-3xl pointer-events-none" />
+      {/* Centered heading spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-64 bg-cyan-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            Technical{" "}
+          <p className="text-cyan-500 font-mono text-sm tracking-[0.35em] uppercase mb-3">
+            // tech.stack
+          </p>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
+            <span className="text-white">Tools I</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Skills
+              trust.
             </span>
           </h2>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"></div>
+          <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
+            The stack I reach for when shipping production systems that have to
+            perform.
+          </p>
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
+            <div className="w-2 h-2 rounded-full bg-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-500/60" />
+          </div>
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-5">
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
-              className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 md:p-6 border border-gray-700 hover:border-cyan-400 transition-all duration-300 group hover:shadow-xl hover:shadow-cyan-500/20"
+              transition={{ duration: 0.4, delay: catIndex * 0.07 }}
+              className="rounded-xl border border-white/[0.12] bg-white/[0.05] backdrop-blur-sm hover:border-cyan-500/35 hover:bg-white/[0.08] hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300 p-5 group"
             >
-              {/* Category Header */}
-              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                <div
-                  className={`p-2 md:p-3 bg-gradient-to-br ${getColorClass(category.color)} rounded-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all duration-300`}
-                >
-                  <category.icon className="text-white text-xl md:text-2xl" />
+              {/* Category header */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 rounded-lg bg-white/5 border border-white/8 group-hover:border-cyan-500/20 transition-colors duration-300">
+                  <category.icon
+                    className={`text-lg ${accentMap[category.color] ?? "text-cyan-400"}`}
+                  />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white">
+                <h3 className="text-sm font-bold text-gray-300 uppercase tracking-widest">
                   {category.title}
                 </h3>
               </div>
 
-              {/* Skills List */}
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.3,
-                      delay: catIndex * 0.1 + skillIndex * 0.05,
-                    }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg border-2 border-gray-700 hover:border-cyan-400/70 transition-all duration-300 cursor-default group hover:shadow-lg hover:shadow-cyan-500/30"
+              {/* Skill pills — text-only, matches About coreStack style */}
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-lg text-sm font-mono hover:bg-cyan-500/20 hover:border-cyan-400/40 transition-all duration-200 cursor-default"
                   >
-                    {skill.icon && (
-                      <skill.icon className="text-cyan-400 text-lg md:text-xl group-hover:scale-110 transition-transform" />
-                    )}
-                    <span className="text-gray-300 font-semibold text-base md:text-lg">
-                      {skill.name}
-                    </span>
-                  </motion.div>
+                    {skill}
+                  </span>
                 ))}
               </div>
             </motion.div>
