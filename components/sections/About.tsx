@@ -437,10 +437,10 @@ const About = () => {
                   BS Computer Science
                 </div>
                 <div className="text-gray-400 text-sm mt-0.5">
-                  NED University of Engineering · GPA: 3.32/4.00
+                  NED University of Engineering · CGPA: 3.395/4.00
                 </div>
                 <div className="text-gray-400 text-sm mt-0.5 italic">
-                  Completed while working full-time
+                  Graduated June 2026 — completed while working full-time
                 </div>
               </div>
             </div>
