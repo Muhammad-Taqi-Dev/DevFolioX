@@ -66,10 +66,11 @@ const ProjectCard = ({
   project: Project;
   index: number;
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [techExpanded, setTechExpanded] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const MAX_TECHS = 5;
   const showMore = project.technologies.length > MAX_TECHS;
-  const visibleTechs = expanded
+  const visibleTechs = techExpanded
     ? project.technologies
     : project.technologies.slice(0, MAX_TECHS);
 
@@ -150,46 +151,75 @@ const ProjectCard = ({
           </p>
         </div>
 
-        {/* PCAR Features */}
-        <div>
-          <h4 className="flex items-center gap-2 text-sm font-bold text-white mb-2.5">
-            <span className="flex-shrink-0 w-1 h-3 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500" />
-            Key Features
-          </h4>
-          <ul className="space-y-2">
-            {project.features.map((feature, i) => {
-              const colonIdx = feature.indexOf(": ");
-              const rawLabel =
-                colonIdx !== -1 ? feature.slice(0, colonIdx).trim() : null;
-              const body =
-                colonIdx !== -1 ? feature.slice(colonIdx + 2).trim() : feature;
-              const style = rawLabel ? LABEL_STYLES[rawLabel] : null;
+        {/* View Details toggle */}
+        <button
+          onClick={() => setDetailsOpen((prev) => !prev)}
+          className="flex items-center gap-1.5 text-sm font-semibold text-cyan-400/80 hover:text-cyan-300 transition-colors duration-200 w-fit"
+        >
+          {detailsOpen ? (
+            <>
+              <FiChevronUp className="text-sm" /> Hide Details
+            </>
+          ) : (
+            <>
+              <FiChevronDown className="text-sm" /> View Details
+            </>
+          )}
+        </button>
 
-              return (
-                <li
-                  key={i}
-                  className="grid grid-cols-[116px_minmax(0,1fr)] sm:grid-cols-[128px_minmax(0,1fr)] items-start gap-x-2 text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300"
-                >
-                  {style && rawLabel ? (
-                    <>
-                      <span
-                        className={`mt-0.5 w-full whitespace-nowrap text-center px-1.5 py-0.5 rounded text-[11px] sm:text-sm font-bold uppercase tracking-normal leading-tight border ${style.bg} ${style.text} ${style.border}`}
+        {/* PCAR Features — collapsible */}
+        <AnimatePresence initial={false}>
+          {detailsOpen && (
+            <motion.div
+              key="pcarl"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="pt-1">
+                <h4 className="flex items-center gap-2 text-sm font-bold text-white mb-2.5">
+                  <span className="flex-shrink-0 w-1 h-3 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500" />
+                  Key Features
+                </h4>
+                <ul className="space-y-2">
+                  {project.features.map((feature, i) => {
+                    const colonIdx = feature.indexOf(": ");
+                    const rawLabel =
+                      colonIdx !== -1 ? feature.slice(0, colonIdx).trim() : null;
+                    const body =
+                      colonIdx !== -1 ? feature.slice(colonIdx + 2).trim() : feature;
+                    const style = rawLabel ? LABEL_STYLES[rawLabel] : null;
+
+                    return (
+                      <li
+                        key={i}
+                        className="grid grid-cols-[116px_minmax(0,1fr)] sm:grid-cols-[128px_minmax(0,1fr)] items-start gap-x-2 text-sm text-gray-400 leading-relaxed"
                       >
-                        {rawLabel}
-                      </span>
-                      <span className="break-words">{body}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span aria-hidden className="block" />
-                      <span className="break-words">{feature}</span>
-                    </>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+                        {style && rawLabel ? (
+                          <>
+                            <span
+                              className={`mt-0.5 w-full whitespace-nowrap text-center px-1.5 py-0.5 rounded text-[11px] sm:text-sm font-bold uppercase tracking-normal leading-tight border ${style.bg} ${style.text} ${style.border}`}
+                            >
+                              {rawLabel}
+                            </span>
+                            <span className="break-words">{body}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span aria-hidden className="block" />
+                            <span className="break-words">{feature}</span>
+                          </>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Tech Stack */}
         <div>
@@ -214,10 +244,10 @@ const ProjectCard = ({
             </AnimatePresence>
             {showMore && (
               <button
-                onClick={() => setExpanded(!expanded)}
+                onClick={() => setTechExpanded(!techExpanded)}
                 className="flex items-center gap-1 px-2.5 py-1 rounded-md text-sm font-semibold text-gray-400 hover:text-cyan-400 border border-dashed border-gray-700 hover:border-cyan-500/50 transition-all duration-200"
               >
-                {expanded ? (
+                {techExpanded ? (
                   <>
                     <FiChevronUp className="text-sm" /> Less
                   </>
@@ -613,7 +643,7 @@ const Projects = () => {
         </motion.div>
 
         {/* ── Grid ─────────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
