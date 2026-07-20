@@ -179,7 +179,7 @@ const Hero = () => {
 
             <a
               id="hero-resume-btn"
-              href="/Software_Engineer_Taqi_Haider_Resume.pdf"
+              href="/Software_Engineer_Muhammad_Taqi_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/30 text-gray-200 hover:text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm text-base"

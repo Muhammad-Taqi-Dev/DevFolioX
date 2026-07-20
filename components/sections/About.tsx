@@ -177,7 +177,8 @@ const About = () => {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-indigo-600/20 rotate-[-2deg]" />
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                 <img
-                  src="/profile.jpg"
+                  // src="/profile.jpg"
+                  src="/profile.jpeg"
                   alt="Muhammad Taqi Haider"
                   className="w-full h-full object-cover"
                 />

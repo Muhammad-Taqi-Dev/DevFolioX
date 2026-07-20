@@ -2,31 +2,12 @@
 
 import { motion } from "framer-motion";
 import {
-  SiPython,
-  SiTypescript,
-  SiJavascript,
-  SiSharp,
-  SiDotnet,
-  SiNestjs,
-  SiFlask,
-  SiNextdotjs,
-  SiPostgresql,
-  SiMysql,
-  SiRedis,
-  SiDocker,
-  SiAmazon,
-  SiGit,
-  SiPostman,
-  SiSwagger,
-  SiJest,
-} from "react-icons/si";
-import {
-  FiServer,
-  FiDatabase,
-  FiTool,
-  FiCode,
   FiCloud,
+  FiCode,
+  FiDatabase,
+  FiServer,
   FiShield,
+  FiTool,
 } from "react-icons/fi";
 import SectionWrapper from "../SectionWrapper";
 

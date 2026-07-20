@@ -79,11 +79,10 @@ const ProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
-      className={`group relative flex flex-col rounded-2xl border backdrop-blur-sm hover:-translate-y-1 transition-all duration-500 overflow-hidden ${
-        project.featured
-          ? "border-white/[0.14] bg-gradient-to-br from-cyan-500/[0.04] via-white/[0.05] to-transparent hover:border-cyan-500/40 hover:from-cyan-500/[0.07] hover:shadow-xl hover:shadow-cyan-500/15"
-          : "border-white/[0.10] bg-white/[0.03] hover:border-white/[0.20] hover:bg-white/[0.06] hover:shadow-lg hover:shadow-white/5"
-      }`}
+      className={`group relative flex flex-col rounded-2xl border backdrop-blur-sm hover:-translate-y-1 transition-all duration-500 overflow-hidden ${project.featured
+        ? "border-white/[0.14] bg-gradient-to-br from-cyan-500/[0.04] via-white/[0.05] to-transparent hover:border-cyan-500/40 hover:from-cyan-500/[0.07] hover:shadow-xl hover:shadow-cyan-500/15"
+        : "border-white/[0.10] bg-white/[0.03] hover:border-white/[0.20] hover:bg-white/[0.06] hover:shadow-lg hover:shadow-white/5"
+        }`}
     >
       {/* Subtle top glow line */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -376,31 +375,31 @@ const Projects = () => {
     {
       title: "TrackWise",
       subtitle: "AI-Powered Personal Finance Manager",
-      period: "May 2025 – May 2026",
+      period: "May 2025 – Present",
       description:
-        "Final Year Project — full-stack AI-powered personal finance platform with a modular NestJS/PostgreSQL backend (56 endpoints) and a self-built Flask ML microservice hosted on Hugging Face Spaces, delivering real-time transaction categorisation, next-month expense forecasting, and anomaly detection.",
+        "Final Year Project (team of 3) — backend & ML lead. AI-driven personal finance platform live on Azure (backend/DB) and Vercel (frontend) with active beta users on real transactional data.",
       features: [
-        "Problem: Manual expense tracking and noisy transaction data hurt categorisation accuracy and delayed anomaly alerts.",
-        "Challenges: Deploy three production ML models with low-latency inference, avoid Hugging Face cold starts, and return results inline.",
-        "Actions: Built a Flask ML microservice (SBERT + Logistic Regression, Prophet, anomaly detector) on Hugging Face Spaces; wired inference into NestJS with caching and rate limiting; added event-driven email auth flows.",
-        "Result: Delivered inline categorisation (~88% accuracy) and anomaly detection (AUC-ROC: 0.87); enabled next-month forecasting after 3+ months of history; reduced cold-start impact with caching.",
-        "Learnings: Gained end-to-end ML production experience across training, deployment, inference design, and resilient API integration.",
+        "Problem: Manual expense tracking offered no intelligence — transactions needed manual categorisation, forecasting was absent, and anomalies went undetected until it was too late.",
+        "Challenges: Deploy three ML models (categorisation, forecasting, anomaly detection) on Hugging Face Spaces with low-latency inference, avoid cold-start penalties, and return results inline without coupling ML logic to the core NestJS service.",
+        "Actions: Architected a 56-endpoint modular-monolith NestJS/PostgreSQL backend deployed on Azure; built a Flask ML microservice (SBERT + Logistic Regression, Facebook Prophet, anomaly detector) on Hugging Face Spaces with caching and rate limiting; wrote Jest unit/integration tests and configured GitHub Actions CI/CD; implemented email-based 2FA and account verification.",
+        "Result: Achieved 88% test accuracy on transaction categorisation and AUC-ROC: 0.87 on anomaly detection; enabled next-month forecasting after 3+ months of history; platform live on Azure/Vercel with 10 beta testers on real transactional data.",
+        "Learnings: Gained end-to-end ML production experience — from model training and deployment to inference design, cold-start mitigation, and resilient API integration across a distributed system.",
       ],
       technologies: [
         "NestJS",
         "Angular 19",
         "PostgreSQL",
         "Flask",
-        "Docker",
         "Redis",
         "SBERT",
         "scikit-learn",
         "Prophet",
-        "OAuth2",
         "Jest",
-        "Hugging Face",
-        "Render",
+        "GitHub Actions",
+        "Azure",
         "Vercel",
+        "Hugging Face",
+        "2FA",
         "REST API",
       ],
       github: "https://github.com/Muhammad-Taqi-Dev/TrackWise",
