@@ -9,6 +9,15 @@ import Image from "next/image";
 const Certifications = () => {
   const certifications = [
     {
+      title: "Java Programming for Beginners",
+      issuer: "Coursera, IBM",
+      icon: SiCoursera,
+      file: "/Java Programming for Beginners.pdf",
+      category: "Programming",
+      color: "purple",
+      date: "Aug, 2026",
+    },
+    {
       title: "Software Design Patterns: Best Practices for Software Developers",
       issuer: "Educative",
       icon: FiAward,
