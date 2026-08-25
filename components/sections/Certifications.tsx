@@ -9,6 +9,15 @@ import Image from "next/image";
 const Certifications = () => {
   const certifications = [
     {
+      title: "Application Development using Microservices and Serverless",
+      issuer: "Coursera, IBM",
+      icon: SiCoursera,
+      file: "/Application Development using Microservices and Serverless.pdf",
+      category: "Cloud & Microservices",
+      color: "cyan",
+      date: "Aug, 2026",
+    },
+    {
       title: "Java Programming for Beginners",
       issuer: "Coursera, IBM",
       icon: SiCoursera,
