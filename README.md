@@ -61,4 +61,6 @@ Most content lives in `lib/` or at the top of each section component, so updatin
 
 ## License
 
-The code is free to read and learn from. The written content, photos, resume and certificates are mine, so please don't reuse them as your own.
+The code is [MIT licensed](LICENSE). Use it as a starting point for your own portfolio if it helps.
+
+The personal content is not covered by that license: written text, case studies, recommendations, photos, resume and certificates stay mine. If you reuse the code, please swap in your own content.
