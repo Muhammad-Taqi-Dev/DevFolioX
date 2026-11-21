@@ -14,6 +14,9 @@ export const site = {
   github: "https://github.com/Muhammad-Taqi-Dev",
   linkedin: "https://linkedin.com/in/taqih1",
   resume: "/Software_Engineer_Muhammad_Taqi_Resume.pdf",
+  email: "taqihaider591@gmail.com",
+  phone: "+92 330 287 7064",
+  phoneHref: "tel:+923302877064",
   skills: [
     "NestJS",
     ".NET Core",

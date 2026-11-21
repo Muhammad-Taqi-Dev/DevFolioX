@@ -1,34 +1,18 @@
-"use client";
-
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-
 interface SectionWrapperProps {
   children: React.ReactNode;
   id: string;
   className?: string;
 }
 
-const SectionWrapper: React.FC<SectionWrapperProps> = ({ children, id, className = '' }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    // Trigger when the section is entering the viewport
-    threshold: 0.05,
-    rootMargin: '50px 0px 50px 0px',
-  });
-
-  return (
-    <motion.section
-      ref={ref}
-      id={id}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
-      className={`py-16 sm:py-24 lg:py-28 ${className}`}
-    >
-      {children}
-    </motion.section>
-  );
-};
+/**
+ * Standard section shell: anchor id, top divider, vertical rhythm and the
+ * page-width container. Deliberately has no scroll-triggered fade: content
+ * must be visible in the server HTML (crawlers, slow phones, link previews).
+ */
+const SectionWrapper = ({ children, id, className = "" }: SectionWrapperProps) => (
+  <section id={id} className={`border-t border-line py-20 sm:py-24 ${className}`}>
+    <div className="mx-auto max-w-page px-5 sm:px-8">{children}</div>
+  </section>
+);
 
 export default SectionWrapper;

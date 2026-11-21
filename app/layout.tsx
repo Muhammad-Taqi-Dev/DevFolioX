@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter, Fira_Code } from "next/font/google";
+import {
+  Plus_Jakarta_Sans,
+  Inter,
+  Fira_Code,
+  Instrument_Serif,
+} from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+
+// Serif for the name and large headings
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 // Display / heading font — premium, modern, strong personality
 const plusJakarta = Plus_Jakarta_Sans({
@@ -85,9 +99,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-canvas">
       <body
-        className={`${plusJakarta.variable} ${inter.variable} ${firaCode.variable} antialiased`}
+        className={`${instrumentSerif.variable} ${plusJakarta.variable} ${inter.variable} ${firaCode.variable} antialiased bg-canvas text-ink-soft`}
       >
         <script
           type="application/ld+json"

@@ -2,130 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Palette lives in tailwind.config.js. These mirror it for plain CSS below. */
 :root {
-  --background: #0a0f1a;
-  --foreground: #f1f5f9;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-body);
-  --font-mono: var(--font-mono);
+  --base: #0f0f0e;
+  --ink: #eceae3;
+  --ink-soft: #c9c6bc;
+  --line: #2a2925;
+  --line-strong: #3d3b35;
+  --accent: #e2a85a;
 }
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  scroll-padding-top: 5rem; /* keep anchored headings clear of the fixed nav */
   font-size: 18px;
 }
 
 body {
-  background: #0a0f1a;
-  color: var(--foreground);
-  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--base);
+  color: var(--ink-soft);
+  font-family: var(--font-body), "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
-  font-size: 1rem;
   line-height: 1.7;
-  letter-spacing: -0.01em;
 }
 
-/* Font utility classes */
-.font-display {
-  font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
-}
-
-.font-body {
-  font-family: var(--font-body), 'Inter', sans-serif;
-}
-
-.font-mono {
-  font-family: var(--font-mono), 'Fira Code', monospace;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #22d3ee;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4;
-}
-
-/* Smooth transitions for all interactive elements */
-button, a, input, textarea {
-  transition: all 0.3s ease;
-}
-
-/* Remove tap highlight on mobile */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Ensure images don't overflow */
 img {
   max-width: 100%;
   height: auto;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 10px;
+  border: 2px solid var(--base);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #57544c;
+}
 
-
-/* Selection */
 ::selection {
-  background-color: #22d3ee;
-  color: #0a0a0a;
+  background-color: var(--accent);
+  color: var(--base);
 }
 
-::-moz-selection {
-  background-color: #22d3ee;
-  color: #0a0a0a;
-}
-
-/* Note: global * transition removed — it conflicted with Framer Motion
-   and added 300ms lag to all scroll-triggered animations.
-   Use component-level transition-* utilities instead. */
-
-/* Remove outline on focus for mouse users */
+/* Focus: visible for keyboard users only */
 *:focus:not(:focus-visible) {
   outline: none;
 }
-
-/* Custom focus styles */
 *:focus-visible {
-  outline: 2px solid #22d3ee;
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* Fade in animation for projects */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Text link with an underline that grows on hover */
+.link {
+  color: var(--ink);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease, color 0.2s ease;
+}
+.link:hover {
+  background-size: 100% 1px;
+  color: var(--accent);
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 0.5s ease-out;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
