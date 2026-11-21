@@ -43,7 +43,7 @@ const certifications: Credential[] = [
     title: ".NET Full Stack Foundation",
     issuer: "Coursera, Board Infinity",
     date: "2025",
-    href: "/.NET Full Stack Foundation.pdf",
+    href: "/NET Full Stack Foundation.pdf",
     kind: "pdf",
   },
   {

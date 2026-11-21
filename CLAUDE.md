@@ -66,7 +66,7 @@ Most content is hard-coded **inside** the section components (arrays declared in
 | Job history | `components/sections/Experience.tsx` (`experiences`) |
 | Projects (case-study format) | `components/sections/Projects.tsx` (`projects`) |
 | Skills | `components/sections/Skills.tsx` (`skillCategories`) |
-| Certificates / workshops / LeetCode badges | `components/sections/Certifications.tsx` — PDF goes in `public/`, `file` is its `/`-rooted path |
+| Certificates / workshops / LeetCode badges | `components/sections/Certifications.tsx` — PDF goes in `public/`, `href` is its `/`-rooted path. File names must not start with `.` (Next.js returns 500 for dotfiles) |
 | Competitions + coding-platform stats | `components/sections/Achievements.tsx` |
 | Recommendations | `lib/testimonials.ts` |
 | Email / phone / GitHub / LinkedIn / resume | `lib/site.ts` (also hard-coded in `api/contact/route.ts`) |
@@ -133,9 +133,8 @@ Ordered by severity. Remove items from this list once fixed.
 
 1. **Contact route — HTML injection & abuse.** `name`, `email`, `subject`, `message` are interpolated unescaped into the email HTML (and into `href="mailto:${email}"`), so anyone can inject arbitrary HTML/links into mail delivered to the owner. Also: no email-format or length validation, no rate limiting (anyone can burn the Brevo quota), invalid JSON returns 500 instead of 400, `error.message` is leaked to the client, the full Brevo result is `console.log`ged, and the sender address is hard-coded rather than an env var.
 2. **ESLint is broken.** `eslint.config.mjs` imports `eslint-config-next` as a flat config (Next 16 style), but v15 ships a legacy config that needs `FlatCompat` (`compat.extends("next/core-web-vitals", "next/typescript")`). Result: `npm run lint` crashes and `next build` skips linting.
-3. **Missing certificate file.** The ".NET Full Stack Foundation" entry in Certifications.tsx points to `/.NET Full Stack Foundation.pdf`, which isn't in `public/` → "View PDF" 404s.
-4. **Heavy `public/`.** Certificate PDFs are 7–8 MB each (~35 MB total). Unused files: `profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` (~1 MB).
-5. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. README is the create-next-app boilerplate. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`). `design_review.md` / `re_enhancement_status.md` describe the old design.
+3. **Heavy `public/`.** Certificate PDFs are 7–8 MB each (~35 MB total). Unused files: `profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` (~1 MB).
+4. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. README is the create-next-app boilerplate. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`). `design_review.md` / `re_enhancement_status.md` describe the old design.
 
 ## Working notes for Claude
 
