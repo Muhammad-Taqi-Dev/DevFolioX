@@ -7,9 +7,34 @@ import SectionWrapper from "../SectionWrapper";
 const Experience = () => {
   const experiences = [
     {
+      company: "Techlogix",
+      position: "Software Engineer",
+      period: "Sept 2026 – Present",
+      location: "Karachi, Pakistan",
+      achievements: [
+        "Delivered production features for one of Pakistan's leading banks by customizing and extending Oracle Banking Digital Experience (OBDX) modules to meet bank-specific business requirements.",
+        "Built REST APIs and backend services in Java Spring Boot on Oracle Database, integrating OBDX with core banking systems and third-party services to power end-to-end digital banking and transaction flows.",
+        "Kept live banking systems stable by debugging and resolving production issues, shipping releases through Jenkins CI/CD pipelines in Agile sprints alongside QA, product, and bank stakeholders.",
+      ],
+      technologies: [
+        "OBDX",
+        "Fintech",
+        "Java",
+        "Spring Boot",
+        "Oracle",
+        "Redis",
+        "Knockout.js",
+        "REST APIs",
+        "Jenkins",
+        "CI/CD",
+        "Core Banking",
+        "Production Support",
+      ],
+    },
+    {
       company: "QBS Co.",
       position: "Associate Software Engineer",
-      period: "Feb 2026 – Present",
+      period: "Feb 2026 – Oct 2026",
       location: "Karachi, Pakistan",
       achievements: [
         "Cut API response latency from 1.6s to under 600ms by introducing Redis caching for third-party responses, eliminating redundant external calls on high-traffic monitoring screens.",
