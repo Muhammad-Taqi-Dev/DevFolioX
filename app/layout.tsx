@@ -1,7 +1,22 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter, Fira_Code } from "next/font/google";
-// @ts-ignore: Allow side-effect CSS import without type declarations
+import {
+  Plus_Jakarta_Sans,
+  Inter,
+  Fira_Code,
+  Instrument_Serif,
+} from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { site } from "@/lib/site";
+
+// Serif for the name and large headings
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 // Display / heading font — premium, modern, strong personality
 const plusJakarta = Plus_Jakarta_Sans({
@@ -28,28 +43,55 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Muhammad Taqi Haider | Backend & Full Stack Engineer",
-  description:
-    "Associate Software Engineer specializing in backend development with NestJS & .NET Core. Building production systems that perform — 1.6s → 600ms APIs, async pipelines, distributed auth, AI integration.",
-  keywords: [
-    "Muhammad Taqi Haider",
-    "Software Engineer",
-    "Backend Developer",
-    "NestJS",
-    ".NET Core",
-    "Full Stack Developer",
-    "Portfolio",
-    "Redis",
-    "PostgreSQL",
-    "Docker",
-  ],
-  authors: [{ name: "Muhammad Taqi Haider" }],
-  openGraph: {
-    title: "Muhammad Taqi Haider | Backend & Full Stack Engineer",
-    description:
-      "Associate Software Engineer specializing in backend development with NestJS & .NET Core.",
-    type: "website",
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.title,
+    template: `%s · ${site.name}`,
   },
+  description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName: site.name,
+    title: site.title,
+    description: site.description,
+    locale: "en_US",
+    firstName: "Muhammad Taqi",
+    lastName: "Haider",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+};
+
+// Structured data so search engines can connect this site with the
+// GitHub / LinkedIn profiles and show a richer result for name searches.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  url: site.url,
+  image: `${site.url}/profile.jpeg`,
+  jobTitle: site.jobTitle,
+  worksFor: { "@type": "Organization", name: site.employer },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.location.city,
+    addressCountry: site.location.country,
+  },
+  knowsAbout: site.skills,
+  sameAs: [site.github, site.linkedin],
 };
 
 export default function RootLayout({
@@ -58,11 +100,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-canvas">
       <body
-        className={`${plusJakarta.variable} ${inter.variable} ${firaCode.variable} antialiased`}
+        className={`${instrumentSerif.variable} ${plusJakarta.variable} ${inter.variable} ${firaCode.variable} antialiased bg-canvas text-ink-soft`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         {children}
+        <Analytics />
       </body>
     </html>
   );
