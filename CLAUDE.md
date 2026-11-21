@@ -145,7 +145,8 @@ Ordered by severity. Remove items from this list once fixed.
 
 ## Working notes for Claude
 
-- Run `npx tsc --noEmit` and `npm run build` after changes; until #2 is fixed, lint will not catch anything.
+- Run `npx tsc --noEmit` and `npm run build` after changes; until #1 is fixed, lint will not catch anything.
+- `npm run build` and `npm run dev` share `.next/`. Building while the user's dev server is running breaks it (500 Internal Server Error, "Cannot find module" in the terminal). Check `npx kill-port 3000` isn't killing their session first, or tell them to restart afterwards. Fix: stop dev, `rm -rf .next`, `npm run dev`.
 - To check whether a Tailwind class really generates CSS:
   `echo '<div class="bg-white/3"></div>' > t.html && echo '@tailwind utilities;' > in.css && npx tailwindcss -c tailwind.config.js --content t.html -i in.css`
 - Ignore `design_review.md` / `re_enhancement_status.md` for visual decisions; they describe the replaced cyan/glass design. Follow the Design system section above.
