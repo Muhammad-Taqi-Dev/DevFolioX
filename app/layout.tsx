@@ -68,6 +68,9 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
   },
+  // Google Search Console ownership (URL-prefix property). Keep it, or the
+  // property becomes unverified.
+  verification: { google: "cv2d5Q66YTJTn--3loklAYagPnDNitW9-5lSCQKO2DM" },
   robots: {
     index: true,
     follow: true,
