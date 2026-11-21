@@ -63,4 +63,4 @@ Most content lives in `lib/` or at the top of each section component, so updatin
 
 The code is [MIT licensed](LICENSE). Use it as a starting point for your own portfolio if it helps.
 
-The personal content is not covered by that license: written text, case studies, recommendations, photos, resume and certificates stay mine. If you reuse the code, please swap in your own content.
+The personal content is not covered by that license: written text, case studies, recommendations, photos, resume and certificates stay mine. If you reuse the code, please swap in your own content. Details in [CONTENT-NOTICE.md](CONTENT-NOTICE.md).
