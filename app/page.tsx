@@ -7,12 +7,11 @@ import Experience from '@/components/sections/Experience';
 import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
 import Certifications from '@/components/sections/Certifications';
-import Achievements from '@/components/sections/Achievements';
 import Testimonials from '@/components/sections/Testimonials';
 import Contact from '@/components/sections/Contact';
 
 // Order follows what a hiring manager wants first: who → work → history →
-// person → proof → contact.
+// person → proof → contact. (Competitions now live in About.)
 export default function Home() {
   return (
     <MotionProvider>
@@ -25,7 +24,6 @@ export default function Home() {
         <Skills />
         <Testimonials />
         <Certifications />
-        <Achievements />
         <Contact />
       </main>
       <Footer />

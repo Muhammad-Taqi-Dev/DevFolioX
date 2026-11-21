@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
 import SectionWrapper from "../SectionWrapper";
 import SectionHeader from "../SectionHeader";
 
@@ -7,7 +9,7 @@ const experiences = [
   {
     company: "Techlogix",
     position: "Software Engineer",
-    period: "Sept 2026 – Present",
+    period: "Sep 2026 – Present",
     location: "Karachi, Pakistan",
     achievements: [
       "Customise and extend Oracle Banking Digital Experience (OBDX) modules for one of Pakistan's leading banks, so the product fits the bank's own business rules.",
@@ -31,6 +33,7 @@ const experiences = [
     position: "Associate Software Engineer",
     promotedFrom: "Trainee Software Engineer",
     period: "Nov 2025 – Oct 2026",
+    caseStudy: { slug: "verseye", title: "VersEye" },
     location: "Karachi, Pakistan",
     achievements: [
       "Took VersEye's live monitoring screens from 1.6s to under 600ms by caching third-party responses in Redis, so a refresh no longer called the same external services again.",
@@ -56,6 +59,7 @@ const experiences = [
     company: "KoderLabs",
     position: "Associate Software Engineer",
     period: "Mar 2025 – Oct 2025",
+    caseStudy: { slug: "tenxed", title: "TenXed" },
     location: "Karachi, Pakistan",
     achievements: [
       "Cut database queries per request from 6–8 to 2–3 by restructuring .NET Core service logic (Clean Architecture), without breaking any existing API clients.",
@@ -76,6 +80,7 @@ const experiences = [
     company: "QBS Co.",
     position: ".NET Intern",
     period: "Dec 2024 – Mar 2025",
+    caseStudy: { slug: "ajeek-ksa", title: "Ajeek-KSA" },
     location: "Karachi, Pakistan",
     achievements: [
       "Worked on .NET microservices (Docker, gRPC, CQRS) for the Workspace Management, Live Monitoring and Employee Tracking modules, improving inter-service performance by about 25%.",
@@ -150,6 +155,16 @@ const Experience = () => {
               <p className="mt-4 font-mono text-sm text-ink-muted">
                 {exp.technologies.join(" · ")}
               </p>
+
+              {exp.caseStudy && (
+                <Link
+                  href={`/work/${exp.caseStudy.slug}`}
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
+                >
+                  Case study: {exp.caseStudy.title}
+                  <FiArrowRight aria-hidden="true" />
+                </Link>
+              )}
             </div>
           </li>
         ))}

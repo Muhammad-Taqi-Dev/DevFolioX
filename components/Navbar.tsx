@@ -66,7 +66,7 @@ const Navbar = () => {
         className="mx-auto flex h-16 max-w-page items-center justify-between px-5 sm:px-8"
       >
         <a
-          href="#top"
+          href="/#top"
           className="font-serif text-xl text-ink hover:text-accent transition-colors"
         >
           Taqi Haider
@@ -77,7 +77,7 @@ const Navbar = () => {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={`/#${item.id}`}
               aria-current={active === item.id ? "true" : undefined}
               className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                 active === item.id
@@ -125,7 +125,7 @@ const Navbar = () => {
               {navItems.map((item) => (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={`/#${item.id}`}
                   onClick={() => setOpen(false)}
                   className={`py-3 text-base ${
                     active === item.id ? "text-ink" : "text-ink-muted"

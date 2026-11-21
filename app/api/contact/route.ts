@@ -1,139 +1,162 @@
-import { NextRequest, NextResponse } from 'next/server';
-import * as brevo from '@getbrevo/brevo';
+import { NextRequest, NextResponse } from "next/server";
+import * as brevo from "@getbrevo/brevo";
+
+// Addresses come from env so they can change without a code edit.
+// Fallbacks keep the form working if the vars are not set.
+const FALLBACK_ADDRESS = "taqihaider591@gmail.com";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || FALLBACK_ADDRESS;
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || FALLBACK_ADDRESS;
+
+const LIMITS = {
+  name: { min: 1, max: 100 },
+  email: { min: 3, max: 254 },
+  subject: { min: 1, max: 150 },
+  message: { min: 10, max: 5000 },
+} as const;
+
+const EMAIL_RE = /^[^\s@<>"'()[\]\\,;:]+@[^\s@<>"'()[\]\\,;:]+\.[A-Za-z]{2,}$/;
+
+// ── Rate limit ───────────────────────────────────────────────────────────────
+// Best-effort, in-memory, per server instance. On serverless (Vercel) each
+// instance has its own map and it resets on cold start, so this only slows
+// down casual abuse; use a shared store (e.g. Upstash Redis) for a hard limit.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT) {
+    hits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  hits.set(ip, recent);
+  // Keep the map from growing without bound.
+  if (hits.size > 5000) {
+    for (const [key, times] of hits) {
+      if (times.every((t) => now - t >= RATE_WINDOW_MS)) hits.delete(key);
+    }
+  }
+  return false;
+}
+
+function clientIp(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  return forwarded?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function bad(message: string, status = 400) {
+  return NextResponse.json({ error: message }, { status });
+}
+
+type Field = keyof typeof LIMITS;
+
+function readField(body: Record<string, unknown>, key: Field): string | null {
+  const raw = body[key];
+  if (typeof raw !== "string") return null;
+  const value = raw.trim();
+  const { min, max } = LIMITS[key];
+  return value.length >= min && value.length <= max ? value : null;
+}
+
+function buildEmailHtml(f: Record<Field, string>): string {
+  const name = escapeHtml(f.name);
+  const email = escapeHtml(f.email);
+  const subject = escapeHtml(f.subject);
+  const message = escapeHtml(f.message);
+  const replyHref = `mailto:${encodeURIComponent(f.email)}?subject=${encodeURIComponent(`Re: ${f.subject}`)}`;
+
+  return `<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+  <body style="margin:0;padding:24px;background:#f4f3ef;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:#1f1e1b;">
+    <div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #e4e2db;border-radius:10px;overflow:hidden;">
+      <div style="padding:24px 28px;border-bottom:1px solid #e4e2db;">
+        <p style="margin:0;font-size:13px;color:#8a877d;">Portfolio contact form</p>
+        <h1 style="margin:6px 0 0;font-size:20px;font-weight:600;">${subject}</h1>
+      </div>
+      <div style="padding:24px 28px;">
+        <table style="border-collapse:collapse;font-size:14px;margin-bottom:20px;">
+          <tr><td style="padding:4px 16px 4px 0;color:#8a877d;">From</td><td style="padding:4px 0;">${name}</td></tr>
+          <tr><td style="padding:4px 16px 4px 0;color:#8a877d;">Email</td><td style="padding:4px 0;">${email}</td></tr>
+        </table>
+        <div style="font-size:15px;line-height:1.7;white-space:pre-wrap;border-left:3px solid #e2a85a;padding:4px 0 4px 16px;">${message}</div>
+        <p style="margin:28px 0 0;">
+          <a href="${escapeHtml(replyHref)}" style="display:inline-block;background:#1f1e1b;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:14px;">Reply to ${name}</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>`;
+}
 
 export async function POST(request: NextRequest) {
+  if (isRateLimited(clientIp(request))) {
+    return bad("Too many messages. Please try again later, or email me directly.", 429);
+  }
+
+  let body: Record<string, unknown>;
   try {
-    const { name, email, subject, message } = await request.json();
-
-    // Validate input
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
-      );
+    const parsed: unknown = await request.json();
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return bad("Invalid request.");
     }
+    body = parsed as Record<string, unknown>;
+  } catch {
+    return bad("Invalid request.");
+  }
 
-    // Initialize Brevo API
-    const apiInstance = new brevo.TransactionalEmailsApi();
-    apiInstance.setApiKey(
-      brevo.TransactionalEmailsApiApiKeys.apiKey,
-      process.env.BREVO_API_KEY || ''
-    );
+  // Honeypot: real visitors never fill the hidden "website" field.
+  if (typeof body.website === "string" && body.website.trim() !== "") {
+    return NextResponse.json({ success: true }, { status: 200 });
+  }
 
-    if (!process.env.BREVO_API_KEY) {
-      console.error("❌ BREVO_API_KEY is missing");
-      return Response.json(
-        { error: "Server misconfiguration" },
-        { status: 500 }
-      );
-    }
+  const name = readField(body, "name");
+  const email = readField(body, "email");
+  const subject = readField(body, "subject");
+  const message = readField(body, "message");
 
-    // Send email
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.subject = `Portfolio Contact: ${subject}`;
-    sendSmtpEmail.htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        <body style="margin: 0; padding: 0; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-          <div style="max-width: 650px; margin: 40px auto; background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
-            
-            <!-- Header with gradient -->
-            <div style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-                ✉️ New Contact Message
-              </h1>
-              <p style="margin: 10px 0 0 0; color: rgba(255, 255, 255, 0.95); font-size: 16px; font-weight: 500;">
-                From your Portfolio Website
-              </p>
-            </div>
+  if (!name || !email || !subject || !message) {
+    return bad("Please fill in every field. Messages need at least 10 characters.");
+  }
+  if (!EMAIL_RE.test(email)) {
+    return bad("Please enter a valid email address.");
+  }
 
-            <!-- Content -->
-            <div style="padding: 40px 35px;">
-              
-              <!-- Sender Info Card -->
-              <div style="background: linear-gradient(135deg, #f0fdff 0%, #e0f2fe 100%); border-left: 5px solid #06b6d4; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(6, 182, 212, 0.1);">
-                <h2 style="margin: 0 0 20px 0; color: #0e7490; font-size: 20px; font-weight: 700;">
-                  👤 Sender Details
-                </h2>
-                <table style="width: 100%; border-collapse: collapse;">
-                  <tr>
-                    <td style="padding: 10px 0; color: #0e7490; font-weight: 600; font-size: 15px; width: 100px;">Name:</td>
-                    <td style="padding: 10px 0; color: #164e63; font-size: 15px; font-weight: 500;">${name}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 10px 0; color: #0e7490; font-weight: 600; font-size: 15px;">Email:</td>
-                    <td style="padding: 10px 0;">
-                      <a href="mailto:${email}" style="color: #0284c7; text-decoration: none; font-weight: 600; font-size: 15px;">${email}</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 10px 0; color: #0e7490; font-weight: 600; font-size: 15px;">Subject:</td>
-                    <td style="padding: 10px 0; color: #164e63; font-size: 15px; font-weight: 500;">${subject}</td>
-                  </tr>
-                </table>
-              </div>
+  const apiKey = process.env.BREVO_API_KEY;
+  if (!apiKey) {
+    console.error("[contact] email provider is not configured");
+    return bad("Server misconfiguration.", 500);
+  }
 
-              <!-- Message Card -->
-              <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 30px; border: 2px solid #e2e8f0;">
-                <h2 style="margin: 0 0 15px 0; color: #334155; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
-                  💬 Message Content
-                </h2>
-                <div style="background: #ffffff; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                  <p style="margin: 0; color: #1e293b; font-size: 15px; line-height: 1.8; white-space: pre-wrap; font-weight: 400;">${message}</p>
-                </div>
-              </div>
+  try {
+    const api = new brevo.TransactionalEmailsApi();
+    api.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey);
 
-              <!-- Action Button -->
-              <div style="text-align: center; margin: 35px 0;">
-                <a href="mailto:${email}?subject=Re: ${encodeURIComponent(subject)}" 
-                   style="display: inline-block; background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; box-shadow: 0 8px 20px rgba(6, 182, 212, 0.4); transition: all 0.3s;">
-                  📧 Reply to ${name}
-                </a>
-              </div>
+    const mail = new brevo.SendSmtpEmail();
+    // Strip line breaks from header values to prevent header injection.
+    mail.subject = `Portfolio contact: ${subject.replace(/[\r\n]+/g, " ")}`;
+    mail.htmlContent = buildEmailHtml({ name, email, subject, message });
+    mail.sender = { name: "Portfolio contact form", email: FROM_EMAIL };
+    mail.to = [{ email: TO_EMAIL }];
+    mail.replyTo = { email, name: name.replace(/[\r\n]+/g, " ") };
 
-            </div>
-
-            <!-- Footer -->
-            <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 30px; text-align: center; border-top: 4px solid #06b6d4;">
-              <p style="margin: 0 0 10px 0; color: rgba(255, 255, 255, 0.8); font-size: 14px; font-weight: 500;">
-                This message was sent from your portfolio contact form
-              </p>
-              <p style="margin: 0; color: rgba(255, 255, 255, 0.6); font-size: 13px;">
-                © ${new Date().getFullYear()} Muhammad Taqi - Full Stack Developer
-              </p>
-              <div style="margin-top: 15px;">
-                <a href="https://github.com/Muhammad-Taqi-Dev" style="color: #06b6d4; text-decoration: none; margin: 0 10px; font-size: 13px; font-weight: 600;">GitHub</a>
-                <span style="color: rgba(255, 255, 255, 0.4);">•</span>
-                <a href="https://linkedin.com/in/taqih1" style="color: #06b6d4; text-decoration: none; margin: 0 10px; font-size: 13px; font-weight: 600;">LinkedIn</a>
-              </div>
-            </div>
-
-          </div>
-        </body>
-      </html>
-    `;
-    // Use your verified email as sender
-    sendSmtpEmail.sender = { name: 'Muhammad Taqi Portfolio', email: 'taqihaider591@gmail.com' };
-    sendSmtpEmail.to = [{ email: 'taqihaider591@gmail.com', name: 'Muhammad Taqi' }];
-    sendSmtpEmail.replyTo = { email: email, name: name };
-
-    const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    
-    console.log('Email sent successfully:', result);
-
-    return NextResponse.json(
-      { message: 'Email sent successfully' },
-      { status: 200 }
-    );
-  } catch (error: any) {
-    console.error('Error sending email:', error);
-    return NextResponse.json(
-      { error: 'Failed to send email', details: error.message },
-      { status: 500 }
-    );
+    await api.sendTransacEmail(mail);
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "unknown error";
+    console.error("[contact] send failed:", reason);
+    return bad("Could not send your message. Please email me directly.", 500);
   }
 }

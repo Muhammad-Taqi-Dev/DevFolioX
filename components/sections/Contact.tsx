@@ -15,7 +15,9 @@ const Contact = () => {
     email: "",
     subject: "",
     message: "",
+    website: "", // honeypot: hidden from people, bots fill it in
   });
+  const [errorMessage, setErrorMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
@@ -56,14 +58,19 @@ const Contact = () => {
       });
       if (response.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "", website: "" });
         setTimeout(() => setStatus("idle"), 5000);
       } else {
+        const data = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        setErrorMessage(data?.error ?? "");
         setStatus("error");
         setTimeout(() => setStatus("idle"), 5000);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setErrorMessage("");
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
@@ -130,7 +137,7 @@ const Contact = () => {
         </div>
 
         {/* ── Right: form ──────────────────────────────────────────────── */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="relative space-y-5">
           <div className="grid gap-5 md:grid-cols-2">
             <div>
               <label htmlFor="name" className={labelClass}>
@@ -198,6 +205,20 @@ const Contact = () => {
             />
           </div>
 
+          {/* Honeypot field: off-screen, skipped by keyboard and screen readers */}
+          <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+            <label htmlFor="website">Website</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           <div className="flex flex-wrap items-center gap-4">
             <button
               type="submit"
@@ -214,7 +235,8 @@ const Contact = () => {
                   <span className="mr-2 text-accent" aria-hidden="true">
                     !
                   </span>
-                  Something went wrong. Please try again, or email me directly.
+                  {errorMessage ||
+                    "Something went wrong. Please try again, or email me directly."}
                 </>
               )}
             </p>

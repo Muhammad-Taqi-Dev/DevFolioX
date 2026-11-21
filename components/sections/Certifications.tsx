@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import SectionWrapper from "../SectionWrapper";
 import SectionHeader from "../SectionHeader";
@@ -164,7 +165,16 @@ const CredentialRow = ({ item }: { item: Credential }) => (
   </li>
 );
 
+// Collapsed view: the most recent / most relevant certificates only.
+const TOP_COUNT = 5;
+const totalCount = groups.reduce((n, g) => n + g.items.length, 0);
+
 const Certifications = () => {
+  const [showAll, setShowAll] = useState(false);
+  const visibleGroups = showAll
+    ? groups.filter((g) => g.items.length > 0)
+    : [{ label: "Recent certificates", items: certifications.slice(0, TOP_COUNT) }];
+
   return (
     <SectionWrapper id="certifications">
       <SectionHeader
@@ -174,20 +184,27 @@ const Certifications = () => {
       />
 
       <div className="space-y-12">
-        {groups
-          .filter((g) => g.items.length > 0)
-          .map((group) => (
-            <div key={group.label}>
-              <h3 className="mb-2 font-mono text-sm text-ink-muted">
-                {group.label}
-              </h3>
-              <ul className="border-b border-line">
-                {group.items.map((item) => (
-                  <CredentialRow key={item.href} item={item} />
-                ))}
-              </ul>
-            </div>
-          ))}
+        {visibleGroups.map((group) => (
+          <div key={group.label}>
+            <h3 className="mb-2 font-mono text-sm text-ink-muted">{group.label}</h3>
+            <ul className="border-b border-line">
+              {group.items.map((item) => (
+                <CredentialRow key={item.href} item={item} />
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <button
+          type="button"
+          onClick={() => setShowAll((v) => !v)}
+          aria-expanded={showAll}
+          className="rounded-md border border-line-strong px-5 py-2.5 text-sm text-ink transition-colors hover:border-ink-muted"
+        >
+          {showAll ? "Show fewer" : `Show all ${totalCount}`}
+        </button>
       </div>
     </SectionWrapper>
   );

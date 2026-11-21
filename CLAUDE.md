@@ -1,6 +1,6 @@
 # CLAUDE.md — DevFolioX
 
-Personal portfolio site for Muhammad Taqi Haider. Single-page Next.js app; every section is a client component rendered from `app/page.tsx`. The only server code is the contact-form email route.
+Personal portfolio site for Muhammad Taqi Haider. Next.js app: a single-page homepage (`app/page.tsx`) plus a static case-study page per project (`app/work/[slug]`). The only server code is the contact-form email route.
 
 ## Commands
 
@@ -31,12 +31,16 @@ app/
   layout.tsx            fonts (Instrument Serif / Plus Jakarta Sans / Inter / Fira Code via
                         next/font), metadata, JSON-LD Person schema
   page.tsx              Navbar → Hero, Projects, Experience, About, Skills, Testimonials,
-                        Certifications, Achievements, Contact → Footer (inside MotionProvider)
+                        Certifications, Contact → Footer (inside MotionProvider)
+  work/[slug]/          static case-study page per project (generateStaticParams,
+                        per-page metadata, CreativeWork JSON-LD, own opengraph-image)
+  not-found.tsx         custom 404 linking back to case studies
+  icon.tsx, apple-icon.tsx  "TH" monogram favicons (generated)
   globals.css           base styles, scrollbar, focus ring, `.link` underline style,
                         reduced-motion override
   sitemap.ts, robots.ts generated /sitemap.xml and /robots.txt
-  opengraph-image.tsx   1200×630 social preview card (next/og)
-  api/contact/route.ts  POST → sends email through Brevo
+  opengraph-image.tsx   1200×630 homepage preview card (uses lib/og.tsx)
+  api/contact/route.ts  POST → validated, escaped, rate-limited email through Brevo
 components/
   Navbar.tsx            fixed nav, rAF-throttled scroll-spy, accessible mobile menu, Resume link
   Footer.tsx            one-line footer: ©, last updated, links (update LAST_UPDATED by hand)
@@ -44,8 +48,11 @@ components/
   SectionHeader.tsx     label / title / intro / optional aside — every section uses it
   MotionProvider.tsx    MotionConfig reducedMotion="user"
   sections/             Hero, About, Experience, Projects, Skills, Certifications,
-                        Achievements, Testimonials, Contact
+                        Testimonials, Contact
 lib/
+  projects.ts           project data + Project type, parseFeature, getProject — used by the
+                        homepage cards, case-study pages, sitemap and 404
+  og.tsx                shared Open Graph card renderer
   site.ts               site identity: URL, name, role, description, email, phone, socials,
                         resume path, skills — feeds metadata, JSON-LD, sitemap, OG image,
                         Navbar, Hero, Footer, Contact
@@ -61,18 +68,17 @@ Most content is hard-coded **inside** the section components (arrays declared in
 
 | Content | File |
 |---|---|
-| Hero intro, metrics, CTAs | `components/sections/Hero.tsx` |
-| About bio, quote, traits, stats, core stack, education, TrackWise card | `components/sections/About.tsx` |
-| Job history | `components/sections/Experience.tsx` (`experiences`) |
-| Projects (case-study format) | `components/sections/Projects.tsx` (`projects`) |
+| Hero intro, metrics, CTAs, "Now" note | `components/sections/Hero.tsx` (`now` — update it, and Footer `LAST_UPDATED`, when work changes) |
+| About bio, quote, traits, education, core stack, LeetCode/HackerRank + contests | `components/sections/About.tsx` |
+| Job history (+ optional `caseStudy` link) | `components/sections/Experience.tsx` (`experiences`) |
+| Projects / case studies | `lib/projects.ts` — `slug` is the URL (`/work/<slug>`); `company` shows on the card |
 | Skills | `components/sections/Skills.tsx` (`skillCategories`) |
 | Certificates / workshops / LeetCode badges | `components/sections/Certifications.tsx` — PDF goes in `public/`, `href` is its `/`-rooted path. File names must not start with `.` (Next.js returns 500 for dotfiles) |
-| Competitions + coding-platform stats | `components/sections/Achievements.tsx` |
 | Recommendations | `lib/testimonials.ts` |
 | Email / phone / GitHub / LinkedIn / resume | `lib/site.ts` (also hard-coded in `api/contact/route.ts`) |
-| "240+ problems solved" | duplicated in Achievements and Certifications |
+| "240+ problems solved" | duplicated in About and Certifications |
 
-Project `features` strings use a `Label: body` case-study convention: exactly three entries, `Problem`, `What I did`, `Result`. Projects.tsx renders the label as a small mono accent heading above each paragraph; any other prefix renders as a plain paragraph. Projects with `featured: true` show by default; the rest sit behind "Show N more projects".
+Project `features` strings use a `Label: body` case-study convention: exactly three entries, `Problem`, `What I did`, `Result`. The case-study page renders each label as an `h2`; any other prefix renders as a plain paragraph. Homepage cards show only the description and link to the case study. Projects with `featured: true` show by default; the rest sit behind "Show N more projects". Certifications shows the first 5 certificates with "Show all".
 
 ### Copy guidelines
 
@@ -96,10 +102,10 @@ Direction: calm, typographic, "engineering notebook". Warm dark, one accent, no 
 - **Dark only.** No `dark:` variants.
 - **Fonts:** `font-serif` (Instrument Serif) for the name and the occasional quote; `font-display` for section/card headings; `font-body` default; `font-mono` for labels, dates, tech. Root font-size is 18px, so every rem is 1.125× Tailwind's default.
 - **Layout:** left-aligned. Content width `max-w-page` (provided by `SectionWrapper`); reading text `max-w-prose`. Sections are separated by `border-t border-line`, not by background colour.
-- **Section pattern:** `<SectionWrapper id="…">` + `<SectionHeader label="Work" title="Selected work" intro="…" aside={…} />`. New sections: add the id to `navItems` in `Navbar.tsx` if it should appear in the nav.
+- **Section pattern:** `<SectionWrapper id="…">` + `<SectionHeader label="Work" title="Selected work" intro="…" aside={…} />`. New sections: add the id to `navItems` in `Navbar.tsx` if it should appear in the nav. Nav links are `/#id` so they also work from `/work/*` pages.
 - **Card:** `rounded-lg border border-line bg-surface`, hover only `hover:border-line-strong`. No shadows, blur or transforms.
 - **Pill:** `rounded border border-line px-2 py-0.5 font-mono text-xs text-ink-muted`.
-- **Metric grid** (Hero, About, Achievements): `grid gap-px overflow-hidden rounded-lg border border-line bg-line`, cells `bg-canvas p-5`, value `font-display text-2xl font-semibold text-ink`, label `text-sm text-ink-muted`.
+- **Metric grid** (Hero only — don't repeat it elsewhere): `grid gap-px overflow-hidden rounded-lg border border-line bg-line`, cells `bg-canvas p-5`, value `font-display text-2xl font-semibold text-ink`, label `text-sm text-ink-muted`.
 - **Links:** inline text links use the `.link` class (accent underline grows on hover). Buttons: primary `rounded-md bg-accent text-canvas hover:bg-accent-hover`, secondary `rounded-md border border-line-strong text-ink`.
 - **Motion:** `SectionWrapper` fades each section in once. Anything else must be subtle (≤0.4s opacity/small y), triggered once. `MotionProvider` + the CSS override honour `prefers-reduced-motion`.
 
@@ -112,10 +118,12 @@ Direction: calm, typographic, "engineering notebook". Warm dark, one accent, no 
 
 ## Contact API (`app/api/contact/route.ts`)
 
-- Env var: `BREVO_API_KEY` (in `.env.local`, gitignored via `.env*`). Missing key → 500 "Server misconfiguration".
-- Body: `{ name, email, subject, message }`, all required.
-- Sends a styled HTML email from/to the owner's address with `replyTo` set to the visitor.
-- See Known Issues #1 before touching it.
+- Env: `BREVO_API_KEY` (required, in `.env.local` / Vercel). Optional `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (sender must be verified in Brevo); both default to the owner's address.
+- Body: `{ name, email, subject, message, website? }`. Trimmed and length-checked (name ≤100, email ≤254, subject ≤150, message 10–5000), email format validated, invalid JSON → 400.
+- `website` is a honeypot (hidden field in the form): non-empty → 200 without sending.
+- All input is HTML-escaped before going into the email; line breaks stripped from headers; `replyTo` is the visitor.
+- In-memory rate limit: 5 requests / 10 min per IP → 429. Per serverless instance, so best-effort only.
+- Clients get generic error messages only; server logs one concise line.
 
 ## Conventions
 
@@ -131,10 +139,9 @@ Direction: calm, typographic, "engineering notebook". Warm dark, one accent, no 
 
 Ordered by severity. Remove items from this list once fixed.
 
-1. **Contact route — HTML injection & abuse.** `name`, `email`, `subject`, `message` are interpolated unescaped into the email HTML (and into `href="mailto:${email}"`), so anyone can inject arbitrary HTML/links into mail delivered to the owner. Also: no email-format or length validation, no rate limiting (anyone can burn the Brevo quota), invalid JSON returns 500 instead of 400, `error.message` is leaked to the client, the full Brevo result is `console.log`ged, and the sender address is hard-coded rather than an env var.
-2. **ESLint is broken.** `eslint.config.mjs` imports `eslint-config-next` as a flat config (Next 16 style), but v15 ships a legacy config that needs `FlatCompat` (`compat.extends("next/core-web-vitals", "next/typescript")`). Result: `npm run lint` crashes and `next build` skips linting.
-3. **Heavy `public/`.** Certificate PDFs are 7–8 MB each (~35 MB total). Unused files: `profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` (~1 MB).
-4. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. README is the create-next-app boilerplate. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`). `design_review.md` / `re_enhancement_status.md` describe the old design.
+1. **ESLint is broken.** `eslint.config.mjs` imports `eslint-config-next` as a flat config (Next 16 style), but v15 ships a legacy config that needs `FlatCompat` (`compat.extends("next/core-web-vitals", "next/typescript")`). Result: `npm run lint` crashes and `next build` skips linting.
+2. **Heavy `public/`.** Certificate PDFs are 7–8 MB each (~35 MB total). Unused files: `profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` (~1 MB).
+3. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. README is the create-next-app boilerplate. Vercel Analytics (`@vercel/analytics`) is wired in `layout.tsx` but must be enabled in the Vercel dashboard to collect data. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`). `design_review.md` / `re_enhancement_status.md` describe the old design.
 
 ## Working notes for Claude
 
