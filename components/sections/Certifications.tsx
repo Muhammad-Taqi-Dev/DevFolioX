@@ -9,6 +9,15 @@ import Image from "next/image";
 const Certifications = () => {
   const certifications = [
     {
+      title: "Claude 101",
+      issuer: "Anthropic",
+      icon: FiAward,
+      file: "/Claude - 101.pdf",
+      category: "AI & LLMs",
+      color: "purple",
+      date: "Sept, 2026",
+    },
+    {
       title: "Application Development using Microservices and Serverless",
       issuer: "Coursera, IBM",
       icon: SiCoursera,
