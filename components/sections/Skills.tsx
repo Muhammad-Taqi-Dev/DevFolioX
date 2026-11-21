@@ -16,13 +16,14 @@ const skillCategories = [
     title: "Languages",
     icon: FiCode,
     color: "blue",
-    skills: ["TypeScript", "JavaScript", "Python", "C#"],
+    skills: ["TypeScript", "JavaScript", "Java", "Python", "C#"],
   },
   {
     title: "Frameworks",
     icon: FiTool,
     color: "cyan",
     skills: [
+      "Spring Boot",
       "NestJS",
       "Angular 19",
       ".NET Core / ASP.NET",
@@ -35,7 +36,7 @@ const skillCategories = [
     title: "Databases & Caching",
     icon: FiDatabase,
     color: "green",
-    skills: ["PostgreSQL", "PostGIS", "MySQL", "Redis"],
+    skills: ["Oracle", "PostgreSQL", "PostGIS", "MySQL", "Redis"],
   },
   {
     title: "Architecture",
@@ -61,6 +62,7 @@ const skillCategories = [
       "Azure Queue Storage",
       "SignalR",
       "Docker",
+      "Jenkins",
       "CI/CD",
       "Git",
       "Render",
