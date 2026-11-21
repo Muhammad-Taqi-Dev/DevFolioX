@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FiBriefcase, FiMapPin } from "react-icons/fi";
+import { FiBriefcase, FiMapPin, FiTrendingUp } from "react-icons/fi";
 import SectionWrapper from "../SectionWrapper";
 
 const Experience = () => {
@@ -32,33 +32,9 @@ const Experience = () => {
       ],
     },
     {
-      company: "Techlogix",
-      position: "Software Engineer",
-      period: "Sept 2026 – Present",
-      location: "Karachi, Pakistan",
-      achievements: [
-        "Delivered production features for one of Pakistan's leading banks by customizing and extending Oracle Banking Digital Experience (OBDX) modules to meet bank-specific business requirements.",
-        "Built REST APIs and backend services in Java Spring Boot on Oracle Database, integrating OBDX with core banking systems and third-party services to power end-to-end digital banking and transaction flows.",
-        "Kept live banking systems stable by debugging and resolving production issues, shipping releases through Jenkins CI/CD pipelines in Agile sprints alongside QA, product, and bank stakeholders.",
-      ],
-      technologies: [
-        "OBDX",
-        "Fintech",
-        "Java",
-        "Spring Boot",
-        "Oracle",
-        "Redis",
-        "Knockout.js",
-        "REST APIs",
-        "Jenkins",
-        "CI/CD",
-        "Core Banking",
-        "Production Support",
-      ],
-    },
-    {
       company: "QBS Co.",
-      position: "Associate Software Engineer (promoted from Trainee)",
+      position: "Associate Software Engineer",
+      promotedFrom: "Trainee Software Engineer",
       period: "Nov 2025 – Oct 2026",
       location: "Karachi, Pakistan",
       achievements: [
@@ -204,10 +180,21 @@ const Experience = () => {
                 {/* Header */}
                 <div className="mb-4">
                   <div className="flex items-start justify-between gap-2 flex-wrap mb-1">
-                    <h3 className="text-base font-bold font-display text-white tracking-[-0.01em]">
-                      {exp.position}
-                    </h3>
-                    <span className="text-sm text-gray-400 border border-white/8 rounded-full px-2.5 py-0.5 whitespace-nowrap font-mono">
+                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                      <h3 className="text-base font-bold font-display text-white tracking-[-0.01em]">
+                        {exp.position}
+                      </h3>
+                      {exp.promotedFrom && (
+                        <span
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-mono whitespace-nowrap"
+                          title={`Promoted from ${exp.promotedFrom}`}
+                        >
+                          <FiTrendingUp className="text-xs" aria-hidden="true" />
+                          Promoted from {exp.promotedFrom}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-sm text-gray-400 border border-white/[0.08] rounded-full px-2.5 py-0.5 whitespace-nowrap font-mono">
                       {exp.period}
                     </span>
                   </div>
