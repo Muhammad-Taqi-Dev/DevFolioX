@@ -114,13 +114,14 @@ const Contact = () => {
             // get.in.touch
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Let's</span>{" "}
+            <span className="text-white">Get in</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              talk.
+              touch
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Have a project in mind or want to discuss opportunities? I'm open.
+            Questions about my work, or something you&apos;d like to talk
+            through? Send me a message.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
@@ -199,23 +200,6 @@ const Contact = () => {
                   </motion.a>
                 ))}
               </div>
-            </div>
-
-            {/* Availability note */}
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-                </span>
-                <span className="text-emerald-400 font-semibold text-sm">
-                  Currently available
-                </span>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Open to Backend &amp; Full Stack roles — remote or
-                Karachi-based.
-              </p>
             </div>
           </motion.div>
 
@@ -307,7 +291,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  placeholder="Tell me about your project or inquiry..."
+                  placeholder="What would you like to talk about?"
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-600 focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/30 focus:outline-none transition-all duration-300 resize-none"
                 />
               </div>

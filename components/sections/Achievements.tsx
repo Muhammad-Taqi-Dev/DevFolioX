@@ -128,13 +128,14 @@ const Achievements = () => {
             // achievements
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Competed &</span>{" "}
+            <span className="text-white">Competitions &amp;</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              won.
+              practice
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Competitive programming and continuous problem-solving practice.
+            Programming contests I&apos;ve entered, and my numbers on coding
+            platforms.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />

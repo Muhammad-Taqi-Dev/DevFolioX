@@ -322,14 +322,13 @@ const Certifications = () => {
             // certifications
           </p>
           <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Proof of</span>{" "}
+            <span className="text-white">Courses &amp;</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-              learning.
+              certifications
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Professional certifications, workshops, and competitive programming
-            achievements.
+            Courses, workshops and LeetCode badges I&apos;ve completed.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />

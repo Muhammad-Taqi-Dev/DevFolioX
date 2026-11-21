@@ -21,7 +21,7 @@ const Footer = () => {
           <div>
             <h3 className="text-2xl font-bold text-cyan-400 mb-4">Muhammad Taqi Haider</h3>
             <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-              Associate Software Engineer specializing in backend development with NestJS, .NET, and modern web technologies.
+              Software engineer in Karachi. I build APIs, auth and dashboards with .NET, NestJS, Java and Next.js.
             </p>
           </div>
 

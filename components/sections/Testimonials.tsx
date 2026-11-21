@@ -81,7 +81,7 @@ function TestimonialCard({
       {/* Trust badges */}
       <div className="flex items-center gap-2 mb-3">
         <span className="flex items-center gap-1 text-emerald-400 text-sm font-medium">
-          <FiCheckCircle className="text-sm" /> Verified
+          <FiCheckCircle className="text-sm" /> On LinkedIn
         </span>
         {isRecent() && (
           <span className="text-sm text-cyan-400 font-medium border border-cyan-500/25 rounded-full px-2 py-0.5">
@@ -296,13 +296,14 @@ export default function Testimonials() {
             // testimonials
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">What they</span>{" "}
+            <span className="text-white">Recommendations</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              say.
+              
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Colleagues and mentors on what it's like working with me.
+            What managers and colleagues wrote about working with me, from
+            LinkedIn.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
@@ -320,7 +321,7 @@ export default function Testimonials() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/25 bg-cyan-500/8 text-cyan-400 text-sm font-medium">
             <FiCheckCircle className="text-emerald-400" />
-            {testimonials.length}+ verified LinkedIn recommendations
+            {testimonials.length} recommendations, all public on LinkedIn
           </div>
         </motion.div>
 

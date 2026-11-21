@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TypeAnimation } from "react-type-animation";
 import {
   FiGithub,
   FiLinkedin,
@@ -10,14 +9,23 @@ import {
   FiArrowRight,
 } from "react-icons/fi";
 
+// Each metric is a real before/after from Experience — keep them in sync.
 const metrics = [
-  { value: "63%", label: "Faster APIs", color: "from-cyan-400 to-blue-500" },
   {
-    value: "70%",
-    label: "Pipeline Speed↑",
+    value: "1.6s → 0.6s",
+    label: "Live dashboard load time",
+    color: "from-cyan-400 to-blue-500",
+  },
+  {
+    value: "6–8 → 2–3",
+    label: "DB queries per request",
     color: "from-purple-400 to-pink-500",
   },
-  { value: "88%", label: "ML Accuracy", color: "from-emerald-400 to-cyan-500" },
+  {
+    value: "278",
+    label: "Permissions, now assigned in bulk",
+    color: "from-emerald-400 to-cyan-500",
+  },
 ];
 
 const Hero = () => {
@@ -60,18 +68,14 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
         <div className="text-center">
-          {/* Status badge */}
+          {/* Current role */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium"
+            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-white/[0.12] bg-white/[0.05] text-gray-300 text-sm font-medium"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-            </span>
-            BSCS Graduate · Open to Backend & Full Stack roles
+            Software Engineer at Techlogix
           </motion.div>
 
           {/* Name */}
@@ -90,45 +94,29 @@ const Hero = () => {
             </span>
           </motion.h1>
 
-          {/* Animated role */}
-          <motion.div
+          {/* Role */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-7 min-h-[2.25rem] flex items-center justify-center gap-2.5"
+            className="mb-7 text-lg sm:text-xl md:text-2xl font-semibold text-cyan-300 font-display tracking-[-0.01em]"
           >
-            <span className="font-mono text-gray-600 text-lg select-none">
-              //{" "}
-            </span>
-            <TypeAnimation
-              sequence={[
-                "Backend-Focused Full Stack Engineer",
-                2200,
-                "Performance Obsessed Builder",
-                2200,
-                "NestJS · .NET Core · AI Systems",
-                2200,
-                "I measure what I ship.",
-                2200,
-              ]}
-              wrapper="span"
-              speed={52}
-              repeat={Infinity}
-              className="text-lg sm:text-xl md:text-2xl font-semibold text-cyan-300 font-display tracking-[-0.01em]"
-            />
-          </motion.div>
+            Backend &amp; Full-Stack Engineer · Karachi
+          </motion.p>
 
-          {/* Hook line */}
+          {/* Intro */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.45 }}
-            className="text-gray-400 text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed px-4 font-body"
+            className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed px-4 font-body"
           >
-            1.5 years shipping production backend systems that{" "}
-            <span className="text-white font-semibold">don't just work</span>
-            {" — they "}
-            <span className="text-cyan-400 font-semibold">perform</span>.
+            I build the backend of business software: APIs, auth, background
+            jobs, and the dashboards people use every day. Right now
+            I&apos;m at{" "}
+            <span className="text-white font-semibold">Techlogix</span>,
+            working on digital banking for one of Pakistan&apos;s largest
+            banks.
           </motion.p>
 
           {/* Metric cards */}
@@ -173,7 +161,7 @@ const Hero = () => {
               onClick={() => scrollToSection("#projects")}
               className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/50 text-base"
             >
-              View Projects
+              See my work
               <FiArrowRight className="group-hover:translate-x-1 transition-transform duration-200" />
             </button>
 
@@ -185,7 +173,7 @@ const Hero = () => {
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/30 text-gray-200 hover:text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 backdrop-blur-sm text-base"
             >
               <FiDownload />
-              Download Resume
+              Resume (PDF)
             </a>
 
             <button
@@ -193,7 +181,7 @@ const Hero = () => {
               onClick={() => scrollToSection("#contact")}
               className="px-7 py-3.5 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500 font-semibold rounded-xl transition-all duration-300 hover:scale-105 text-base"
             >
-              Contact Me
+              Get in touch
             </button>
           </motion.div>
 
@@ -225,8 +213,9 @@ const Hero = () => {
                 key={social.label}
                 id={`hero-social-${social.label.toLowerCase()}`}
                 href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                {...(social.href.startsWith("http")
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.92 }}
                 initial={{ opacity: 0, y: 16 }}

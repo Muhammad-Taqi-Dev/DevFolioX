@@ -12,23 +12,20 @@ const Experience = () => {
       period: "Sept 2026 – Present",
       location: "Karachi, Pakistan",
       achievements: [
-        "Delivered production features for one of Pakistan's leading banks by customizing and extending Oracle Banking Digital Experience (OBDX) modules to meet bank-specific business requirements.",
-        "Built REST APIs and backend services in Java Spring Boot on Oracle Database, integrating OBDX with core banking systems and third-party services to power end-to-end digital banking and transaction flows.",
-        "Kept live banking systems stable by debugging and resolving production issues, shipping releases through Jenkins CI/CD pipelines in Agile sprints alongside QA, product, and bank stakeholders.",
+        "Customise and extend Oracle Banking Digital Experience (OBDX) modules for one of Pakistan's leading banks, so the product fits the bank's own business rules.",
+        "Write REST APIs and backend services in Java Spring Boot on Oracle Database that connect OBDX to core banking and third-party systems.",
+        "Debug and fix production issues on live banking systems, and ship releases through Jenkins CI/CD in Agile sprints with QA, product and the bank's team.",
       ],
       technologies: [
         "OBDX",
-        "Fintech",
         "Java",
         "Spring Boot",
-        "Oracle",
+        "Oracle Database",
+        "REST APIs",
         "Redis",
         "Knockout.js",
-        "REST APIs",
         "Jenkins",
         "CI/CD",
-        "Core Banking",
-        "Production Support",
       ],
     },
     {
@@ -38,20 +35,21 @@ const Experience = () => {
       period: "Nov 2025 – Oct 2026",
       location: "Karachi, Pakistan",
       achievements: [
-        "Cut API response latency from 1.6s to under 600ms by introducing Redis caching for third-party responses, eliminating redundant external calls on high-traffic monitoring screens.",
-        "Secured 5+ microservices with JWT auth, refresh tokens, and Redis-backed sessions, and replaced a manual admin workflow with an RBAC/IAM interface managing 278 permissions with bulk assignment.",
-        "Engineered SEO-optimized SSR dashboards (Next.js/TypeScript) surfacing 21 real-time KPIs across org, individual, and product-level monitoring, with live-stream log playback via AWS S3.",
-        "Built inventory management and SLA workflow orchestration services communicating over gRPC across Dockerized microservices, with WhatsApp Business API automation for live ticket delivery and customer notifications.",
+        "Took VersEye's live monitoring screens from 1.6s to under 600ms by caching third-party responses in Redis, so a refresh no longer called the same external services again.",
+        "Added JWT auth with refresh tokens and Redis-backed sessions across 5+ microservices, and built an RBAC admin screen that assigns 278 permissions in bulk instead of by hand.",
+        "Built server-rendered Next.js dashboards with 21 live KPIs at org, employee and product level, plus session log playback from AWS S3.",
+        "Built inventory and SLA workflow services that talk over gRPC, and a NestJS service on the WhatsApp Business API that delivers tickets and customer notifications as they happen.",
       ],
       technologies: [
+        ".NET Core",
         "Next.js",
         "TypeScript",
+        "NestJS",
         "Redis",
         "gRPC",
         "Docker",
-        "Microservices",
         "JWT",
-        "RBAC / IAM",
+        "RBAC",
         "AWS S3",
         "WhatsApp Business API",
       ],
@@ -62,14 +60,14 @@ const Experience = () => {
       period: "Mar 2025 – Oct 2025",
       location: "Karachi, Pakistan",
       achievements: [
-        "Reduced per-request DB hits from 6–8 queries to 2–3 by refactoring .NET Core service logic under Clean Architecture, preserving full API backward compatibility.",
-        "Eliminated a document generation bottleneck by architecting an event-driven async PDF pipeline (Azure Functions + Azure Queue Storage), cutting processing time from ~1.6s to 400–500ms per document; implemented SignalR for real-time chat notifications platform-wide.",
-        "Implemented polygon-based geospatial filtering for real estate listings using PostGIS and Google Maps API, reducing spatial query execution time from 2.1s to 600ms on a multi-tenant SaaS platform.",
+        "Cut database queries per request from 6–8 to 2–3 by restructuring .NET Core service logic (Clean Architecture), without breaking any existing API clients.",
+        "Moved PDF generation off the request path into an event-driven pipeline (Azure Functions + Queue Storage), taking each document from about 1.6s to 400–500ms. Added SignalR for real-time chat notifications.",
+        "Built polygon-based map search for real-estate listings with PostGIS and the Google Maps API, bringing spatial queries from 2.1s to 600ms on a multi-tenant SaaS platform.",
       ],
       technologies: [
         ".NET Core",
         "Clean Architecture",
-        "PostGIS",
+        "PostgreSQL / PostGIS",
         "Azure Functions",
         "Azure Queue Storage",
         "SignalR",
@@ -82,16 +80,16 @@ const Experience = () => {
       period: "Dec 2024 – Mar 2025",
       location: "Karachi, Pakistan",
       achievements: [
-        "Built distributed microservices using Docker, gRPC, and CQRS, delivering Workspace Management, Live Monitoring, and Employee Tracking modules with 25% improved inter-service performance.",
-        "Independently developed Product and SLA services; implemented OAuth2 authentication with 2FA and a Neo4j-based recommendation engine with WhatsApp automation using multi-hop graph traversal.",
+        "Worked on .NET microservices (Docker, gRPC, CQRS) for the Workspace Management, Live Monitoring and Employee Tracking modules, improving inter-service performance by about 25%.",
+        "Built the Product and SLA services for Ajeek-KSA, with OAuth2 login and 2FA, and a Neo4j recommendation engine that drives WhatsApp automation.",
       ],
       technologies: [
         ".NET Core",
         "Docker",
         "gRPC",
-        "Neo4j",
         "CQRS",
         "Microservices",
+        "Neo4j",
         "OAuth2",
         "2FA",
       ],
@@ -130,14 +128,14 @@ const Experience = () => {
             // work.experience
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Where I've</span>{" "}
+            <span className="text-white">Work</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              shipped.
+              experience
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Production systems, distributed backends, and measurable outcomes
-            across 1.5 years.
+            Two years of production work, from a .NET internship to banking
+            systems at Techlogix.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />

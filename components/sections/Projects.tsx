@@ -26,7 +26,8 @@ interface Project {
   isCompanyProject?: boolean;
 }
 
-// ─── Label colour map for PCAR format ─────────────────────────────────────────
+// ─── Label colour map for case-study format ──────────────────────────────────
+// features use "Label: body". Only these three labels get a coloured chip.
 const LABEL_STYLES: Record<
   string,
   { bg: string; text: string; border: string }
@@ -36,12 +37,7 @@ const LABEL_STYLES: Record<
     text: "text-red-400",
     border: "border-red-500/40",
   },
-  Challenges: {
-    bg: "bg-amber-500/15",
-    text: "text-amber-400",
-    border: "border-amber-500/40",
-  },
-  Actions: {
+  "What I did": {
     bg: "bg-blue-500/15",
     text: "text-blue-400",
     border: "border-blue-500/40",
@@ -50,11 +46,6 @@ const LABEL_STYLES: Record<
     bg: "bg-emerald-500/15",
     text: "text-emerald-400",
     border: "border-emerald-500/40",
-  },
-  Learnings: {
-    bg: "bg-cyan-500/15",
-    text: "text-cyan-300",
-    border: "border-cyan-500/40",
   },
 };
 
@@ -99,7 +90,7 @@ const ProjectCard = ({
           )}
           {project.isCompanyProject && (
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-bold bg-yellow-500/15 text-yellow-400 border border-yellow-500/35">
-              🏢 Employee Project
+              🏢 Built at work
             </span>
           )}
         </div>
@@ -181,7 +172,7 @@ const ProjectCard = ({
               <div className="pt-1">
                 <h4 className="flex items-center gap-2 text-sm font-bold text-white mb-2.5">
                   <span className="flex-shrink-0 w-1 h-3 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500" />
-                  Key Features
+                  Case study
                 </h4>
                 <ul className="space-y-2">
                   {project.features.map((feature, i) => {
@@ -299,32 +290,29 @@ const Projects = () => {
   const projects: Project[] = [
     {
       title: "VersEye",
-      subtitle: "Enterprise AI-Powered Workforce Intelligence Platform",
-      role: "Full Stack Software Engineer (.NET + Next.js)",
-      period: "Feb 2026 – Present",
-      // Public-facing description (sanitized for portfolio)
+      subtitle: "Workforce monitoring platform for enterprise teams",
+      role: "Full-stack engineer at QBS Co. (.NET + Next.js)",
+      period: "Feb 2026 – Oct 2026",
       description:
-        "Built frontend and backend integrations for a workforce monitoring platform — implemented SSR dashboards, metadata APIs, and secure role-based access controls with a focus on low-latency UX and reliability.",
+        "Managers use VersEye to watch live activity, KPIs and logs across their organisation. I worked on the .NET backend and the Next.js dashboards: caching, auth, permissions and the live monitoring screens.",
       features: [
-        "Problem: Monolithic monitoring caused repeated DB calls and slow, unresponsive dashboards.",
-        "Challenges: Integrating 10+ distributed services, enforcing RBAC across roles, and delivering sub-second UX for live video feeds.",
-        "Actions: Implemented Redis caching for metadata, refactored API aggregation to eliminate redundant calls, and implemented RBAC/JWT auth with refresh rotation.",
-        "Result: Cut API latency and DB hits significantly; reduced onboarding time by ~40% and improved monitoring responsiveness in production.",
-        "Learnings: Gained experience in caching strategies for streaming metadata, distributed auth design, and systems-level performance debugging.",
+        "Problem: The live monitoring screens called the same external services on every refresh and took 1.6s to load. Admins also assigned permissions one at a time, by hand.",
+        "What I did: Cached third-party responses and metadata in Redis and merged the duplicate API calls behind each screen, across 10+ services. Added JWT auth with refresh-token rotation and built an RBAC screen for assigning 278 permissions in bulk.",
+        "Result: Screens load in under 600ms, onboarding a new team takes about 40% less time, and 21 KPIs update live at org, employee and product level.",
       ],
       technologies: [
+        ".NET Core",
+        "C#",
         "Next.js",
-        "NestJS",
         "TypeScript",
         "PostgreSQL",
-        "Docker",
-        "Monorepo",
-        "Micro-Frontend",
-        "REST API",
-        "RBAC",
-        "JWT",
         "Redis",
-        "SSR/SEO",
+        "Docker",
+        "JWT",
+        "RBAC",
+        "SSR",
+        "Monorepo",
+        "Micro-frontends",
       ],
       // live: internal platform URL removed for privacy/company policy
       featured: true,
@@ -332,35 +320,30 @@ const Projects = () => {
     },
     {
       title: "Ajeek-KSA",
-      subtitle: "Service Technology Platform",
-      role: ".NET Developer",
+      subtitle: "Multi-tenant service marketplace in Saudi Arabia",
+      role: ".NET intern at QBS Co.",
       period: "Dec 2024 – Mar 2025",
-      // Public-facing description (sanitized for portfolio)
       description:
-        "Contributed to a multi-tenant service platform for marketplace operations and SLA enforcement — focused on reliability, observability, and automation of compliance workflows.",
+        "A platform where service companies take orders, run jobs and meet their SLAs, each with its own business rules. I built two of its .NET microservices.",
       features: [
-        "Problem: Manual service workflows and fragmented SLA tracking caused delays and compliance risks.",
-        "Challenges: Modeling complex tenant-specific business rules and ensuring reliable SLA enforcement at scale.",
-        "Actions: Built a .NET microservice for product operations and an SLA orchestration service with automated compliance monitoring and async processing.",
-        "Result: Streamlined operations, reduced manual effort, and improved SLA compliance and visibility across tenants.",
-        "Learnings: Improved multi-tenant design patterns, async pipeline reliability, and production observability.",
+        "Problem: Service workflows were run by hand and SLA tracking was spread across tools, so late jobs were spotted late and compliance was hard to prove.",
+        "What I did: Built the Product service and an SLA orchestration service in .NET with Clean Architecture. SLA checks run in the background and flag breaches automatically. Added structured logging with Serilog and Application Insights.",
+        "Result: Less manual follow-up for the operations team, and one place to see SLA status across every tenant.",
       ],
       technologies: [
         ".NET 6",
-        ".NET Core",
         "Microservices",
         "Clean Architecture",
+        "Entity Framework",
+        "PostgreSQL",
         "JWT",
         "Docker",
         "REST API",
         "Serilog",
         "Application Insights",
         "Azure Blob Storage",
-        "PostgreSQL",
         "FluentValidation",
         "Swagger",
-        "Entity Framework",
-        "Clean Architecture",
       ],
       // live link removed for privacy/company policy
       featured: true,
@@ -368,17 +351,15 @@ const Projects = () => {
     },
     {
       title: "TenXed",
-      subtitle: "Multi-Role Education & Engagement Platform",
-      role: ".NET Developer",
-      period: "April 2025 – Oct 2025",
+      subtitle: "Learning platform for parents, children and instructors",
+      role: ".NET developer at KoderLabs",
+      period: "Apr 2025 – Oct 2025",
       description:
-        "Contributed to a production-ready .NET 8 platform serving parents, children, and instructors — focused on secure authentication, modular service architecture, notification pipelines, and payment integrations.",
+        "A .NET 8 platform where parents enrol their children, instructors run classes, and payments and notifications happen in the background. I worked on auth, notifications and payments.",
       features: [
-        "Problem: Support multi-role workflows with secure onboarding, real-time notifications, and payments.",
-        "Challenges: Role-specific UX, reliable async notifications, and third-party integrations (Stripe, Azure Blob, FCM, SendGrid) without tight coupling.",
-        "Actions: Applied Clean Architecture; implemented JWT/RBAC with OTP flows; added queue-triggered Azure Functions for multi-channel notifications; integrated Stripe payments; enabled Serilog and App Insights.",
-        "Result: Delivered a scalable, auditable platform with reliable background processing and secure multi-role access.",
-        "Learnings: Strengthened expertise in enterprise .NET patterns, Azure Functions, notification pipelines, and payment integrations.",
+        "Problem: Three kinds of users needed different sign-up flows and permissions, plus notifications and payments that wouldn't slow down the main API.",
+        "What I did: Set up JWT and role-based access with OTP sign-up. Moved email and push notifications to queue-triggered Azure Functions. Integrated Stripe payments and Azure Blob Storage, and added Serilog and Application Insights for tracing.",
+        "Result: Background work runs off the request path, each role sees only what it should, and production issues can be traced from the logs.",
       ],
       technologies: [
         ".NET 8",
@@ -404,16 +385,15 @@ const Projects = () => {
     },
     {
       title: "TrackWise",
-      subtitle: "AI-Powered Personal Finance Manager",
+      subtitle: "Personal finance app with ML categorisation and forecasting",
+      role: "Backend & ML lead, final-year project (team of 3)",
       period: "May 2025 – Present",
       description:
-        "Final Year Project (team of 3) — backend & ML lead. AI-driven personal finance platform live on Azure (backend/DB) and Vercel (frontend) with active beta users on real transactional data.",
+        "TrackWise sorts your transactions into categories, forecasts next month's spending, and flags anything unusual. It's live on Azure and Vercel, with 10 beta users on real data.",
       features: [
-        "Problem: Manual expense tracking offered no intelligence — transactions needed manual categorisation, forecasting was absent, and anomalies went undetected until it was too late.",
-        "Challenges: Deploy three ML models (categorisation, forecasting, anomaly detection) on Hugging Face Spaces with low-latency inference, avoid cold-start penalties, and return results inline without coupling ML logic to the core NestJS service.",
-        "Actions: Architected a 56-endpoint modular-monolith NestJS/PostgreSQL backend deployed on Azure; built a Flask ML microservice (SBERT + Logistic Regression, Facebook Prophet, anomaly detector) on Hugging Face Spaces with caching and rate limiting; wrote Jest unit/integration tests and configured GitHub Actions CI/CD; implemented email-based 2FA and account verification.",
-        "Result: Achieved 88% test accuracy on transaction categorisation and AUC-ROC: 0.87 on anomaly detection; enabled next-month forecasting after 3+ months of history; platform live on Azure/Vercel with 10 beta testers on real transactional data.",
-        "Learnings: Gained end-to-end ML production experience — from model training and deployment to inference design, cold-start mitigation, and resilient API integration across a distributed system.",
+        "Problem: Most expense apps make you categorise everything by hand, and they tell you nothing about what's coming next or what looks wrong.",
+        "What I did: Designed a 56-endpoint NestJS + PostgreSQL backend (modular monolith) on Azure. Built a separate Flask ML service on Hugging Face Spaces with three models: SBERT + logistic regression for categories, Prophet for forecasts, and an anomaly detector, with caching and rate limiting to hide cold starts. Added Jest tests, GitHub Actions CI/CD and email 2FA.",
+        "Result: 88% accuracy on transaction categories, 0.87 AUC-ROC on anomaly detection, and spending forecasts once a user has 3+ months of history.",
       ],
       technologies: [
         "NestJS",
@@ -438,16 +418,14 @@ const Projects = () => {
     },
     {
       title: "CourseFlow",
-      subtitle: "University Course Scheduler",
+      subtitle: "University timetable generator",
       period: "Dec 2024 – Jan 2025",
       description:
-        "Web-based University Course Scheduling System built with Flask and SQLite. Implements Greedy and Backtracking algorithms to automate timetabling, detect and resolve conflicts, and provide an admin interface for schedule management and algorithm performance comparison.",
+        "Generates university timetables without clashes using Greedy and Backtracking algorithms, and gives admins a dashboard to compare the two and sort out anything left over. Flask + SQLite.",
       features: [
-        "Problem: Manual university scheduling caused frequent conflicts and administrative overhead.",
-        "Challenges: Designing algorithms that resolve teacher/room conflicts while scaling to realistic course loads.",
-        "Actions: Implemented Greedy and Backtracking timetabling algorithms with an admin dashboard for validation and conflict resolution.",
-        "Result: Automated conflict-free scheduling with performance comparisons and actionable conflict reports for admins.",
-        "Learnings: Gained experience with constraint-solving and timetabling tools.",
+        "Problem: Building a timetable by hand keeps producing clashes, like the same teacher or room booked twice.",
+        "What I did: Implemented Greedy and Backtracking schedulers, conflict detection, and an admin dashboard to review results and compare how each algorithm performs.",
+        "Result: Clash-free schedules, plus a conflict report for anything that still needs a person to decide.",
       ],
       technologies: ["Flask", "Python", "Algorithms", "SQLite", "Jinja"],
       github: "https://github.com/Muhammad-Taqi-Dev/CourseFlow",
@@ -455,16 +433,14 @@ const Projects = () => {
     },
     {
       title: "Stock Management System",
-      subtitle: "Inventory Management Platform",
-      period: "Jan 2024 – July 2024",
+      subtitle: "Inventory tracking for multiple stores",
+      period: "Jan 2024 – Jul 2024",
       description:
-        "Automated inventory management system that eliminates manual stock tracking. Reduces inventory errors by 80% with real-time updates and predictive threshold-based alerts across multiple stores.",
+        "Keeps stock levels in sync across several stores with live updates, and warns before an item runs out. Flask + MySQL.",
       features: [
-        "Problem: Manual inventory tracking led to stockouts and overstocking across stores.",
-        "Challenges: Delivering real-time stock updates and predictive alerts on constrained infrastructure.",
-        "Actions: Built a Flask backend with WebSocket support for instant updates and implemented predictive threshold-based alerting.",
-        "Result: Reduced inventory errors by ~80% and lowered stockouts by ~65%.",
-        "Learnings: Learned real-time WebSocket patterns and predictive alerting for inventory systems.",
+        "Problem: Stores tracked stock by hand, which meant stockouts on some items and overstock on others.",
+        "What I did: Built a Flask backend with WebSockets for live stock updates, and threshold-based alerts that fire before an item runs low.",
+        "Result: About 80% fewer inventory errors and 65% fewer stockouts.",
       ],
       technologies: ["Flask", "Python", "SQLAlchemy", "MySQL", "Bootstrap"],
       github:
@@ -473,33 +449,29 @@ const Projects = () => {
     },
     {
       title: "Chatbot Interface",
-      subtitle: "AI-Powered Conversational Bot",
+      subtitle: "Customer-service bot for English and Roman Urdu",
       period: "Sep 2024 – Oct 2024",
       description:
-        "Bilingual AI chatbot supporting English and Roman Urdu for customer service automation. Served 500+ users achieving 85% satisfaction with faster first-response handling.",
+        "A customer-service chatbot that understands both English and Roman Urdu. Used by 500+ people, with about 85% satisfaction.",
       features: [
-        "Problem: Language barriers in customer support limited automation for English and Urdu users.",
-        "Challenges: Building robust bilingual NLP and delivering a mobile-friendly chat UI within time constraints.",
-        "Actions: Implemented NLTK-based pattern matching for English and Roman Urdu and built a responsive Flask frontend for mobile compatibility.",
-        "Result: Served 500+ users with ~85% satisfaction and faster first-response handling.",
-        "Learnings: Improved bilingual NLP heuristics and mobile-friendly chat UI design.",
+        "Problem: Support bots usually handle English only, which leaves out people who type in Roman Urdu.",
+        "What I did: Wrote NLTK pattern matching for both languages and a mobile-friendly Flask chat UI.",
+        "Result: 500+ users, about 85% satisfaction, and faster first replies.",
       ],
-      technologies: ["Flask", "Python", "nltk", "JavaScript", "HTML/CSS"],
+      technologies: ["Flask", "Python", "NLTK", "JavaScript", "HTML/CSS"],
       github: "https://github.com/Muhammad-Taqi-Dev/CHATBOT",
       featured: false,
     },
     {
       title: "Mini Compiler",
-      subtitle: "Educational C-like Language Compiler in Python",
-      period: "Mar 2026 - May 2026",
+      subtitle: "Compiler for a small C-like language, in Python",
+      period: "Mar 2026 – May 2026",
       description:
-        "A university compiler design project implementing a full pipeline for a tiny C-like language — from lexical analysis through intermediate code generation — built from scratch in Python to demonstrate core compiler construction concepts.",
+        "Written from scratch for my compiler design course: lexer, parser, semantic checks and intermediate code for a small C-like language.",
       features: [
-        "Problem: Needed hands-on exposure to compiler internals (lexer → codegen).",
-        "Challenges: Implement clean scoping, expression parsing, and control-flow in one script.",
-        "Actions: Built a 4-stage Python compiler — lexer, recursive-descent parser, semantic checker, and stack-style IR emitter (PUSH/STORE/LOAD/PRINT).",
-        "Result: End-to-end compiler producing tokens, symbol tables, IR, and clear semantic errors.",
-        "Learnings: Practical experience with lexing, parsing, symbol tables, and IR generation.",
+        "Problem: I wanted to understand how a compiler works end to end, not just read about it.",
+        "What I did: Built four stages: a lexer, a recursive-descent parser, a semantic checker with scoped symbol tables, and an emitter for stack-style IR (PUSH / STORE / LOAD / PRINT).",
+        "Result: Turns source code into tokens, symbol tables and IR, with clear messages for semantic errors.",
       ],
       technologies: [
         "Python 3",
@@ -515,16 +487,14 @@ const Projects = () => {
     },
     {
       title: "LUDO Board Game",
-      subtitle: "Classic Board Game with DSAA",
+      subtitle: "Ludo in C++ with a computer opponent",
       period: "Mar 2024 – May 2024",
       description:
-        "Classic LUDO board game with a built-in AI opponent, implemented using circular linked lists for O(1) piece traversal and capture-prioritization heuristics for competitive gameplay.",
+        "A Ludo game in C++ where the board is a circular linked list, so moving a piece is O(1), plus a computer opponent that goes for captures.",
       features: [
-        "Problem: Implementing complex circular board movement and efficient state tracking for LUDO.",
-        "Challenges: Maintaining O(1) traversal and handling forks while keeping AI competitive.",
-        "Actions: Used singly circular linked lists for board state and implemented an AI with capture-prioritization heuristics.",
-        "Result: Achieved O(1) piece traversal and a responsive AI opponent experience.",
-        "Learnings: Applied circular linked lists and AI heuristics for efficient game state management.",
+        "Problem: Ludo's looping board and branching home paths are awkward to model with plain arrays.",
+        "What I did: Modelled the board as circular linked lists and wrote an AI opponent that prioritises captures.",
+        "Result: O(1) piece moves and a computer opponent that actually competes.",
       ],
       technologies: [
         "C++",
@@ -538,16 +508,14 @@ const Projects = () => {
     },
     {
       title: "Flappy Bird Console Game",
-      subtitle: "OOP-Based Console Game",
+      subtitle: "Console game in C++",
       period: "Jan 2024 – Feb 2024",
       description:
-        "Console-based Flappy Bird clone built with OOP design principles, a pixel-perfect hitbox system, and persistent high score tracking — delivering smooth 60 FPS gameplay.",
+        "A console game in C++ built around OOP, with pixel-level collision detection and saved high scores. Runs at 60 FPS.",
       features: [
-        "Problem: Delivering smooth console-game performance with accurate collision detection.",
-        "Challenges: Achieving pixel-precise collision in a console environment and persisting high scores reliably.",
-        "Actions: Employed OOP design with a pixel-perfect hitbox system and file I/O for persistent high scores.",
-        "Result: Smooth 60 FPS gameplay with reliable high score persistence.",
-        "Learnings: Built a reliable game loop, collision system, and persistent high-score storage.",
+        "Problem: Getting smooth movement and accurate collisions inside a text console.",
+        "What I did: Designed a class for each game object, a pixel-level hitbox system, and file I/O for high scores.",
+        "Result: Smooth 60 FPS gameplay and high scores that persist between runs.",
       ],
       technologies: ["C++", "OOP", "olcConsoleGameEngine", "Game Dev"],
       github: "https://github.com/Muhammad-Taqi-Dev/Flappy-Bird-Game-Using-OOP",
@@ -555,16 +523,14 @@ const Projects = () => {
     },
     {
       title: "NLP Sentiment Analysis",
-      subtitle: "Amazon Product Review Analysis",
+      subtitle: "Sentiment classifier for Amazon product reviews",
       period: "Nov 2023 – Dec 2023",
       description:
-        "ML-powered sentiment analysis pipeline for Amazon product reviews, achieving 91% accuracy. Applied SMOTE for class balancing and wrapped models in a Streamlit app for instant business insights.",
+        "Classifies Amazon product reviews as positive or negative with about 91% accuracy, with a Streamlit app so non-technical people can try it.",
       features: [
-        "Problem: Manual product review analysis delayed insights and missed negative feedback trends.",
-        "Challenges: Severe class imbalance and the need for an easy deployment for non-technical users.",
-        "Actions: Applied SMOTE to rebalance data, trained classifiers, and wrapped models in a Streamlit app for instant predictions.",
-        "Result: Achieved ~91% accuracy and improved minority-class F1 by ~34%, enabling fast business insights.",
-        "Learnings: Applied SMOTE and packaged models for quick business insights with Streamlit.",
+        "Problem: Reading reviews by hand is slow, and the dataset had far more positive reviews than negative ones.",
+        "What I did: Balanced the classes with SMOTE, trained SVM and other classifiers, and wrapped the best model in a Streamlit app.",
+        "Result: About 91% accuracy and a 34% better F1 score on the minority class.",
       ],
       technologies: ["Python", "NLP", "Scikit-learn", "Streamlit", "ML", "SVM"],
       github: "https://github.com/Muhammad-Taqi-Dev/NLP-CCP",
@@ -572,16 +538,14 @@ const Projects = () => {
     },
     {
       title: "DSA Practice Repository",
-      subtitle: "LeetCode Problem Solutions",
+      subtitle: "My LeetCode solutions, organised by pattern",
       period: "Ongoing",
       description:
-        "Structured LeetCode practice repository with 200+ problems across 25+ algorithmic patterns in C++ and Python, designed to accelerate interview readiness and reinforce pattern recognition.",
+        "240+ LeetCode problems across 25+ patterns in C++ and Python, organised by topic so I can revise quickly before interviews.",
       features: [
-        "Problem: Unstructured interview practice and inconsistent problem coverage.",
-        "Challenges: Maintaining code quality and covering a broad set of algorithmic patterns consistently.",
-        "Actions: Curated and implemented 200+ problems across 25+ topics with clean, versioned solutions in C++ and Python.",
-        "Result: A systematic practice repository that accelerates interview readiness and pattern recognition.",
-        "Learnings: Improved problem categorization and reproducible solution practices for interview prep.",
+        "Problem: Random practice left gaps in the patterns that interviews actually test.",
+        "What I did: Grouped solutions by pattern, with clean, versioned code in C++ and Python.",
+        "Result: A reference I can revise from quickly, and a public record of steady practice.",
       ],
       technologies: [
         "C++",
@@ -627,13 +591,14 @@ const Projects = () => {
             // featured.projects
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Things I've</span>{" "}
+            <span className="text-white">Selected</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              built.
+              work
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Production systems, personal projects, and everything in between.
+            Products I built at work and on my own. Open a card to see the
+            problem, what I did, and the result.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />

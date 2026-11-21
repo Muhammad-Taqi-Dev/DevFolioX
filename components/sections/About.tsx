@@ -12,29 +12,29 @@ import SectionWrapper from "../SectionWrapper";
 
 const stats = [
   {
-    label: "Yrs in Production",
-    value: "1.5",
-    suffix: "+",
+    label: "Years building production software",
+    value: "2",
+    suffix: "",
     color: "from-cyan-400 to-blue-500",
     hoverShadow: "hover:shadow-cyan-500/25",
   },
   {
-    label: "API Endpoints Built",
+    label: "API endpoints in TrackWise",
     value: "56",
-    suffix: "+",
+    suffix: "",
     color: "from-indigo-400 to-purple-500",
     hoverShadow: "hover:shadow-indigo-500/25",
   },
   {
-    label: "ML Accuracy",
+    label: "Accuracy sorting transactions (TrackWise ML)",
     value: "88",
     suffix: "%",
     color: "from-emerald-400 to-cyan-500",
     hoverShadow: "hover:shadow-emerald-500/25",
   },
   {
-    label: "Avg Perf Gain",
-    value: "~50",
+    label: "Faster map search (2.1s → 0.6s)",
+    value: "71",
     suffix: "%",
     color: "from-orange-400 to-pink-500",
     hoverShadow: "hover:shadow-orange-500/25",
@@ -43,25 +43,25 @@ const stats = [
 
 const timeline = [
   {
-    role: "Associate Software Engineer",
-    company: "QBS Co.",
-    period: "Current",
+    role: "Software Engineer",
+    company: "Techlogix",
+    period: "Sept 2026 – now",
     icon: FiZap,
     accent: "cyan" as const,
     bullets: [
-      "Cut API response time from 1.6s → <600ms via Redis caching + profiling",
-      "Designed distributed auth: OAuth2, JWT, 2FA, RBAC over gRPC & Docker",
+      "Customising Oracle Banking Digital Experience (OBDX) for a major Pakistani bank",
+      "Java Spring Boot APIs connecting OBDX to core banking systems",
     ],
   },
   {
-    role: "Backend Engineer",
-    company: "Production Systems",
-    period: "1.5 years",
+    role: "Associate Software Engineer",
+    company: "QBS Co.",
+    period: "Nov 2025 – Oct 2026",
     icon: FiCpu,
     accent: "indigo" as const,
     bullets: [
-      "Rebuilt Azure document pipeline sync→async — 70% processing time reduction",
-      "PostGIS geospatial query restructuring + indexing — 25% faster under load",
+      "Live monitoring screens from 1.6s to under 600ms with Redis caching",
+      "JWT auth across 5+ services and an RBAC screen for 278 permissions",
     ],
   },
 ];
@@ -70,24 +70,24 @@ const timeline = [
 const traits = [
   {
     icon: "⚡",
-    title: "Performance first",
-    body: "I don't guess where the bottleneck is. I profile, measure, then fix.",
+    title: "I measure before I fix",
+    body: "When something is slow, I profile it first, find the actual cause, and change one thing at a time.",
     cardClass:
       "border-white/[0.10] bg-white/[0.04] hover:border-cyan-500/30 hover:bg-cyan-500/[0.05] hover:shadow-lg hover:shadow-cyan-500/15",
     glowClass: "bg-cyan-500/[0.07]",
   },
   {
     icon: "🏗️",
-    title: "Systems thinker",
-    body: "Clean architecture isn't aesthetics — it's what makes AI integration actually work.",
+    title: "Plain, predictable code",
+    body: "Clear layers and small services, so the next person can read it, test it and change it safely.",
     cardClass:
       "border-white/[0.10] bg-white/[0.04] hover:border-blue-500/30 hover:bg-blue-500/[0.05] hover:shadow-lg hover:shadow-blue-500/15",
     glowClass: "bg-blue-500/[0.07]",
   },
   {
     icon: "📐",
-    title: "End-to-end owner",
-    body: "From schema design to deployment, I care about every layer in between.",
+    title: "I stay with what I ship",
+    body: "Schema, API, deployment, and fixing it when it breaks in production.",
     cardClass:
       "border-white/[0.10] bg-white/[0.04] hover:border-indigo-500/30 hover:bg-indigo-500/[0.05] hover:shadow-lg hover:shadow-indigo-500/15",
     glowClass: "bg-indigo-500/[0.07]",
@@ -95,18 +95,18 @@ const traits = [
 ];
 
 const coreStack = [
-  "NestJS",
   ".NET Core",
-  "TypeScript",
-  "Python",
   "C#",
+  "NestJS",
+  "TypeScript",
+  "Java",
+  "Spring Boot",
   "PostgreSQL",
   "Redis",
   "Docker",
-  "AWS",
   "Azure",
+  "AWS",
   "Next.js",
-  "Angular",
 ];
 
 const About = () => {
@@ -145,14 +145,14 @@ const About = () => {
             // about.me
           </p>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.03em] mb-4">
-            <span className="text-white">Built on</span>{" "}
+            <span className="text-white">About</span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              fundamentals.
+              me
             </span>
           </h2>
           <p className="text-gray-400 font-body text-base max-w-lg mx-auto">
-            Performance-first backend engineer. 1.5 years in production. Still
-            obsessed with the craft.
+            Backend engineer, two years in. Here&apos;s how I work and what
+            I&apos;ve done so far.
           </p>
           <div className="flex items-center justify-center gap-3 mt-6">
             <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-500/60" />
@@ -184,14 +184,6 @@ const About = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
-              {/* Floating badge — stronger glow than before */}
-              <div className="absolute -bottom-3 -right-3 bg-[#0d1526] border border-emerald-500/30 rounded-xl px-3 py-2 shadow-xl shadow-emerald-500/15 backdrop-blur-sm">
-                <div className="text-sm text-gray-400 font-mono">status</div>
-                <div className="text-emerald-400 font-bold text-sm flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Available
-                </div>
-              </div>
             </div>
 
             {/* Hook quote */}
@@ -207,21 +199,23 @@ const About = () => {
             <div className="space-y-3 font-body text-gray-400 leading-relaxed text-sm md:text-base">
               <p>
                 At <span className="text-cyan-400 font-semibold">QBS Co.</span>,
-                I profiled a high-traffic monitoring endpoint, identified the
-                exact bottleneck, introduced Redis caching — response time went
-                from{" "}
+                a live monitoring screen took 1.6 seconds to load because every
+                refresh called the same outside services again. I profiled it,
+                cached those responses in Redis, and got it{" "}
                 <span className="text-white font-semibold">
-                  1.6s → under 600ms
+                  under 600ms
                 </span>
-                . Clean problem, clean solution.
+                .
               </p>
               <p>
-                Over 1.5 years across{" "}
-                <span className="text-white font-medium">NestJS</span> and{" "}
-                <span className="text-white font-medium">.NET Core</span>,
-                I&apos;ve shipped distributed systems, async pipelines,
-                geospatial backends, and ML inference microservices — always
-                with measurable outcomes.
+                I started as a .NET intern in December 2024. Since then
+                I&apos;ve worked in{" "}
+                <span className="text-white font-medium">.NET Core</span>,{" "}
+                <span className="text-white font-medium">NestJS</span> and now{" "}
+                <span className="text-white font-medium">Java Spring Boot</span>
+                : microservices, background pipelines, map search, auth, and an
+                ML service for my final-year project. Today I work on digital
+                banking at Techlogix.
               </p>
             </div>
 
@@ -397,22 +391,23 @@ const About = () => {
               <div className="flex items-center gap-2 mb-2 relative z-10">
                 <FiGlobe className="text-indigo-400 text-lg" />
                 <h4 className="text-white font-bold text-sm">
-                  Personal Project
+                  Final-year project
                 </h4>
                 <span className="ml-auto text-sm border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 rounded-full px-2.5 py-0.5 font-mono">
                   Live
                 </span>
               </div>
               <p className="text-gray-300 font-display font-bold text-sm mb-1 relative z-10">
-                TrackWise — AI Finance Platform
+                TrackWise, a personal finance app with ML
               </p>
               <p className="text-gray-400 font-body text-sm leading-relaxed mb-3 relative z-10">
-                56-endpoint NestJS/PostgreSQL backend · Angular PWA · Flask ML
-                microservice on Hugging Face — transaction categorisation{" "}
-                <span className="text-white font-medium">88% accuracy</span>,
-                anomaly detection AUC-ROC{" "}
-                <span className="text-white font-medium">0.87</span>. Solo.
-                End-to-end.
+                Team of three; I led the backend and ML. A 56-endpoint
+                NestJS/PostgreSQL API, an Angular frontend, and a Flask ML
+                service that sorts transactions with{" "}
+                <span className="text-white font-medium">88% accuracy</span>{" "}
+                and flags unusual spending (AUC-ROC{" "}
+                <span className="text-white font-medium">0.87</span>). Live,
+                with 10 beta users.
               </p>
               <a
                 href="https://track-wise2.vercel.app/"
@@ -421,7 +416,7 @@ const About = () => {
                 id="about-trackwise-link"
                 className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 font-semibold transition-colors group-hover:underline relative z-10"
               >
-                View Project <FiExternalLink />
+                Try it live <FiExternalLink />
               </a>
             </div>
 
@@ -441,22 +436,9 @@ const About = () => {
                   NED University of Engineering · CGPA: 3.395/4.00
                 </div>
                 <div className="text-gray-400 text-sm mt-0.5 italic">
-                  Graduated June 2026 — completed while working full-time
+                  Graduated June 2026, while working full-time
                 </div>
               </div>
-            </div>
-
-            {/* CTA banner */}
-            <div className="rounded-xl border border-cyan-500/25 bg-gradient-to-br from-cyan-500/[0.07] to-blue-600/[0.05] p-5 relative overflow-hidden group hover:border-cyan-500/45 hover:shadow-xl hover:shadow-cyan-500/15 transition-all duration-300">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/[0.07] rounded-full blur-3xl group-hover:bg-cyan-500/[0.14] transition-all duration-500 pointer-events-none" />
-              <p className="text-cyan-300 text-sm font-medium relative z-10 leading-relaxed">
-                🎯{" "}
-                <span className="text-white font-semibold">
-                  Open to Backend & Full Stack roles
-                </span>{" "}
-                — remote or Karachi-based. Looking for teams where the quality
-                of architecture actually matters.
-              </p>
             </div>
           </motion.div>
         </div>

@@ -23,7 +23,7 @@ No test suite exists.
 | framer-motion | 12 | all animation |
 | react-icons | 5 | `fi` (Feather) + `si` (Simple Icons) |
 | @getbrevo/brevo | 3 | transactional email for contact form |
-| react-type-animation | 3 | Hero typing effect |
+| react-type-animation | 3 | **unused** since the copy rewrite (Hero role is static text) |
 | react-intersection-observer | 10 | only used by `SectionWrapper` (framer's `useInView` could replace it) |
 | next-themes, lucide-react | — | **unused** (only referenced by dead `ThemeProvider`/`ThemeToggle`) |
 
@@ -43,8 +43,12 @@ components/
   ThemeToggle.tsx       UNUSED
   sections/             Hero, About, Experience, Projects, Skills, Certifications,
                         Achievements, Testimonials, Contact
+  sitemap.ts, robots.ts generated /sitemap.xml and /robots.txt
+  opengraph-image.tsx   1200×630 social preview card (next/og)
 lib/
-  testimonials.ts       the only data that lives outside a component
+  site.ts               site identity: URL, name, role, description, socials, skills —
+                        feeds metadata, JSON-LD Person schema, sitemap, robots, OG image
+  testimonials.ts       recommendations data
 public/                 profile photo, certificate PDFs, resume PDF, badge images (~35 MB)
 design_review.md        earlier design audit (file links point to an old d:/ path)
 re_enhancement_status.md  log of the "glow re-enhancement" pass
@@ -67,7 +71,11 @@ Most content is hard-coded **inside** the section components (arrays declared in
 | Email / phone / GitHub / LinkedIn | **duplicated** in Hero, Contact, Footer and `api/contact/route.ts` — update all four |
 | "240+ problems solved" | duplicated in Achievements and Certifications |
 
-Project `features` strings use a `Label: body` convention. Labels `Problem`, `Challenges`, `Actions`, `Result`, `Learnings` get coloured chips via `LABEL_STYLES` in Projects.tsx; any other prefix renders as plain text.
+Project `features` strings use a `Label: body` case-study convention: exactly three entries, `Problem`, `What I did`, `Result`. Those labels get coloured chips via `LABEL_STYLES` in Projects.tsx; any other prefix renders as plain text.
+
+### Copy guidelines
+
+Write like an engineer explaining their work, not a landing page. Plain sentences, first person, one idea per sentence. Every number needs context (`1.6s → under 600ms on the live monitoring screen`, not `63% faster`). Avoid: passionate/obsessed, leverage, robust, seamless, "not just X, it's Y", slogan headings. Hero metrics, About stats/timeline and Experience bullets repeat the same facts, so keep them in sync.
 
 ## Design system (follow it for any new UI)
 
@@ -116,11 +124,11 @@ Ordered by severity. Remove items from this list once fixed.
 3. **~47 Tailwind classes generate no CSS** (non-scale opacity modifiers, see rule 1). This means the "boosted /12 glow orbs" and "/8 heading spotlights" logged in `re_enhancement_status.md` are not actually rendered in Achievements, Certifications, Contact, Experience, Projects, Skills, Testimonials; plus `border-white/8`, `bg-white/3`, `border-white/6` across cards, `bg-purple-500/08` in Hero, `via-gray-800/98` in the Navbar mobile menu, and `border-current/20` in Certifications. `animate-gradient-x` (Navbar logo) is also undefined.
 4. **Navbar re-mounts its items on every scroll event.** `MagneticNavItem` is declared inside `Navbar`, so each render creates a new component type; the scroll handler calls `setState` on every scroll event (no rAF throttling, not `passive`), so all 8 nav items unmount/remount continuously, resetting spring state. Also in Navbar: ripples are rendered inside *every* nav item (clicking one ripples all), the mobile menu `exit` animation never plays (no `<AnimatePresence>`), the mobile toggle has no `aria-label`/`aria-expanded`, `scrollProgress` can be `NaN` if the page isn't scrollable, and `testimonials` is missing from both nav and scroll-spy.
 5. **Global `transition: all 0.3s` on `button, a, input, textarea`** (globals.css) fights framer-motion on every `motion.a` / `motion.button` (CSS tweens the transforms framer sets each frame), making hover/magnetic effects laggy. The comment below it says this was removed, but only the `*` version was.
-6. **Duplicate React key** — `"Clean Architecture"` appears twice in Ajeek-KSA `technologies` (Projects.tsx), and tech pills are keyed by name.
-7. **Testimonials logic.** Filter tab "All (6)" but only 5 cards show (the featured one is excluded from the grid). `isRecent()` parses `"December 2025"` with `new Date()` (non-standard; Safari returns Invalid Date) and depends on the current date, so the static build and client can disagree → hydration mismatch risk. "Verified" badge is hard-coded on every card. Header reads "6+ verified LinkedIn recommendations". `companyLogo`/`image` fields are unused; company names are inconsistent (`QBSCo` / `QBS Co` / `Koderlabs` / `KoderLabs`). Two adjacent CTAs link to the same URL.
-8. **Dead code / unused deps.** `ThemeProvider.tsx`, `ThemeToggle.tsx`, `next-themes`, `lucide-react`, `.animate-fadeInUp`, `@theme inline` block, `// @ts-ignore` on the CSS import in layout.tsx, `transpilePackages: ["framer-motion"]` in next.config.ts, unused `public/` files (`profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` ~1 MB). README is the create-next-app boilerplate (mentions Geist, which isn't used).
-9. **Smaller code issues.** `CertificateCard` is defined inside `Certifications` and typed `cert: any`; certificate download buttons have no `aria-label`; `AnimatedCounter` only cancels its first rAF on unmount; Footer `mailto:`/`tel:` links open a blank tab (`target="_blank"`) and the footer still uses `bg-gray-900`/`gray-800` instead of the design-system navy; Hero "scroll" indicator is a clickable `div` (not keyboard-accessible); profile photo uses `<img>` instead of `next/image`; layout metadata has no `metadataBase` / OG image; certificate PDFs are 7–8 MB each.
-10. **Content inconsistencies a recruiter may notice.** "1.5 years" is repeated everywhere, but Experience dates (Dec 2024 → present) now add up to ~2 years. About's timeline lists a "Backend Engineer @ Production Systems" role that doesn't match any Experience entry. PostGIS improvement is "25% faster" in About but "2.1s → 600ms" (~71%) in Experience. VersEye role says ".NET + Next.js" but its stack lists NestJS and no .NET. Achievements heading "Competed & won." vs entries "Advanced to Round 2" / "Participated". Certificate date formats vary (`Sept, 2026`, `Feb 2026`, `2025`).
+6. **Tech pills keyed by name** (Projects.tsx). No duplicates today, but adding one to a `technologies` array will cause a duplicate-key warning.
+7. **Testimonials logic.** Filter tab "All (6)" but only 5 cards show (the featured one is excluded from the grid). `isRecent()` parses `"December 2025"` with `new Date()` (non-standard; Safari returns Invalid Date) and depends on the current date, so the static build and client can disagree → hydration mismatch risk. `companyLogo`/`image` fields are unused; company names are inconsistent (`QBSCo` / `QBS Co` / `Koderlabs` / `KoderLabs`). Two adjacent CTAs link to the same URL.
+8. **Dead code / unused deps.** `ThemeProvider.tsx`, `ThemeToggle.tsx`, `next-themes`, `lucide-react`, `.animate-fadeInUp`, `@theme inline` block, `transpilePackages: ["framer-motion"]` in next.config.ts, unused `public/` files (`profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` ~1 MB). README is the create-next-app boilerplate (mentions Geist, which isn't used).
+9. **Smaller code issues.** `CertificateCard` is defined inside `Certifications` and typed `cert: any`; certificate download buttons have no `aria-label`; `AnimatedCounter` only cancels its first rAF on unmount; Footer `mailto:`/`tel:` links open a blank tab (`target="_blank"`) and the footer still uses `bg-gray-900`/`gray-800` instead of the design-system navy; Hero "scroll" indicator is a clickable `div` (not keyboard-accessible); profile photo uses `<img>` instead of `next/image`; certificate PDFs are 7–8 MB each.
+10. **Content inconsistencies.** Certificate date formats vary (`Sept, 2026`, `Feb 2026`, `2025`).
 
 ## Working notes for Claude
 
