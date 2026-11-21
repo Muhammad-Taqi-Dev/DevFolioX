@@ -58,8 +58,7 @@ lib/
                         Navbar, Hero, Footer, Contact
   testimonials.ts       recommendations data
 public/                 profile photo, certificate PDFs, resume PDF, badge images (~35 MB)
-design_review.md        earlier design audit (OUTDATED: describes the old cyan/glass design)
-re_enhancement_status.md  log of the old "glow re-enhancement" pass (OUTDATED)
+README.md               public-facing repo overview (keep in sync with layout/stack changes)
 ```
 
 ### Where content lives
@@ -141,7 +140,7 @@ Ordered by severity. Remove items from this list once fixed.
 
 1. **ESLint is broken.** `eslint.config.mjs` imports `eslint-config-next` as a flat config (Next 16 style), but v15 ships a legacy config that needs `FlatCompat` (`compat.extends("next/core-web-vitals", "next/typescript")`). Result: `npm run lint` crashes and `next build` skips linting.
 2. **Heavy `public/`.** Certificate PDFs are 7–8 MB each (~35 MB total). Unused files: `profile.jpg`, `file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`, `Problem Solving (Basic).PNG` (~1 MB).
-3. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. README is the create-next-app boilerplate. Vercel Analytics (`@vercel/analytics`) is wired in `layout.tsx` but must be enabled in the Vercel dashboard to collect data. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`). `design_review.md` / `re_enhancement_status.md` describe the old design.
+3. **Leftovers.** `transpilePackages: ["framer-motion"]` in next.config.ts is unnecessary. Vercel Analytics (`@vercel/analytics`) is wired in `layout.tsx` but must be enabled in the Vercel dashboard to collect data. `lib/testimonials.ts` carries unused fields (`companyLogo`, `image`, `skills`, `featured`, `relationship`, `date`).
 
 ## Working notes for Claude
 
@@ -149,5 +148,4 @@ Ordered by severity. Remove items from this list once fixed.
 - `npm run build` and `npm run dev` share `.next/`. Building while the user's dev server is running breaks it (500 Internal Server Error, "Cannot find module" in the terminal). Check `npx kill-port 3000` isn't killing their session first, or tell them to restart afterwards. Fix: stop dev, `rm -rf .next`, `npm run dev`.
 - To check whether a Tailwind class really generates CSS:
   `echo '<div class="bg-white/3"></div>' > t.html && echo '@tailwind utilities;' > in.css && npx tailwindcss -c tailwind.config.js --content t.html -i in.css`
-- Ignore `design_review.md` / `re_enhancement_status.md` for visual decisions; they describe the replaced cyan/glass design. Follow the Design system section above.
 - To eyeball the page without a browser: `npm run build && npx next start -p 3124`, then headless Edge: `msedge --headless=new --hide-scrollbars --window-size=1440,9000 --virtual-time-budget=5000 --screenshot=out.png http://localhost:3124/` (headless can't go narrower than ~500px).

@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevFolioX
 
-## Getting Started
+The source for my portfolio: **[dev-folio-x.vercel.app](https://dev-folio-x.vercel.app)**
 
-First, run the development server:
+I'm Muhammad Taqi Haider, a software engineer in Karachi. I build backend systems: APIs, auth, background jobs, and the dashboards on top of them. This site shows my work as short case studies, with the problem, what I did, and what changed.
+
+## What's in it
+
+- **Homepage**: intro, selected work, experience, about, skills, recommendations, certifications and contact.
+- **Case studies** at `/work/<project>`: one statically generated page per project, each with its own metadata, canonical URL, structured data and share image.
+- **Contact form** that emails me through Brevo. The API route validates and escapes input, rate-limits by IP and uses a honeypot field for bots.
+- **SEO basics**: sitemap, robots.txt, JSON-LD (`Person` and `CreativeWork`) and generated Open Graph images.
+
+## Stack
+
+Next.js 15 (App Router) · React 18 · TypeScript · Tailwind CSS 3 · Framer Motion · Brevo · Vercel
+
+## Run it locally
+
+Requires Node.js 18.18 or newer.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The contact form needs a Brevo API key. Create `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+BREVO_API_KEY=your-key
+# optional, default to the site owner's address
+CONTACT_TO_EMAIL=you@example.com
+CONTACT_FROM_EMAIL=verified-sender@example.com
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Everything else works without it.
 
-## Learn More
+```bash
+npm run build      # production build + type-check
+npx tsc --noEmit   # type-check only
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+  page.tsx               homepage
+  work/[slug]/           case-study pages and their share images
+  api/contact/route.ts   contact form → Brevo
+  sitemap.ts, robots.ts, opengraph-image.tsx, icon.tsx, not-found.tsx
+components/
+  sections/              one component per homepage section
+  Navbar, Footer, SectionWrapper, SectionHeader
+lib/
+  site.ts                name, links, email, resume path
+  projects.ts            project and case-study content
+  testimonials.ts        recommendations
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Most content lives in `lib/` or at the top of each section component, so updating the site is usually a text edit. `CLAUDE.md` has the full guide: design tokens, copy guidelines and known issues.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The code is free to read and learn from. The written content, photos, resume and certificates are mine, so please don't reuse them as your own.
